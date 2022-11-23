@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function Navbar() {
   return (
-    <div className="w-full bg-primary flex justify-between px-3">
+    <div className="w-full bg-primary flex justify-between px-3 fixed top-0 z-10">
       <Link to={'/'} className="flex items-center gap-3 my-2 ">
         <img src={logo} alt="" className="w-[60px]" />{' '}
         <span className="text-white text-2xl">FlyKet</span>
@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="py-2 border-t-0 border-x-0 border-b-2 border-slate-50 w-[40vw] border-solid  my-3 flex justify-between items-center">
         <input
           type="text"
-          className="outline-none bg-transparent text-white w-full"
+          className="outline-none bg-transparent placeholder:text-gray-200 ml-3 w-full"
           id="search-movie"
           placeholder="Search"
           // value={keyword}
