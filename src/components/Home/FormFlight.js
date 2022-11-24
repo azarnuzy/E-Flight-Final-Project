@@ -1,94 +1,69 @@
-import React, { Fragment } from 'react';
-import { useState } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
-import { AiOutlineCheck, AiOutlineUp } from 'react-icons/ai';
+import { Switch } from '@headlessui/react';
+import React, { useState } from 'react';
+import { FaCalendarAlt } from 'react-icons/fa';
+import ComboboxFilterPlane from './ComboboxFilterPlace';
+import DatePickerDepart, { DatePickerReturn } from './DatePickerComponent';
+import InputPassengers from './InputPassengers';
+import ListBoxCategory from './ListBoxCategory';
 
 const places = [
-  { name: 'Jakarta' },
-  { name: 'Bandung' },
-  { name: 'Aceh' },
-  { name: 'Makasar' },
-  { name: 'Solo' },
-  { name: 'Yogyakarta' },
+  { id: 1, name: 'Jakarta' },
+  { id: 2, name: 'Bandung' },
+  { id: 3, name: 'Aceh' },
+  { id: 4, name: 'Makasar' },
+  { id: 5, name: 'Solo' },
+  { id: 6, name: 'Yogyakarta' },
 ];
 
-function SelectForm() {
-  const [selected, setSelected] = useState(places[0]);
-
-  return (
-    <div className=" w-72">
-      <Listbox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected.name}</span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <AiOutlineUp
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </span>
-          </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {places.map((person, personIdx) => (
-                <Listbox.Option
-                  key={personIdx}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                    }`
-                  }
-                  value={person}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
-                        }`}
-                      >
-                        {person.name}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <AiOutlineCheck
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </div>
-      </Listbox>
-    </div>
-  );
-}
+const flightClass = [
+  { id: 1, name: 'Economy' },
+  { id: 2, name: 'Premium Economy' },
+  { id: 3, name: 'Business' },
+  { id: 4, name: 'First Class' },
+];
 
 export default function FormFlight() {
+  const [enabled, setEnabled] = useState(false);
   return (
-    <div className="w-3/4 mx-auto mt-10">
-      <div className="flex  justify-between gap-3">
+    <div className="w-3/4 mx-auto mb-10 shadow-md bg-white rounded-md p-5">
+      <div className="grid grid-cols-3  justify-between gap-3">
         <div>
-          <span>Dari</span>
-          <SelectForm />
+          <span className="text-sm font-semibold ml-3">Dari</span>
+          <ComboboxFilterPlane selectValues={places} type="departure" />
         </div>
         <div>
-          <span>Ke</span>
-          <SelectForm />
+          <span className="text-sm font-semibold ml-3">Ke</span>
+          <ComboboxFilterPlane selectValues={places} type="arrival" />
         </div>
         <div>
-          <span>Jumlah Penumpang</span>
-          <SelectForm />
+          <span className="text-sm font-semibold ml-3">Jumlah Penumpang</span>
+          <InputPassengers />
+        </div>
+        <div>
+          <span className="text-sm font-semibold ml-3">Tanggal Pergi</span>
+          <div className="relative w-full cursor-default rounded-lg py-2 bg-white text-left shadow-md  sm:text-sm flex gap-6 items-center">
+            <FaCalendarAlt className="ml-3" />
+            <DatePickerDepart />
+          </div>
+        </div>
+        <div>
+          <span className="text-sm font-semibold ml-3 flex gap-3 items-center">
+            <input
+              type="checkbox"
+              value={enabled}
+              onChange={() => setEnabled(!enabled)}
+              class="w-4 h-4 text-white bg-primary rounded border-primary"
+            />
+            Tanggal Pulang
+          </span>
+          <div className="relative w-full cursor-default rounded-lg py-2 bg-white text-left shadow-md  sm:text-sm flex gap-6 items-center mt-1">
+            <FaCalendarAlt className="ml-3" />
+            <DatePickerReturn statusDisable={enabled} />
+          </div>
+        </div>
+        <div>
+          <span className="text-sm font-semibold ml-3">Kelas Penerbangan</span>
+          <ListBoxCategory />
         </div>
       </div>
     </div>
