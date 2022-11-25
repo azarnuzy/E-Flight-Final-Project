@@ -31,9 +31,8 @@ export default function Navbar() {
         </label>
       </div>
       <div className="flex gap-3 items-center">
-        <button className="text-white" onClick={() => navigate(`/login`)}>Login</button>
-        <button className="text-primary bg-white py-2 px-3 rounded-md">
-          Register
+        <button className="text-primary bg-white py-2 px-3 rounded-md" onClick={() => navigate(`/login`)}>
+          Login
         </button>
       </div>
     </div>

@@ -29,11 +29,11 @@ export const Register = () => {
     }, [pwd]);
 
   return (
-    <div className='flex lg:flex-row flex-col' style={{backgroundColor: '#02929A'}}>
+    <div className='flex lg:flex-row flex-col h-screen bg-primary'>
         <div className='lg:w-1/2 lg:p-10 lg:ml-10 p-6'>
-            <img className='lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer'  onClick={() => navigate(`/`)} src='https://drive.google.com/uc?export=view&id=1iVUQZ8UqrM6wLna3oJKcGrj4yBZm_thO' alt='Image'></img>
-            <img className='lg:w-60 w-56 mx-auto lg:m-16 mt-10' src='https://drive.google.com/uc?export=view&id=1rWRgF-zzYTu61iGbr7T1pHFdO2JheT9s' alt='Image'></img>
-            <img className='lg:w-fit w-full lg:mb-5 lg:-mt-2 mt-10' src='https://drive.google.com/uc?export=view&id=10U4uiFObsfOlZpUjxr1yI6fRr-29rOf-' alt='Image'></img>
+            <img className='lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer'  onClick={() => navigate(`/`)} src='https://drive.google.com/uc?export=view&id=1iVUQZ8UqrM6wLna3oJKcGrj4yBZm_thO' alt='Gambar'></img>
+            <img className='lg:w-60 w-56 mx-auto lg:m-16 mt-10' src='https://drive.google.com/uc?export=view&id=1rWRgF-zzYTu61iGbr7T1pHFdO2JheT9s' alt='Gambar'></img>
+            <img className='lg:w-fit w-full lg:mb-5 lg:-mt-2 mt-10' src='https://drive.google.com/uc?export=view&id=10U4uiFObsfOlZpUjxr1yI6fRr-29rOf-' alt='Gambar'></img>
         </div>
         <div className='w-full lg:w-1/2 lg:p-12 p-4 justify-center'>
             <div className="w-full max-w-md space-y-8 lg:m-12 lg:my-14 my-10">
@@ -104,7 +104,7 @@ export const Register = () => {
                                     setVisiblePass(!visiblePass);
                                     }}
                                 >
-                                    {visiblePass ? <AiFillEye className='text-xl text-gray-500'/> : <AiOutlineEyeInvisible className='text-xl text-gray-500'/>}
+                                    {visiblePass ? <AiFillEye className='text-xl text-gray-500 cursor-pointer'/> : <AiOutlineEyeInvisible className='text-xl text-gray-500 cursor-pointer'/>}
                                 </label>
                             </div>
                             <div
