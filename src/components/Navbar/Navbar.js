@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useNavigate} from "react-router-dom"
 
 export default function Navbar() {
+  const navigate = useNavigate()
   return (
     <div className="w-full bg-primary flex justify-between px-3 fixed top-0 z-10">
       <Link to={'/'} className="flex items-center gap-3 my-2 ">
@@ -29,7 +31,7 @@ export default function Navbar() {
         </label>
       </div>
       <div className="flex gap-3 items-center">
-        <button className="text-white">Login</button>
+        <button className="text-white" onClick={() => navigate(`/login`)}>Login</button>
         <button className="text-primary bg-white py-2 px-3 rounded-md">
           Register
         </button>
