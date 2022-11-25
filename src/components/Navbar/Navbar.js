@@ -10,7 +10,7 @@ export default function Navbar() {
         <img src={logo} alt="" className="w-[60px]" />{' '}
         <span className="text-white text-2xl">FlyKet</span>
       </Link>
-      <div className="py-2 border-t-0 border-x-0 border-b-2 border-slate-50 w-[40vw] border-solid  my-3 flex justify-between items-center">
+      <div className="py-2 border-t-0 border-x-0 border-b-2 border-slate-50 w-[40vw] border-solid  my-3 lg:flex justify-between items-center hidden">
         <input
           type="text"
           className="outline-none bg-transparent placeholder:text-gray-200 ml-3 w-full"

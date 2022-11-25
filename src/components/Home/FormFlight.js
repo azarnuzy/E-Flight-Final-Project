@@ -15,18 +15,11 @@ const places = [
   { id: 6, name: 'Yogyakarta' },
 ];
 
-const flightClass = [
-  { id: 1, name: 'Economy' },
-  { id: 2, name: 'Premium Economy' },
-  { id: 3, name: 'Business' },
-  { id: 4, name: 'First Class' },
-];
-
 export default function FormFlight() {
   const [enabled, setEnabled] = useState(false);
   return (
-    <div className="w-3/4 mx-auto mb-10 shadow-md bg-white rounded-md p-5">
-      <div className="grid grid-cols-3  justify-between gap-3">
+    <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
         <div>
           <span className="text-sm font-semibold ml-3">Dari</span>
           <ComboboxFilterPlane selectValues={places} type="departure" />
@@ -65,6 +58,11 @@ export default function FormFlight() {
           <span className="text-sm font-semibold ml-3">Kelas Penerbangan</span>
           <ListBoxCategory />
         </div>
+      </div>
+      <div className="w-full flex justify-end mt-3">
+        <button className=" rounded-lg bg-primary text-white py-2 text-sm px-8">
+          Cari Penerbangan
+        </button>
       </div>
     </div>
   );
