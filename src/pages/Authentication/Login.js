@@ -29,7 +29,7 @@ export const Login = () => {
     }, [pwd]);
 
   return (
-    <div className='flex lg:flex-row flex-col h-screen bg-primary'>
+    <div className='flex lg:flex-row flex-col lg:h-screen bg-primary'>
         <div className='lg:w-1/2 lg:p-10 lg:ml-10 p-6'>
             <img className='lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer'  onClick={() => navigate(`/`)} src='https://drive.google.com/uc?export=view&id=1iVUQZ8UqrM6wLna3oJKcGrj4yBZm_thO' alt='Gambar'></img>
             <img className='lg:w-60 w-56 mx-auto lg:m-16 mt-10' src='https://drive.google.com/uc?export=view&id=1rWRgF-zzYTu61iGbr7T1pHFdO2JheT9s' alt='Gambar'></img>
@@ -58,7 +58,7 @@ export const Login = () => {
                                     autoComplete="off"
                                     required
                                     className="relative block w-full appearance-none text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Email or phone number"
+                                    placeholder="Email"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                     aria-invalid={validEmail ? 'false' : 'true'}
@@ -122,17 +122,15 @@ export const Login = () => {
                                 </p>
                             </div>
                         </div>
-                        <div>
                             <button
                                 type="submit"
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                style={{backgroundColor: '#02929A'}}
+                                className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white lg:bg-primary lg:hover:bg-thirdly bg-primary hover:bg-thirdly"
                             >
                                  LOGIN
                             </button>
                             <div className='flex gap-1 justify-center'>
-                                <p className='lg:text-sm text-xs font-normal text-center font-sans mt-4'>Don't have any account in Flyket?</p>
-                                <Link to={'/signup'} className='lg:text-sm text-xs font-normal text-center font-sans mt-4' style={{color: '#02929A'}}>Register</Link>
+                                <p className='lg:text-sm text-xs font-normal text-center font-sans mt-2'>Don't have any account in Flyket?</p>
+                                <Link to={'/signup'} className='lg:text-sm text-xs font-normal text-center font-sans mt-2 text-primary'>Register</Link>
                             </div>
                             <p className='text-sm font-extralight text-center font-sans mt-4'>Or</p>
                             <div
@@ -147,7 +145,6 @@ export const Login = () => {
                                 <GrFacebook className="text-blue-900 text-2xl" />
                                 <p className="font-normal text-base">Continue with Google</p>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
