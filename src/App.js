@@ -5,9 +5,7 @@ import RoutesComponents from './config/RoutesComponents';
 function App() {
   return (
     <div>
-      <Navbar />
       <RoutesComponents />
-      <Footer />
     </div>
   );
 }
