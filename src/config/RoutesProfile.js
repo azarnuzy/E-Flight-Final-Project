@@ -11,6 +11,3 @@ export default function RoutesComponents() {
         </BrowserRouter>
     );
 }
-
-
-// export default function RoutesComponents() {}
