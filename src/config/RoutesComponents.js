@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Footer from '../components/Footer/Footer';
-import Navbar from '../components/Navbar/Navbar';
 import { Login } from '../pages/Authentication/Login';
 import { Register } from '../pages/Authentication/Register';
+import FlightList from '../pages/FlightList';
 import Home from '../pages/Home';
 
 export default function RoutesComponents() {
@@ -12,6 +11,7 @@ export default function RoutesComponents() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/" element={<Home />} />
+      <Route path="/pesawat/search" element={<FlightList />} />
     </Routes>
   );
 }

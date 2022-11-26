@@ -1,6 +1,7 @@
 import { Switch } from '@headlessui/react';
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import ComboboxFilterPlane from './ComboboxFilterPlace';
 import DatePickerDepart, { DatePickerReturn } from './DatePickerComponent';
 import InputPassengers from './InputPassengers';
@@ -17,6 +18,8 @@ const places = [
 
 export default function FormFlight() {
   const [enabled, setEnabled] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
@@ -60,7 +63,12 @@ export default function FormFlight() {
         </div>
       </div>
       <div className="w-full flex justify-end mt-3">
-        <button className=" rounded-lg bg-primary text-white py-2 text-sm px-8">
+        <button
+          onClick={() => {
+            navigate('/pesawat/search');
+          }}
+          className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
+        >
           Cari Penerbangan
         </button>
       </div>
