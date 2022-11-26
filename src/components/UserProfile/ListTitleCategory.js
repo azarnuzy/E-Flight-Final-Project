@@ -15,8 +15,8 @@ export default function ListTitleCategory() {
 	return (
 		<div className="">
 			<Listbox value={selected} onChange={setSelected}>
-				<div className="relative mr-5 ">
-					<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow focus:outline sm:text-sm">
+				<div className="relative md:mr-5 ">
+					<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-2 md:pr-10 text-left shadow focus:outline sm:text-sm">
 						<span className="flex gap-3 truncate items-center">
 							{selected.name}
 						</span>
