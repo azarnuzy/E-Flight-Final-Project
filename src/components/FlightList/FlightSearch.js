@@ -1,18 +1,18 @@
 import React from 'react';
-import { AiOutlineArrowRight, AiOutlineSwap } from 'react-icons/ai';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 import { FaPlaneDeparture } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { format, parseISO } from 'date-fns';
+
+import { format } from 'date-fns';
+import ModalChangeSearch from './ModalChangeSearch';
 
 export default function FlightSearch() {
-  const navigate = useNavigate();
   const params = new URLSearchParams(document.location.search);
-  console.log(params.get('fr'));
+
   const from = params.get('fr') || 'Jakarta';
   const to = params.get('to') || 'Yogyakarta';
   const passengers = params.get('ps') || 1;
   const departureDate = params.get('dd') || new Date();
-  const returnDate = params.get('rd').length > 0 ? params.get('rd') : '';
+  // const returnDate = params.get('rd').length > 0 ? params.get('rd') : '';
   const seatClass = params.get('sc') || 'Economy';
 
   return (
@@ -36,7 +36,7 @@ export default function FlightSearch() {
               <div className="flex items-center">
                 <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
               </div>
-              <span>{format(new Date(departureDate), 'iii, i MMM yyyy')}</span>
+              <span>{format(new Date(departureDate), 'iii, d MMM yyyy')}</span>
               <div className="flex items-center">
                 <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
               </div>
@@ -49,14 +49,7 @@ export default function FlightSearch() {
           </div>
         </div>
         <div className="flex justify-end ml-4   ">
-          <button
-            onClick={() => {
-              navigate('/pesawat/search');
-            }}
-            className=" rounded-lg bg-primary text-white py-2 text-sm px-6"
-          >
-            Ubah Pencarian
-          </button>
+          <ModalChangeSearch />
         </div>
       </div>
     </div>

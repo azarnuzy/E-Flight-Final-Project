@@ -17,6 +17,7 @@ export default function FlightList() {
             <CardFlight />
             <CardFlight />
             <CardFlight />
+            <CardFlight />
           </div>
         </div>
       </div>

@@ -1,15 +1,21 @@
 import { Combobox, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  getArrivePlace,
+  getDeparturePlace,
   setArrivePlace,
   setDeparturePlace,
 } from '../../features/search/searchSlice';
 
 export default function ComboboxFilterPlane({ selectValues, type }) {
-  const [selected, setSelected] = useState(selectValues[0]);
+  const from = useSelector(getDeparturePlace);
+  const to = useSelector(getArrivePlace);
+
+  let [selected, setSelected] = useState(type === 'departure' ? from : to);
+
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
 
@@ -42,7 +48,7 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 focus:outline-none"
               displayValue={(select) => {
-                return select.name;
+                return select.name || select;
               }}
               onChange={(event) => setQuery(event.target.value)}
             />
