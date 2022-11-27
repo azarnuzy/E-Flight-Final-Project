@@ -16,6 +16,7 @@ export default function DatePickerDepart() {
   return (
     <DatePicker
       selected={departureDate}
+      dateFormat="MM-dd-yyyy"
       onChange={(date) => {
         dispatch(setDepartureDate(date));
       }}
@@ -42,6 +43,7 @@ export function DatePickerReturn({ statusDisable }) {
       selected={returnDate}
       onChange={(date) => dispatch(setReturnDate(date))}
       minDate={new Date()}
+      dateFormat="MM-dd-yyyy"
       maxDate={addMonths(new Date(), 5)}
       disabled={!statusDisable}
       className={` bg-transparent outline-none ${

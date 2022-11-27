@@ -12,7 +12,7 @@ export default function FlightList() {
       <div className="max-w-[1280px] w-full mx-auto flex">
         <div className="flex mx-10 w-full gap-3 justify-center">
           <UserFlight />
-          <div>
+          <div className="w-full">
             <FlightSearch />
             <CardFlight />
             <CardFlight />

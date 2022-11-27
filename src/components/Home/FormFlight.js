@@ -1,7 +1,9 @@
+import { Switch } from '@headlessui/react';
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   getArrivePlace,
   getDepartureDate,
