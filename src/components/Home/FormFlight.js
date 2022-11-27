@@ -1,9 +1,10 @@
 import { Switch } from '@headlessui/react';
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { emptyOrders } from '../../features/order/orderSlice';
 import {
   getArrivePlace,
   getDepartureDate,
@@ -34,6 +35,8 @@ export default function FormFlight() {
   const departureDate = useSelector(getDepartureDate);
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
+
+  const dispatch = useDispatch();
 
   return (
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
@@ -81,6 +84,9 @@ export default function FormFlight() {
         <Link
           to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
+          onClick={() => {
+            dispatch(emptyOrders());
+          }}
         >
           Search Flight
         </Link>

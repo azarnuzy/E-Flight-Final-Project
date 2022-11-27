@@ -2,8 +2,8 @@ import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import seat from '../../assets/seat.png';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { setSeatClass } from '../../features/search/searchSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSeatClass, setSeatClass } from '../../features/search/searchSlice';
 
 const categories = [
   { name: 'Economy' },
@@ -13,7 +13,7 @@ const categories = [
 ];
 
 export default function ListBoxCategory() {
-  const [selected, setSelected] = useState(categories[0]);
+  const [selected, setSelected] = useState(useSelector(getSeatClass));
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,7 +26,8 @@ export default function ListBoxCategory() {
         <div className="relative ">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none sm:text-sm">
             <span className="flex gap-3 truncate items-center">
-              <img src={seat} alt="seat" className="w-4 h-4" /> {selected.name}
+              <img src={seat} alt="seat" className="w-4 h-4" />{' '}
+              {selected?.name || selected}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <AiOutlineUp

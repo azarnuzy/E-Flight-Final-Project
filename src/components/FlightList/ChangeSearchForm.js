@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { emptyOrders } from '../../features/order/orderSlice';
 import {
   getArrivePlace,
   getDepartureDate,
@@ -34,7 +35,7 @@ export default function ChangeSearchForm({ closeModal }) {
   const departureDate = useSelector(getDepartureDate);
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
-
+  const dispatch = useDispatch();
   return (
     <div className="p-4 w-full mx-auto md:shadow-md bg-white md:rounded-md ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
@@ -81,7 +82,10 @@ export default function ChangeSearchForm({ closeModal }) {
         <Link
           to={`/flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
-          onClick={closeModal}
+          onClick={() => {
+            closeModal();
+            dispatch(emptyOrders());
+          }}
         >
           Search Flight
         </Link>

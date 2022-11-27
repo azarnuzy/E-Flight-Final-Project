@@ -5,6 +5,69 @@ import UserFlight from '../components/FlightList/UserFlight';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 
+const data = [
+  {
+    airplane: 'Garuda Indonesia',
+    departure_time: '08:25',
+    arrival_time: '09:55',
+    from_airport: 'JKT',
+    to_airport: 'YGK',
+    duration: '3h 05m',
+    distance: 'direct',
+    price: 'Rp515.000',
+  },
+  {
+    airplane: 'Garuda Indonesia',
+    departure_time: '13:05',
+    arrival_time: '15:35',
+    from_airport: 'JPN',
+    to_airport: 'INA',
+    duration: '8h 05m',
+    distance: '4 Stop',
+    price: 'Rp5.515.000',
+  },
+  {
+    airplane: 'Garuda Indonesia',
+    departure_time: '08:25',
+    arrival_time: '09:55',
+    from_airport: 'JKT',
+    to_airport: 'SIN',
+    duration: '3h 05m',
+    distance: 'direct',
+    price: 'Rp1.515.000',
+  },
+  {
+    airplane: 'Air Asia',
+    departure_time: '08:25',
+    arrival_time: '09:55',
+    from_airport: 'JKT',
+    to_airport: 'YGK',
+    duration: '3h 05m',
+    distance: 'direct',
+    price: 'Rp515.000',
+  },
+  {
+    airplane: 'Batik Air',
+    departure_time: '13:05',
+    arrival_time: '15:35',
+    from_airport: 'JPN',
+    to_airport: 'INA',
+    duration: '8h 05m',
+    distance: '4 Stop',
+    price: 'Rp5.515.000',
+  },
+  {
+    airplane: 'Fly Emirates',
+    departure_time: '08:25',
+    arrival_time: '09:55',
+    from_airport: 'JKT',
+    to_airport: 'SIN',
+    duration: '3h 05m',
+    distance: 'direct',
+    price: 'Rp1.515.000',
+  },
+];
+
 export default function FlightList() {
   return (
     <div>
@@ -14,10 +77,9 @@ export default function FlightList() {
           <UserFlight />
           <div className="w-full">
             <FlightSearch />
-            <CardFlight />
-            <CardFlight />
-            <CardFlight />
-            <CardFlight />
+            {data.map((item, i) => {
+              return <CardFlight key={i} item={item} />;
+            })}
           </div>
         </div>
       </div>

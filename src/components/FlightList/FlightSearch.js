@@ -4,16 +4,25 @@ import { FaPlaneDeparture } from 'react-icons/fa';
 
 import { format } from 'date-fns';
 import ModalChangeSearch from './ModalChangeSearch';
+import { useSelector } from 'react-redux';
+import {
+  getArrivePlace,
+  getDepartureDate,
+  getDeparturePlace,
+  getPassenger,
+  getSeatClass,
+} from '../../features/search/searchSlice';
 
 export default function FlightSearch() {
   const params = new URLSearchParams(document.location.search);
 
-  const from = params.get('fr') || 'Jakarta';
-  const to = params.get('to') || 'Yogyakarta';
-  const passengers = params.get('ps') || 1;
-  const departureDate = params.get('dd') || new Date();
-  // const returnDate = params.get('rd').length > 0 ? params.get('rd') : '';
-  const seatClass = params.get('sc') || 'Economy';
+  const from = useSelector(getDeparturePlace) || params.get('fr') || 'Jakarta';
+  const to = useSelector(getArrivePlace) || params.get('to') || 'Yogyakarta';
+  const passengers = useSelector(getPassenger) || params.get('ps') || 1;
+  const departureDate =
+    useSelector(getDepartureDate) || params.get('dd') || new Date();
+  // const returnDate = useSelector(getReturnDate) || params.get('rd').length > 0 ? params.get('rd') : '';
+  const seatClass = useSelector(getSeatClass) || params.get('sc') || 'Economy';
 
   return (
     <div className="w-full mx-auto mt-24">

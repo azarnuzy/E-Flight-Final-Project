@@ -29,7 +29,7 @@ const searchSlice = createSlice({
       state.returnDate = action.payload;
     },
     setSeatClass(state, action) {
-      state.seatClass = action.payload.name;
+      state.seatClass = action.payload?.name || action.payload;
     },
   },
 });
