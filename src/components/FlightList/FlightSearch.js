@@ -25,17 +25,17 @@ export default function FlightSearch() {
   const seatClass = useSelector(getSeatClass) || params.get('sc') || 'Economy';
 
   return (
-    <div className="w-full mx-auto mt-24">
-      <div className="rounded-md shadow-md border-gray-200 border-[1px]  border-solid  p-4 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center text-white w-7 h-7 justify-center bg-primary rounded-full">
+    <div className="w-full mx-auto lg:mt-24 mt-3">
+      <div className="rounded-md shadow-md border-gray-200 border-[1px]  border-solid  p-4 flex items-center justify-between gap-3 md:flex-row flex-col">
+        <div className="flex  items-center gap-4 ">
+          <div className="flex items-center text-white w-7 h-7 justify-center bg-primary rounded-full ">
             <FaPlaneDeparture />
           </div>
-          <div className="flex items-start flex-col justify-center">
+          <div className="flex items-start  flex-col justify-center">
             <div className="flex gap-1 font-semibold ">
               <h3>Select Departure Flight</h3>
             </div>
-            <div className="flex gap-3 text-gray-400 text-sm">
+            <div className="flex flex-wrap md:gap-3 gap-2 gap-y-[2px] text-gray-400 text-sm ">
               <span>{from} </span>
               <div className="flex items-center">
                 <AiOutlineArrowRight className="text-sm" />

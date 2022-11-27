@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Navbar() {
   const navigate = useNavigate();
   return (
-    <div className="w-full bg-primary  px-3 fixed top-0 z-10">
+    <div className="w-full bg-primary  px-3 fixed top-0 z-[8]">
       <div className="max-w-[1280px] mx-auto flex justify-between">
         <Link to={'/'} className="flex items-center gap-3 my-2 ">
           <img src={logo} alt="" className="w-[60px]" />{' '}

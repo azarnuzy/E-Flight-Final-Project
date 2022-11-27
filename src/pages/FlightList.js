@@ -73,7 +73,7 @@ export default function FlightList() {
     <div>
       <Navbar />
       <div className="max-w-[1280px] w-full mx-auto flex">
-        <div className="flex mx-10 w-full gap-3 justify-center">
+        <div className="flex lg:flex-row flex-col md:mx-10 w-full gap-3 justify-center">
           <UserFlight />
           <div className="w-full">
             <FlightSearch />

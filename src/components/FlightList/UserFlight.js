@@ -19,11 +19,11 @@ export default function UserFlight() {
   const order = useSelector(getOrders);
 
   return (
-    <div className=" w-1/3  mt-24 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
+    <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
       <div className="ml-30">
         <h2 className="text-lg font-bold pl-3 mb-2">Your Flight</h2>
         <div className="flex shadow">
-          <div className="mr-4 min-h-full w-1 bg-primary"></div>
+          <div className="mr-4 rounded-tl-md rounded-bl-md min-h-full w-1 bg-primary"></div>
           <div>
             <div className="w-full flex">
               <div className="w-full">
