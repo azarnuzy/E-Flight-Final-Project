@@ -10,22 +10,20 @@ export const Notification = () => {
   return (
     <div>
         <Navbar/>
-        <div className='m-20 w-3/4 mx-auto'>
+        <div className='lg:m-20 mb-10 mt-20 lg:w-3/4 w-full lg:mx-auto'>
             <div className='container bg-gray-100 rounded rounded-lg'>
-                <p className='p-[20px]'>Notification</p> 
+                <p className='p-[20px] font-bold text-xl'>Notification</p> 
             </div>
             {data && data.map((item) => (
-              <div className='bg-color5 cursor-pointer hover:bg-color6 border-b-2 border-slate-300'>
-                <div className='flex flex-row gap-1 p-3'>
+              <div className='bg-color5 cursor-pointer hover:bg-color6 border-b-2 border-slate-300 w-full'>
+                <div className='flex flex-row gap-1 p-4'>
                   <div className='bg-primary rounded rounded-full my-auto'>
                     <HiSpeakerphone className='text-white text-xl m-2'/>
                   </div>
                   <div className='ml-3'>
-                    <div className='flex flex-row space-x-[52rem]'>
-                      <h5 className='font-bold text-base max-w-[200px]'>{item.title}</h5>
-                      <p>{item.time}</p>
-                    </div>
-                    <p className='text-sm text-slate-600'>{item.content}</p>
+                    <h5 className='font-bold text-base my-1'>{item.title}</h5>
+                    <p className='text-sm text-slate-600 my-1'>{item.content}</p>
+                    <p className='text-xs text-slate-400 mt-2'>{item.time}</p>
                   </div> 
                 </div>
               </div>
