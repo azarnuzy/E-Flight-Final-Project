@@ -1,11 +1,11 @@
 import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { AiFillCheckCircle, AiOutlineCheck, AiOutlineUp } from 'react-icons/ai';
+import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import {
   setArrivePlace,
-  setDepartureDate,
+  setDeparturePlace,
 } from '../../features/search/searchSlice';
 
 export default function ComboboxFilterPlane({ selectValues, type }) {
@@ -30,7 +30,7 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
         onChange={(e) => {
           setSelected(e);
           type === 'departure'
-            ? dispatch(setDepartureDate(e.name))
+            ? dispatch(setDeparturePlace(e.name))
             : dispatch(setArrivePlace(e.name));
         }}
       >

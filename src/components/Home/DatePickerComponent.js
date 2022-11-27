@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { addMonths } from 'date-fns';
@@ -29,6 +29,14 @@ export default function DatePickerDepart() {
 export function DatePickerReturn({ statusDisable }) {
   const returnDate = useSelector(getReturnDate);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!statusDisable) {
+      dispatch(setReturnDate(''));
+    } else {
+      dispatch(setReturnDate(new Date()));
+    }
+  }, [dispatch, statusDisable]);
   return (
     <DatePicker
       selected={returnDate}

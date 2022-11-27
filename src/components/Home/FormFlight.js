@@ -1,7 +1,15 @@
-import { Switch } from '@headlessui/react';
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  getArrivePlace,
+  getDepartureDate,
+  getDeparturePlace,
+  getPassenger,
+  getReturnDate,
+  getSeatClass,
+} from '../../features/search/searchSlice';
 import ComboboxFilterPlane from './ComboboxFilterPlace';
 import DatePickerDepart, { DatePickerReturn } from './DatePickerComponent';
 import InputPassengers from './InputPassengers';
@@ -18,7 +26,12 @@ const places = [
 
 export default function FormFlight() {
   const [enabled, setEnabled] = useState(false);
-  const navigate = useNavigate();
+  const departurePlace = useSelector(getDeparturePlace);
+  const arrivePlace = useSelector(getArrivePlace);
+  const passenger = useSelector(getPassenger);
+  const departureDate = useSelector(getDepartureDate);
+  const returnDate = useSelector(getReturnDate);
+  const seatClass = useSelector(getSeatClass);
 
   return (
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
@@ -63,14 +76,12 @@ export default function FormFlight() {
         </div>
       </div>
       <div className="w-full flex justify-end mt-3">
-        <button
-          onClick={() => {
-            navigate('/pesawat/search');
-          }}
+        <Link
+          to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
         >
           Search Flight
-        </button>
+        </Link>
       </div>
     </div>
   );

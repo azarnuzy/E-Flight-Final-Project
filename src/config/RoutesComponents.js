@@ -11,7 +11,7 @@ export default function RoutesComponents() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/" element={<Home />} />
-      <Route path="/pesawat/search" element={<FlightList />} />
+      <Route path="/flight/search" element={<FlightList />} />
     </Routes>
   );
 }

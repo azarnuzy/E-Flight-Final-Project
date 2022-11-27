@@ -1,7 +1,9 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import seat from '../../assets/seat.png';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { setSeatClass } from '../../features/search/searchSlice';
 
 const categories = [
   { name: 'Economy' },
@@ -12,6 +14,11 @@ const categories = [
 
 export default function ListBoxCategory() {
   const [selected, setSelected] = useState(categories[0]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setSeatClass(selected));
+  }, [dispatch, selected]);
 
   return (
     <div className="">

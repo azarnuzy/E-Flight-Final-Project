@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  departurePlace: '',
-  arrivePlace: '',
+  departurePlace: 'Jakarta',
+  arrivePlace: 'Aceh',
   passenger: 1,
   departureDate: new Date(),
-  returnDate: new Date(),
-  seatClass: '',
+  returnDate: '',
+  seatClass: 'Economy',
 };
 
 const searchSlice = createSlice({
@@ -28,8 +28,8 @@ const searchSlice = createSlice({
     setReturnDate(state, action) {
       state.returnDate = action.payload;
     },
-    seatClass(state, action) {
-      state.seatClass = action.place;
+    setSeatClass(state, action) {
+      state.seatClass = action.payload.name;
     },
   },
 });
@@ -40,14 +40,13 @@ export const getPassenger = (state) => state.search.passenger;
 export const getDepartureDate = (state) => state.search.departureDate;
 export const getReturnDate = (state) => state.search.returnDate;
 export const getSeatClass = (state) => state.search.seatClass;
-
 export const {
   setDeparturePlace,
   setArrivePlace,
   setPassenger,
   setDepartureDate,
   setReturnDate,
-  seatClass,
+  setSeatClass,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
