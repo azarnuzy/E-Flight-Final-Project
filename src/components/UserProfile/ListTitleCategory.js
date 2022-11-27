@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react';
-import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
+import { AiFillCheckCircle } from 'react-icons/ai';
 import { HiChevronUpDown } from 'react-icons/hi2'
 const people = [
 	{ name: 'Mr.' },

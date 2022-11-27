@@ -4,7 +4,7 @@ import ListTitleCategory from './ListTitleCategory';
 export default function AccountInformation() {
 	return (
 		<>
-			<div className='bg-white mt-3 md:ml-10 md:w-3/4 h-full border-2 rounded-md'>
+			<div className='bg-white md:ml-10 md:w-3/4 h-full border-2 rounded-md'>
 				<div className='flex justify-between  md:flex md:justify-between border-b-2 px-4 py-2'>
 					<h1 className='font-medium'>Account</h1>
 					<button className='text-primary hover:text-thirdly'>Save</button>
