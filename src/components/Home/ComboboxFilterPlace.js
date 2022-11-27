@@ -2,13 +2,16 @@ import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { AiFillCheckCircle, AiOutlineCheck, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import {
+  setArrivePlace,
+  setDepartureDate,
+} from '../../features/search/searchSlice';
 
 export default function ComboboxFilterPlane({ selectValues, type }) {
   const [selected, setSelected] = useState(selectValues[0]);
   const [query, setQuery] = useState('');
-
-  const [departurePlace, setDeparturePlace] = useState();
-  const [arrivalPlace, setArrivalPlace] = useState();
+  const dispatch = useDispatch();
 
   const filteredPeople =
     query === ''
@@ -27,8 +30,8 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
         onChange={(e) => {
           setSelected(e);
           type === 'departure'
-            ? setDeparturePlace(e.name)
-            : setArrivalPlace(e.name);
+            ? dispatch(setDepartureDate(e.name))
+            : dispatch(setArrivePlace(e.name));
         }}
       >
         <div className="relative mt-1">

@@ -24,19 +24,19 @@ export default function FormFlight() {
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
         <div>
-          <span className="text-sm font-semibold ml-3">Dari</span>
+          <span className="text-sm font-semibold ml-3">From</span>
           <ComboboxFilterPlane selectValues={places} type="departure" />
         </div>
         <div>
-          <span className="text-sm font-semibold ml-3">Ke</span>
+          <span className="text-sm font-semibold ml-3">To</span>
           <ComboboxFilterPlane selectValues={places} type="arrival" />
         </div>
         <div>
-          <span className="text-sm font-semibold ml-3">Jumlah Penumpang</span>
+          <span className="text-sm font-semibold ml-3">No. of Passengers</span>
           <InputPassengers />
         </div>
         <div>
-          <span className="text-sm font-semibold ml-3">Tanggal Pergi</span>
+          <span className="text-sm font-semibold ml-3">Departure Date</span>
           <div className="relative w-full cursor-default rounded-lg py-2 bg-white text-left shadow-md  sm:text-sm flex gap-6 items-center">
             <FaCalendarAlt className="ml-3" />
             <DatePickerDepart />
@@ -50,7 +50,7 @@ export default function FormFlight() {
               onChange={() => setEnabled(!enabled)}
               class="w-4 h-4 text-white bg-primary rounded border-primary"
             />
-            Tanggal Pulang
+            Return Date
           </span>
           <div className="relative w-full cursor-default rounded-lg py-2 bg-white text-left shadow-md  sm:text-sm flex gap-6 items-center mt-1">
             <FaCalendarAlt className="ml-3" />
@@ -58,7 +58,7 @@ export default function FormFlight() {
           </div>
         </div>
         <div>
-          <span className="text-sm font-semibold ml-3">Kelas Penerbangan</span>
+          <span className="text-sm font-semibold ml-3">Seat Class</span>
           <ListBoxCategory />
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function FormFlight() {
           }}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
         >
-          Cari Penerbangan
+          Search Flight
         </button>
       </div>
     </div>
