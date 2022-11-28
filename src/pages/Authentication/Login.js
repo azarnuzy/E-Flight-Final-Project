@@ -5,6 +5,8 @@ import { GrFacebook } from 'react-icons/gr';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Login = () => {
     const [visiblePass, setVisiblePass] = useState(false)
@@ -15,6 +17,8 @@ export const Login = () => {
     const [email, setEmail] = useState('')
     const [validEmail, setValidEmail] = useState(false)
     const [emailFocus, setEmailFocus] = useState(false)
+
+    const [user, loading, error] = useAuthState(auth);
 
     const navigate = useNavigate()
 
@@ -27,6 +31,13 @@ export const Login = () => {
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
     }, [pwd]);
+    useEffect(() => {
+        if (loading) {
+          // maybe trigger a loading screen
+          return;
+        }
+        if (user) navigate("/");
+    }, [user, loading]);
 
     return (
         <div className='flex lg:flex-row flex-col lg:h-screen bg-primary'>
@@ -125,6 +136,7 @@ export const Login = () => {
                             <button
                                 type="submit"
                                 className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white lg:bg-primary lg:hover:bg-thirdly bg-primary hover:bg-thirdly"
+                                onClick={() => logInWithEmailAndPassword(email, pwd)}
                             >
                                 LOGIN
                             </button>
@@ -135,16 +147,17 @@ export const Login = () => {
                             <p className='text-sm font-extralight text-center font-sans mt-4'>Or</p>
                             <div
                                 className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
+                                onClick={signInWithGoogle}
                             >
                                 <FcGoogle className="text-2xl" />
                                 <p className="font-normal text-base">Continue with Google</p>
                             </div>
-                            <div
+                            {/* <div
                                 className="flex gap-3 z-0 w-full p-3 mt-5 mb-4 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
                             >
                                 <GrFacebook className="text-blue-900 text-2xl" />
                                 <p className="font-normal text-base">Continue with Google</p>
-                            </div>
+                            </div> */}
                         </form>
                     </div>
                 </div>
