@@ -17,13 +17,13 @@ export default function AccountInformation() {
 						</div>
 						<div>
 							<p className='text-base text-userProfile'>Full Name</p>
-							<input className='mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary focus:primary block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com"' />
+							<input className='mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400  focus:outline-none focus:border-primary focus:primary block w-full rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com"' />
 						</div>
 					</div>
 					<div className='mb-4'>
 						<div>
 							<p className='text-base text-userProfile'>ID Card Number</p>
-							<input className='mt-1 md:px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:primary focus:primary block w-full md:w-1/2 rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com"' />
+							<input className='mt-1 md:px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-primary block w-full md:w-1/2 rounded-md sm:text-sm focus:ring-1" placeholder="you@example.com"' />
 						</div>
 						<div className='my-2'>
 							<p className='text-base text-userProfile'>Email</p>
