@@ -9,7 +9,8 @@ module.exports = {
         thirdly: '#1EA5AC',
         color4: '#5EC4C9',
         color5: '#D7EDEE',
-        color6: '#E8F4F4'
+        color6: '#E8F4F4',
+        userProfile: '#2626269a',
       },
     },
   },

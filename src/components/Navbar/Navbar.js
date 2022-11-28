@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosNotifications } from 'react-icons/io';
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function Navbar() {
   const navigate = useNavigate()
@@ -33,11 +33,12 @@ export default function Navbar() {
       </div> */}
       <div className="flex gap-3 items-center">
         <button onClick={() => navigate(`/notification`)}>
-          <IoIosNotifications className='text-white text-2xl'/>
+          <IoIosNotifications className='text-white text-2xl' />
         </button>
         <button className="text-primary bg-white py-1 px-3 rounded-md" onClick={() => navigate(`/login`)}>
           Login
         </button>
+        <Link className='bg-primary text-white py-1 px-3' to={'/myprofile'}>My Profile</Link>
       </div>
     </div>
   );
