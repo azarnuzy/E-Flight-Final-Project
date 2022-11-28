@@ -1,14 +1,23 @@
 import { Combobox, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { AiFillCheckCircle, AiOutlineCheck, AiOutlineUp } from 'react-icons/ai';
+import { Fragment, useEffect, useState } from 'react';
+import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getArrivePlace,
+  getDeparturePlace,
+  setArrivePlace,
+  setDeparturePlace,
+} from '../../features/search/searchSlice';
 
 export default function ComboboxFilterPlane({ selectValues, type }) {
-  const [selected, setSelected] = useState(selectValues[0]);
-  const [query, setQuery] = useState('');
+  const from = useSelector(getDeparturePlace);
+  const to = useSelector(getArrivePlace);
 
-  const [departurePlace, setDeparturePlace] = useState();
-  const [arrivalPlace, setArrivalPlace] = useState();
+  let [selected, setSelected] = useState(type === 'departure' ? from : to);
+
+  const [query, setQuery] = useState('');
+  const dispatch = useDispatch();
 
   const filteredPeople =
     query === ''
@@ -27,8 +36,8 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
         onChange={(e) => {
           setSelected(e);
           type === 'departure'
-            ? setDeparturePlace(e.name)
-            : setArrivalPlace(e.name);
+            ? dispatch(setDeparturePlace(e.name))
+            : dispatch(setArrivePlace(e.name));
         }}
       >
         <div className="relative mt-1">
@@ -39,7 +48,7 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 focus:outline-none"
               displayValue={(select) => {
-                return select.name;
+                return select.name || select;
               }}
               onChange={(event) => setQuery(event.target.value)}
             />
