@@ -22,7 +22,13 @@ export default function ListBoxCategory() {
 
   return (
     <div className="">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox
+        value={selected}
+        onChange={(e) => {
+          dispatch(setSeatClass(e.name));
+          setSelected(e.name);
+        }}
+      >
         <div className="relative ">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none sm:text-sm">
             <span className="flex gap-3 truncate items-center">

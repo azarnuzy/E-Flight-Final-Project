@@ -10,13 +10,13 @@ export default function CardFlight({ item }) {
   return (
     <div className="shadow-md border-gray-100 p-3 border-solid border-[1px] mt-2">
       <div className="flex justify-between md:flex-row gap-y-2 flex-col items-center">
-        <div className="flex flex-col items-center min-w-fit gap-y-3">
+        <div className="flex flex-col items-center min-w-fit lg:w-1/4 gap-y-3">
           <span className="text-xs text-gray-900">{item.airplane}</span>
           <div className="border w-14 md:p-2 border-solid shadow-sm  flex items-center justify-center mx-3">
             <img src={garudaLogo} alt="" />
           </div>
         </div>
-        <div className="flex w-full justify-center flex-col items-center md:flex-row gap-4">
+        <div className="flex w-full lg:w-1/2 justify-center flex-col items-center md:flex-row gap-4">
           <div className="flex gap-5 ml-5">
             <div className="flex flex-col justify-between">
               <span className="text-xl font-semibold">
