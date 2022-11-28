@@ -31,7 +31,7 @@ export function DatePickerReturn({ statusDisable }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!statusDisable) {
+    if (statusDisable) {
       dispatch(setReturnDate(''));
     } else {
       dispatch(setReturnDate(new Date()));
@@ -43,9 +43,9 @@ export function DatePickerReturn({ statusDisable }) {
       onChange={(date) => dispatch(setReturnDate(date))}
       minDate={new Date()}
       maxDate={addMonths(new Date(), 5)}
-      disabled={!statusDisable}
+      disabled={statusDisable}
       className={` bg-transparent outline-none ${
-        statusDisable ? 'text-black' : 'text-gray-400'
+        statusDisable ? 'text-gray-400' : 'text-black'
       }`}
     />
   );

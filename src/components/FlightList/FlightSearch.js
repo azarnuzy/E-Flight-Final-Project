@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { FaPlaneDeparture } from 'react-icons/fa';
 
 import { format } from 'date-fns';
 import ModalChangeSearch from './ModalChangeSearch';
-import { useSelector } from 'react-redux';
-import {
-  getArrivePlace,
-  getDepartureDate,
-  getDeparturePlace,
-  getPassenger,
-  getSeatClass,
-} from '../../features/search/searchSlice';
+import { useSearchParams } from 'react-router-dom';
+import parse from 'date-fns/parse';
 
 export default function FlightSearch() {
-  const params = new URLSearchParams(document.location.search);
+  let [searchParams, setSearchParams] = useSearchParams();
 
-  const from = useSelector(getDeparturePlace) || params.get('fr') || 'Jakarta';
-  const to = useSelector(getArrivePlace) || params.get('to') || 'Yogyakarta';
-  const passengers = useSelector(getPassenger) || params.get('ps') || 1;
-  const departureDate =
-    useSelector(getDepartureDate) || params.get('dd') || new Date();
-  // const returnDate = useSelector(getReturnDate) || params.get('rd').length > 0 ? params.get('rd') : '';
-  const seatClass = useSelector(getSeatClass) || params.get('sc') || 'Economy';
+  const from = searchParams.get('fr');
+  const to = searchParams.get('to');
+  const passengers = searchParams.get('ps');
+  const departureDate = new Date(
+    searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
+  );
+  const returnDate =
+    searchParams.get('rd').length > 0
+      ? new Date(
+          searchParams
+            .get('rd')
+            .replace(' GMT 0700 (Western Indonesia Time)', '')
+        )
+      : new Date();
+  const seatClass = searchParams.get('sc');
+  const roundTrip = searchParams.get('rt');
 
   return (
     <div className="w-full mx-auto lg:mt-24 mt-3">
@@ -49,6 +52,16 @@ export default function FlightSearch() {
               <div className="flex items-center">
                 <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
               </div>
+              {roundTrip === 'true' && (
+                <>
+                  {console.log(roundTrip)}
+                  <span>{format(new Date(returnDate), 'iii, d MMM yyyy')}</span>
+                  <div className="flex items-center">
+                    <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
+                  </div>
+                </>
+              )}
+
               <span>{passengers} Guest</span>
               <div className="flex items-center">
                 <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>

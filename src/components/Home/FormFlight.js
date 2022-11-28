@@ -11,7 +11,9 @@ import {
   getDeparturePlace,
   getPassenger,
   getReturnDate,
+  getRoundTrip,
   getSeatClass,
+  setRoundTrip,
 } from '../../features/search/searchSlice';
 import ComboboxFilterPlane from './ComboboxFilterPlace';
 import DatePickerDepart, { DatePickerReturn } from './DatePickerComponent';
@@ -28,13 +30,14 @@ const places = [
 ];
 
 export default function FormFlight() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(true);
   const departurePlace = useSelector(getDeparturePlace);
   const arrivePlace = useSelector(getArrivePlace);
   const passenger = useSelector(getPassenger);
   const departureDate = useSelector(getDepartureDate);
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
+  const roundTrip = useSelector(getRoundTrip);
 
   const dispatch = useDispatch();
 
@@ -65,8 +68,11 @@ export default function FormFlight() {
             <input
               type="checkbox"
               value={enabled}
-              onChange={() => setEnabled(!enabled)}
-              class="w-4 h-4 text-white bg-primary rounded border-primary"
+              onChange={() => {
+                dispatch(setRoundTrip(enabled));
+                setEnabled(!enabled);
+              }}
+              className="w-4 h-4 text-white bg-primary rounded border-primary"
             />
             Return Date
           </span>
@@ -82,7 +88,7 @@ export default function FormFlight() {
       </div>
       <div className="w-full flex justify-end mt-3">
         <Link
-          to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}`}
+          to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
           onClick={() => {
             dispatch(emptyOrders());
