@@ -7,20 +7,25 @@ import {
   AiFillEye,
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, HiChevronUpDown } from 'react-icons/hi2';
-const title = [
-  { name: 'Mr.' },
-  { name: 'Ms.' },
-  { name: 'Miss.' },
-  { name: 'Mrs.' },
-];
+import { Link, useNavigate } from 'react-router-dom';
+// import { Listbox, Transition } from '@headlessui/react';
+// import { CheckIcon, HiChevronUpDown } from 'react-icons/hi2';
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  auth,
+  registerWithEmailAndPassword,
+  signInWithGoogle,
+} from "../../config/firebase";
+// const title = [
+//   { name: 'Mr.' },
+//   { name: 'Ms.' },
+//   { name: 'Miss.' },
+//   { name: 'Mrs.' },
+// ];
 
 export const Register = () => {
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [name, setName] = useState('');
+  // const [lastname, setLastname] = useState('');
 
   const [visiblePass, setVisiblePass] = useState(false);
   const [pwd, setPwd] = useState('');
@@ -33,11 +38,24 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
+  const [user, loading, error] = useAuthState(auth);
+
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  const [selected, setSelected] = useState(title[0]);
+  // const [selected, setSelected] = useState(title[0]);
 
+  const register = () => {
+    if (!name) alert("Please enter name");
+    registerWithEmailAndPassword(name, email, pwd);
+  };
+
+
+  useEffect(() => {
+    if (loading) return;
+    // if (user) history.replace("/dashboard");
+    register();
+  }, [user, loading]);
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
@@ -76,7 +94,7 @@ export const Register = () => {
             </p>
             <form className="space-y-4" action="#" method="POST">
               <div className="rounded-md">
-                <div className="mt-4 w-full">
+                {/* <div className="mt-4 w-full">
                   <Listbox value={selected} onChange={setSelected}>
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default border border-gray-300 rounded-md bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
@@ -132,21 +150,21 @@ export const Register = () => {
                       </Transition>
                     </div>
                   </Listbox>
-                </div>
+                </div> */}
                 <div>
                   <input
-                    id="firstname"
-                    name="firstname"
-                    type="firstname"
+                    id="name"
+                    name="name"
+                    type="name"
                     autoComplete="off"
                     className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="First Name"
-                    onChange={(e) => setFirstname(e.target.value)}
-                    value={firstname}
+                    placeholder="Full Name"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                     required
                   />
                 </div>
-                <div>
+                {/* <div>
                   <input
                     id="lastname"
                     name="lastname"
@@ -158,7 +176,7 @@ export const Register = () => {
                     value={lastname}
                     required
                   />
-                </div>
+                </div> */}
                 <div
                   className={
                     emailFocus && email && !validEmail
@@ -246,6 +264,7 @@ export const Register = () => {
                 <button
                   type="submit"
                   className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white lg:bg-primary lg:hover:bg-thirdly bg-primary hover:bg-thirdly"
+                  onClick={register}
                 >
                   REGISTER
                 </button>
@@ -263,7 +282,10 @@ export const Register = () => {
                 <p className="text-sm font-extralight text-center font-sans mt-4">
                   Or
                 </p>
-                <div className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center">
+                <div 
+                  className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
+                  onClick={signInWithGoogle}
+                >
                   <FcGoogle className="text-2xl" />
                   <p className="font-normal text-base">Continue with Google</p>
                 </div>

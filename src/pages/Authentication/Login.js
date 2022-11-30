@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch} from 'react-redux'
 import { FcGoogle } from 'react-icons/fc';
 import { FaInfoCircle } from 'react-icons/fa';
 import { GrFacebook } from 'react-icons/gr';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { setisLogin } from '../../features/user/userSlice';
 
 export const Login = () => {
     const [visiblePass, setVisiblePass] = useState(false)
@@ -16,17 +20,32 @@ export const Login = () => {
     const [validEmail, setValidEmail] = useState(false)
     const [emailFocus, setEmailFocus] = useState(false)
 
+    const [isLogin, setIsLogin] = useState(false); 
+    const dispatch = useDispatch()
+
+    const [user, loading,] = useAuthState(auth);
+
     const navigate = useNavigate()
 
     const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+    const handleSubmitLogin = async () => {
+        dispatch(setisLogin(true));
+    }
     useEffect(() => {
         setValidEmail(EMAIL_REGEX.test(email));
     }, [email]);
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
     }, [pwd]);
+    useEffect(() => {
+        if (loading) {
+          // maybe trigger a loading screen
+          return;
+        }
+        if (user) navigate("/");
+    }, [user, loading]);
 
     return (
         <div className='flex lg:flex-row flex-col lg:h-screen bg-primary'>
@@ -42,7 +61,7 @@ export const Login = () => {
                             LOGIN
                         </h4>
                         <p className='text-sm font-normal font-sans mt-5'>Login to start your exploration.</p>
-                        <form className="space-y-4" action="#" method="POST">
+                        <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitLogin}>
                             <input type="hidden" name="remember" defaultValue="true" />
                             <div className="rounded-md">
                                 <div className={
@@ -132,19 +151,20 @@ export const Login = () => {
                                 <p className='lg:text-sm text-xs font-normal text-center font-sans mt-2'>Don't have any account in Flyket?</p>
                                 <Link to={'/signup'} className='lg:text-sm text-xs font-normal text-center font-sans mt-2 text-primary'>Register</Link>
                             </div>
-                            <p className='text-sm font-extralight text-center font-sans mt-4'>Or</p>
+                            {/* <p className='text-sm font-extralight text-center font-sans mt-4'>Or</p>
                             <div
                                 className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
+                                onClick={signInWithGoogle}
                             >
                                 <FcGoogle className="text-2xl" />
                                 <p className="font-normal text-base">Continue with Google</p>
-                            </div>
-                            <div
+                            </div> */}
+                            {/* <div
                                 className="flex gap-3 z-0 w-full p-3 mt-5 mb-4 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
                             >
                                 <GrFacebook className="text-blue-900 text-2xl" />
                                 <p className="font-normal text-base">Continue with Google</p>
-                            </div>
+                            </div> */}
                         </form>
                     </div>
                 </div>
