@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { getOrders } from '../../features/order/orderSlice';
+import { getOrders, setTripPosition } from '../../features/order/orderSlice';
 import {
   getArrivePlace,
   getDepartureDate,
@@ -16,6 +16,8 @@ import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
   let [searchParams, setSearchParams] = useSearchParams();
+
+  const dispatch = useDispatch();
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
@@ -34,15 +36,22 @@ export default function UserFlight() {
   const seatClass = searchParams.get('sc');
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
-  const [tripPosition, setTripPosition] = useState(1);
 
   return (
     <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
       <div className="ml-30">
         <h2 className="text-lg font-bold pl-3 mb-2">Your Flight</h2>
-        <div className="flex shadow">
-          {tripPosition === 1 && (
+        <div
+          className="flex shadow cursor-pointer hover:opacity-75"
+          onClick={() => {
+            dispatch(setTripPosition(1));
+            console.log(order.tripPosition);
+          }}
+        >
+          {order.tripPosition === 1 ? (
             <div className="mr-4 rounded-tl-md rounded-bl-md min-h-full w-1 bg-primary"></div>
+          ) : (
+            <div className="mr-4"></div>
           )}
           <div>
             <div className="w-full flex">
@@ -98,11 +107,15 @@ export default function UserFlight() {
         </div>
         {roundTrip === 'true' && (
           <div
-            className={`flex shadow mt-3 ${
-              tripPosition !== 2 ? 'text-gray-500' : 'text-black'
+            className={`flex shadow mt-3 cursor-pointer hover:opacity-75 ${
+              order.tripPosition !== 2 ? 'text-gray-500' : 'text-black'
             } `}
+            onClick={() => {
+              dispatch(setTripPosition(2));
+              console.log(order.tripPosition);
+            }}
           >
-            {tripPosition === 2 ? (
+            {order.tripPosition === 2 ? (
               <div className="mr-4 rounded-tl-md rounded-bl-md min-h-full w-1 bg-primary"></div>
             ) : (
               <div className="mr-4"></div>

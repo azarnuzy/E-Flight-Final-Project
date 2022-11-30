@@ -9,6 +9,7 @@ const initialState = {
   duration: '',
   distance: '',
   price: '',
+  tripPosition: 1,
 };
 
 const orderSlice = createSlice({
@@ -35,11 +36,14 @@ const orderSlice = createSlice({
       state.distance = '';
       state.price = '';
     },
+    setTripPosition(state, action) {
+      state.selectTripPosition = action.payload;
+    },
   },
 });
 
 export const getOrders = (state) => state.order;
 
-export const { setOrders, emptyOrders } = orderSlice.actions;
+export const { setOrders, emptyOrders, setTripPosition } = orderSlice.actions;
 
 export default orderSlice.reducer;
