@@ -16,7 +16,7 @@ export default function Footer() {
     // </div>
     <footer>
       <div className="text-center items-center text-white bg-primary p-5">
-        <div className='grid grid-cols-3 mt-10'>
+        <div className='grid lg:grid-cols-3 grid-cols-1 mt-10'>
           <div className='items-start ml-[60px]'>
             <div className='flex flex-row gap-2 my-2 mx-auto'>
               <img src={logo} alt="" className="w-[25px]" />
@@ -29,7 +29,7 @@ export default function Footer() {
             <button className='bg-primary hover:text-color5'><p>About Us</p></button>
             <button className='bg-primary hover:text-color5'><p>Terms of Use</p></button>
           </div>
-          <div className='ml-[200px] mt-3'>
+          <div className='lg:ml-[200px] mt-3'>
             <h5 className='text-xl font-bold'>Ikuti Kami:</h5>
             <div className="flex gap-2 justify-center items-center my-5 text-xl">
               <a href="https://youtube.com/">
