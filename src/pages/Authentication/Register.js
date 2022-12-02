@@ -55,7 +55,6 @@ export const Register = () => {
   //   registerWithEmailAndPassword(name, email, pwd);
   // };
 
-
   // useEffect(() => {
   //   if (loading) return;
   //   // if (user) history.replace("/dashboard");
@@ -105,7 +104,12 @@ export const Register = () => {
             <p className="text-sm font-normal font-sans mt-5">
               Register to start your exploration.
             </p>
-            <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitLogin}>
+            <form
+              className="space-y-4"
+              action="#"
+              method="POST"
+              onSubmit={handleSubmitLogin}
+            >
               <div className="rounded-md">
                 <div className="mt-4 w-full">
                   <Listbox value={selected} onChange={setSelected}>
@@ -294,9 +298,9 @@ export const Register = () => {
                 {/* <p className="text-sm font-extralight text-center font-sans mt-4">
                   Or
                 </p>
-                <div 
+                <div
                   className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
-                  onClick={signInWithGoogle}
+                  // onClick={signInWithGoogle}
                 >
                   <FcGoogle className="text-2xl" />
                   <p className="font-normal text-base">Continue with Google</p>

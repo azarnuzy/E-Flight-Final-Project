@@ -42,13 +42,15 @@ export default function UserFlight() {
       <div className="ml-30">
         <h2 className="text-lg font-bold pl-3 mb-2">Your Flight</h2>
         <div
-          className="flex shadow cursor-pointer hover:opacity-75"
+          className={`flex shadow cursor-pointer hover:opacity-75 ${
+            order.tripPosition !== 0 ? 'text-gray-500' : 'text-black'
+          }`}
           onClick={() => {
-            dispatch(setTripPosition(1));
-            console.log(order.tripPosition);
+            dispatch(setTripPosition(0));
+            // console.log(order.tripPosition);
           }}
         >
-          {order.tripPosition === 1 ? (
+          {order.tripPosition === 0 ? (
             <div className="mr-4 rounded-tl-md rounded-bl-md min-h-full w-1 bg-primary"></div>
           ) : (
             <div className="mr-4"></div>
@@ -64,30 +66,32 @@ export default function UserFlight() {
                 </span>
               </div>
             </div>
-            {order.airplane.length > 0 && (
+            {order.myFlight[0].airplane.length > 0 && (
               <div className="flex flex-col items-start py-3">
                 <div className="flex gap-1">
                   <div className=" rounded-full flex items-center justify-center w-14 my-2 mr-2">
                     <img src={garudaLogo} alt="" />
                   </div>
                   <span className="w-full text-sm font-semibold flex items-center">
-                    {order.airplane}
+                    {order.myFlight[0].airplane}
                   </span>
                 </div>
                 <div className="flex gap-5 justify-center">
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold">
-                      {order.departure_time}
+                      {order.myFlight[0].departure_time}
                     </span>
-                    <span className="text-xs">{order.from_airport}</span>
+                    <span className="text-xs">
+                      {order.myFlight[0].from_airport}
+                    </span>
                   </div>
                   <div className="flex justify-center flex-col items-center">
                     <span className="text-gray-500 text-xs">
-                      {order.duration}
+                      {order.myFlight[0].duration}
                     </span>
                     <span className="w-full h-[1px] bg-gray-600"></span>
                     <span className="text-gray-500 text-xs">
-                      {order.distance}
+                      {order.myFlight[0].distance}
                     </span>
                   </div>
                   <div className="flex items-center -ml-2">
@@ -96,9 +100,11 @@ export default function UserFlight() {
 
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold">
-                      {order.arrival_time}
+                      {order.myFlight[0].arrival_time}
                     </span>
-                    <span className="text-xs">{order.to_airport}</span>
+                    <span className="text-xs">
+                      {order.myFlight[0].to_airport}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -108,14 +114,14 @@ export default function UserFlight() {
         {roundTrip === 'true' && (
           <div
             className={`flex shadow mt-3 cursor-pointer hover:opacity-75 ${
-              order.tripPosition !== 2 ? 'text-gray-500' : 'text-black'
+              order.tripPosition !== 1 ? 'text-gray-500' : 'text-black'
             } `}
             onClick={() => {
-              dispatch(setTripPosition(2));
-              console.log(order.tripPosition);
+              dispatch(setTripPosition(1));
+              // console.log(order.tripPosition);
             }}
           >
-            {order.tripPosition === 2 ? (
+            {order.tripPosition === 1 ? (
               <div className="mr-4 rounded-tl-md rounded-bl-md min-h-full w-1 bg-primary"></div>
             ) : (
               <div className="mr-4"></div>
@@ -125,37 +131,39 @@ export default function UserFlight() {
               <div className="w-full flex">
                 <div className="w-full">
                   <span className="text-sm">
-                    {format(new Date(departureDate), 'iii, d MMM yyyy')}
+                    {format(new Date(returnDate), 'iii, d MMM yyyy')}
                   </span>
                   <span className="flex items-center font-bold gap-1">
                     {to} <AiOutlineArrowRight className="text-sm" /> {from}
                   </span>
                 </div>
               </div>
-              {order.airplane.length > 0 && (
+              {order.myFlight[1].airplane.length > 0 && (
                 <div className="flex flex-col items-start py-3">
                   <div className="flex gap-1">
                     <div className=" rounded-full flex items-center justify-center w-14 my-2 mr-2">
                       <img src={garudaLogo} alt="" />
                     </div>
                     <span className="w-full text-sm font-semibold flex items-center">
-                      {order.airplane}
+                      {order.myFlight[1].airplane}
                     </span>
                   </div>
                   <div className="flex gap-5 justify-center">
                     <div className="flex flex-col">
                       <span className="text-sm font-semibold">
-                        {order.departure_time}
+                        {order.myFlight[1].departure_time}
                       </span>
-                      <span className="text-xs">{order.from_airport}</span>
+                      <span className="text-xs">
+                        {order.myFlight[1].from_airport}
+                      </span>
                     </div>
                     <div className="flex justify-center flex-col items-center">
                       <span className="text-gray-500 text-xs">
-                        {order.duration}
+                        {order.myFlight[1].duration}
                       </span>
                       <span className="w-full h-[1px] bg-gray-600"></span>
                       <span className="text-gray-500 text-xs">
-                        {order.distance}
+                        {order.myFlight[1].distance}
                       </span>
                     </div>
                     <div className="flex items-center -ml-2">
@@ -164,9 +172,11 @@ export default function UserFlight() {
 
                     <div className="flex flex-col">
                       <span className="text-sm font-semibold">
-                        {order.arrival_time}
+                        {order.myFlight[1].arrival_time}
                       </span>
-                      <span className="text-xs">{order.to_airport}</span>
+                      <span className="text-xs">
+                        {order.myFlight[1].to_airport}
+                      </span>
                     </div>
                   </div>
                 </div>

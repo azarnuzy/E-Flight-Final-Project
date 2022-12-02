@@ -1,12 +1,19 @@
 import React from 'react';
 import { FaPlane, FaSuitcaseRolling } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import garudaLogo from '../../assets/garuda-logo.png';
-import { setOrders } from '../../features/order/orderSlice';
+import orderSlice, {
+  getOrders,
+  setOrders,
+  setTripPosition,
+} from '../../features/order/orderSlice';
 
 export default function CardFlight({ item }) {
   const dispatch = useDispatch();
-
+  let [searchParams, setSearchParams] = useSearchParams();
+  const order = useSelector(getOrders);
+  const roundTrip = searchParams.get('rt');
   return (
     <div className="shadow-md border-gray-100 p-3 border-solid border-[1px] mt-2">
       <div className="flex justify-between md:flex-row gap-y-2 flex-col items-center">
@@ -52,7 +59,12 @@ export default function CardFlight({ item }) {
           <button
             className="py-1 md:px-8 text-white bg-primary rounded-md"
             onClick={() => {
-              dispatch(setOrders(item));
+              dispatch(
+                setOrders({ item: item, tripPosition: order.tripPosition })
+              );
+              if (roundTrip === 'true') {
+                dispatch(setTripPosition(1));
+              }
               window.scrollTo(0, 0);
             }}
           >
