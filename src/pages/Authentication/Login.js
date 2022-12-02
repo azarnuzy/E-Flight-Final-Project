@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FcGoogle } from 'react-icons/fc';
+// import { FcGoogle } from 'react-icons/fc';
 import { FaInfoCircle } from 'react-icons/fa';
-import { GrFacebook } from 'react-icons/gr';
+// import { GrFacebook } from 'react-icons/gr';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import {
-  auth,
-  logInWithEmailAndPassword,
-  signInWithGoogle,
-} from '../../config/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+// import {
+//   auth,
+//   logInWithEmailAndPassword,
+//   signInWithGoogle,
+// } from '../../config/firebase';
+// import { useAuthState } from 'react-firebase-hooks/auth';
 import { getLogin, setisLogin } from '../../features/user/userSlice';
 
 export const Login = () => {
@@ -24,10 +24,10 @@ export const Login = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
 
-  const [user, loading] = useAuthState(auth);
+  // const [user, loading] = useAuthState(auth);
 
   const navigate = useNavigate();
 
@@ -48,13 +48,13 @@ export const Login = () => {
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
   }, [pwd]);
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate('/');
-  }, [user, loading]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     // maybe trigger a loading screen
+  //     return;
+  //   }
+  //   if (user) navigate('/');
+  // }, [user, loading]);
 
   return (
     <div className="flex lg:flex-row flex-col lg:h-screen bg-primary">
@@ -77,7 +77,7 @@ export const Login = () => {
         ></img>
       </div>
       <div className="w-full lg:w-1/2 lg:p-12 p-4 justify-center">
-        <div className="w-full max-w-md space-y-8 lg:m-12 lg:my-14 my-10">
+        <div className="w-full max-w-md space-y-8 lg:m-12 lg:mt-14 my-10">
           <div className="bg-white p-6 rounded rounded-md">
             <h4 className="mt-4 text-center text-xl font-bold tracking-tight">
               LOGIN

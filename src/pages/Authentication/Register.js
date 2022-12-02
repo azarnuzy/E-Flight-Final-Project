@@ -1,31 +1,33 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
+// import { FcGoogle } from 'react-icons/fc';
 import { FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
-import { GrFacebook } from 'react-icons/gr';
+// import { GrFacebook } from 'react-icons/gr';
 import {
   AiFillCheckCircle,
   AiFillEye,
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-// import { Listbox, Transition } from '@headlessui/react';
-// import { CheckIcon, HiChevronUpDown } from 'react-icons/hi2';
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  auth,
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "../../config/firebase";
-// const title = [
-//   { name: 'Mr.' },
-//   { name: 'Ms.' },
-//   { name: 'Miss.' },
-//   { name: 'Mrs.' },
-// ];
+import { Listbox, Transition } from '@headlessui/react';
+import { HiChevronUpDown } from 'react-icons/hi2';
+import { getLogin, setisLogin } from '../../features/user/userSlice';
+// import { useAuthState } from "react-firebase-hooks/auth";
+// import {
+//   auth,
+//   registerWithEmailAndPassword,
+//   signInWithGoogle,
+// } from "../../config/firebase";
+const title = [
+  { name: 'Mr.' },
+  { name: 'Ms.' },
+  { name: 'Miss.' },
+  { name: 'Mrs.' },
+];
 
 export const Register = () => {
-  const [name, setName] = useState('');
-  // const [lastname, setLastname] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastname] = useState('');
 
   const [visiblePass, setVisiblePass] = useState(false);
   const [pwd, setPwd] = useState('');
@@ -37,25 +39,36 @@ export const Register = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [user, loading, error] = useAuthState(auth);
+  // const [user, loading, error] = useAuthState(auth);
 
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  // const [selected, setSelected] = useState(title[0]);
+  const [selected, setSelected] = useState(title[0]);
 
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, pwd);
+  const login = useSelector(getLogin);
+
+  // const register = () => {
+  //   if (!name) alert("Please enter name");
+  //   registerWithEmailAndPassword(name, email, pwd);
+  // };
+
+
+  // useEffect(() => {
+  //   if (loading) return;
+  //   // if (user) history.replace("/dashboard");
+  //   register();
+  // }, [user, loading]);
+
+  const handleSubmitLogin = (e) => {
+    e.preventDefault();
+    dispatch(setisLogin(true));
+    console.log(login.isLogin);
+    navigate('/');
   };
 
-
-  useEffect(() => {
-    if (loading) return;
-    // if (user) history.replace("/dashboard");
-    register();
-  }, [user, loading]);
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
@@ -84,7 +97,7 @@ export const Register = () => {
         ></img>
       </div>
       <div className="w-full lg:w-1/2 lg:p-12 p-3 justify-center">
-        <div className="w-full max-w-md space-y-8 lg:mx-12 lg:my-auto my-10">
+        <div className="w-full max-w-md space-y-8 lg:mx-12 lg:mt-20 my-10">
           <div className="bg-white p-6 rounded rounded-md">
             <h4 className="mt-3 text-center text-xl font-bold tracking-tight">
               REGISTER
@@ -92,9 +105,9 @@ export const Register = () => {
             <p className="text-sm font-normal font-sans mt-5">
               Register to start your exploration.
             </p>
-            <form className="space-y-4" action="#" method="POST">
+            <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitLogin}>
               <div className="rounded-md">
-                {/* <div className="mt-4 w-full">
+                <div className="mt-4 w-full">
                   <Listbox value={selected} onChange={setSelected}>
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default border border-gray-300 rounded-md bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
@@ -150,21 +163,21 @@ export const Register = () => {
                       </Transition>
                     </div>
                   </Listbox>
-                </div> */}
+                </div>
                 <div>
                   <input
-                    id="name"
-                    name="name"
-                    type="name"
+                    id="firstname"
+                    name="firstname"
+                    type="firstname"
                     autoComplete="off"
                     className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="Full Name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    value={firstname}
                     required
                   />
                 </div>
-                {/* <div>
+                <div>
                   <input
                     id="lastname"
                     name="lastname"
@@ -176,7 +189,7 @@ export const Register = () => {
                     value={lastname}
                     required
                   />
-                </div> */}
+                </div>
                 <div
                   className={
                     emailFocus && email && !validEmail
@@ -264,7 +277,6 @@ export const Register = () => {
                 <button
                   type="submit"
                   className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white lg:bg-primary lg:hover:bg-thirdly bg-primary hover:bg-thirdly"
-                  onClick={register}
                 >
                   REGISTER
                 </button>
@@ -279,7 +291,7 @@ export const Register = () => {
                     Login
                   </Link>
                 </div>
-                <p className="text-sm font-extralight text-center font-sans mt-4">
+                {/* <p className="text-sm font-extralight text-center font-sans mt-4">
                   Or
                 </p>
                 <div 
@@ -292,7 +304,7 @@ export const Register = () => {
                 <div className="flex gap-3 z-0 w-full p-3 mt-5 mb-4 cursor-pointer rounded rounded-md border border-gray-300 justify-center">
                   <GrFacebook className="text-blue-900 text-2xl" />
                   <p className="font-normal text-base">Continue with Google</p>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
