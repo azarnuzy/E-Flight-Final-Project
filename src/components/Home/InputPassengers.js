@@ -2,14 +2,14 @@ import { Menu } from '@headlessui/react';
 import React, { useState } from 'react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { FaUserFriends } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPassenger, setPassenger } from '../../features/search/searchSlice';
 
 export default function InputPassengers() {
   const [customOpen, setCustomOpen] = useState(false);
 
-  const [totalPassengers, setTotalPassengers] = useState(0);
-  const [dewasa, setDewasa] = useState(1);
-  const [anak, setAnak] = useState(0);
-  const [bayi, setBayi] = useState(0);
+  const passenger = useSelector(getPassenger);
+  const dispatch = useDispatch();
 
   function buttonClicked() {
     setCustomOpen((prev) => !prev);
@@ -28,7 +28,7 @@ export default function InputPassengers() {
               data-passenger={true}
             >
               <div className="flex gap-3 items-center">
-                <FaUserFriends /> {dewasa} Dewasa, {anak} Anak, {bayi} Bayi
+                <FaUserFriends /> {passenger} Guest
               </div>
               <div className="flex items-center">
                 {customOpen && <AiFillCloseCircle className="cursor-pointer" />}{' '}
@@ -43,77 +43,22 @@ export default function InputPassengers() {
                 <Menu.Item className="text-left px-3 py-3 w-full flex items-center gap-2 justify-between">
                   <div>
                     <div className="flex flex-col justify-between mx-3">
-                      <span className="text-sm">Dewasa</span>
-                      <span className="text-xs">Usia 12+</span>
+                      <span className="text-sm">Guest</span>
                     </div>
                     <div className="flex gap-2 text-lg">
                       <button
                         onClick={() => {
-                          if (dewasa >= 1) {
-                            setDewasa(dewasa - 1);
+                          if (passenger > 1) {
+                            dispatch(setPassenger(passenger - 1));
                           }
                         }}
                       >
                         -
                       </button>
-                      <span>{dewasa}</span>
+                      <span>{passenger}</span>
                       <button
                         onClick={() => {
-                          setDewasa(dewasa + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </Menu.Item>
-                <Menu.Item className="text-left px-3 py-3 w-full flex items-center gap-2 justify-between">
-                  <div>
-                    <div className="flex flex-col justify-between mx-3">
-                      <span className="text-sm">Anak</span>
-                      <span className="text-xs">Usia 2-11</span>
-                    </div>
-                    <div className="flex gap-2 text-lg">
-                      <button
-                        onClick={() => {
-                          if (anak > 0) {
-                            setAnak(anak - 1);
-                          }
-                        }}
-                      >
-                        -
-                      </button>
-                      <span>{anak}</span>
-                      <button
-                        onClick={() => {
-                          setAnak(anak + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                </Menu.Item>
-                <Menu.Item className="text-left px-3 py-3 w-full flex items-center gap-2 justify-between">
-                  <div>
-                    <div className="flex flex-col justify-between mx-3">
-                      <span className="text-sm">Bayi</span>
-                      <span className="text-xs">Usia &#60;2</span>
-                    </div>
-                    <div className="flex gap-2 text-lg">
-                      <button
-                        onClick={() => {
-                          if (bayi > 0) {
-                            setBayi(bayi - 1);
-                          }
-                        }}
-                      >
-                        -
-                      </button>
-                      <span>{bayi}</span>
-                      <button
-                        onClick={() => {
-                          setBayi(bayi + 1);
+                          dispatch(setPassenger(passenger + 1));
                         }}
                       >
                         +

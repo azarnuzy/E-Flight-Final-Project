@@ -4,6 +4,8 @@ import ProfilePage from '../pages/ProfilePage';
 import MyOrdersPage from '../pages/MyOrdersPage'
 import { Login } from '../pages/Authentication/Login';
 import { Register } from '../pages/Authentication/Register';
+import FlightList from '../pages/FlightList';
+import DetailFlight from '../components/DetailFlight/DetailFlight';
 import Home from '../pages/Home';
 import { Notification } from '../pages/Notification';
 
@@ -16,6 +18,8 @@ export default function RoutesComponents() {
       <Route path="/" element={<Home />} />
       <Route path="/myprofile" element={<ProfilePage />} />
       <Route path="/myorder" element={<MyOrdersPage />} />
+      <Route path="/flight/search/" element={<FlightList />} />
+      <Route path="/flight/:id" element={<DetailFlight />} />
     </Routes>
   )
 };

@@ -10,8 +10,8 @@ export default function SideBarProfile() {
 	// const navigate = useNavigate();
 	return (
 		<>
-			<div className='bg-grey-600 h-screen md:w-1/4 md:h-full pt-5 border-2 rounded-md '>
-				<div className='border-b-2 border-grey-800'>
+			<div className='bg-grey-600 h-fit md:w-1/4 md:h-full pt-5 border-2 rounded-md '>
+				<div className='border-b-2 border-grey-800 mt-16'>
 					<img
 						src='https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0'
 						alt='img-profile'
