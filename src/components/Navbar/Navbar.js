@@ -6,13 +6,17 @@ import { IoIosNotifications } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getLogin } from '../../features/user/userSlice';
-import ava from '../../assets/profile_picture.png'
+import ava from '../../assets/profile_picture.png';
 
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const isLogin = useSelector(getLogin).isLogin
-  console.log(isLogin)
+  const isLogin = useSelector(getLogin).isLogin;
+  console.log(isLogin);
+  const email = useSelector('email') || null;
+  if (email !== null) {
+    console.log(email);
+  }
   return (
     <div className="w-full bg-primary flex justify-between px-5 py-2 fixed top-0 z-10">
       <Link to={'/'} className="flex items-center gap-3 my-2 ">
@@ -23,19 +27,18 @@ export default function Navbar() {
         <button onClick={() => navigate(`/notification`)}>
           <IoIosNotifications className="text-white text-2xl" />
         </button>
-        {isLogin ? 
+        {isLogin ? (
           <Link to={'/myprofile'}>
-            <img src={ava} alt='' className='w-8'/>
+            <img src={ava} alt="" className="w-8" />
           </Link>
-        :
-          
+        ) : (
           <Link
             className="text-primary bg-white py-1 px-3 rounded-md"
             to={'/login'}
           >
             Login
           </Link>
-        }
+        )}
       </div>
     </div>
   );
