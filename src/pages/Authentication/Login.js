@@ -36,6 +36,7 @@ export const Login = () => {
         password: pwd,
       });
       localStorage.setItem('user-info', JSON.stringify(response?.data.data));
+      console.log(response?.data.data);
       setCredentials(response?.data.data);
       // navigate('/');
     } catch (error) {}

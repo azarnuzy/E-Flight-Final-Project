@@ -112,7 +112,13 @@ export const Register = () => {
             >
               <div className="rounded-md">
                 <div className="mt-4 w-full">
-                  <Listbox value={selected} onChange={setSelected}>
+                  <Listbox
+                    value={selected}
+                    onChange={(e) => {
+                      console.log(e);
+                      setSelected(e);
+                    }}
+                  >
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default border border-gray-300 rounded-md bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
                         <span className="block truncate">{selected.name}</span>
