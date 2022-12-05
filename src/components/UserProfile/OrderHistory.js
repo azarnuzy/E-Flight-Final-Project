@@ -29,11 +29,11 @@ export default function OrderHistory() {
           <div className='flex items-center gap-3 font-semibold'>
             <h1 className=''>Jakarta</h1> <HiArrowRight /> <h1>Denpasar</h1>
           </div>
-          <div className='flex gap-5 '>
+          <div className='flex flex-wrap gap-5 gap-y-1 '>
             <div className='flex items-center'>
               <p>Sekali Jalan</p><VscDebugStackframeDot /> <p>1 dewasa</p>
             </div>
-            <span>|</span>
+            <span className='hidden md:inline-block'>|</span>
             <div className='flex items-center'>
               <p>Sel, 29 Nov 2022</p> <VscDebugStackframeDot />  <p>15.45</p>
             </div>
