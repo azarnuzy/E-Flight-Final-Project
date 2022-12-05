@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
 // import { FcGoogle } from 'react-icons/fc';
 import { FaInfoCircle } from 'react-icons/fa';
@@ -12,17 +13,23 @@ import { useNavigate } from 'react-router-dom';
 //   signInWithGoogle,
 // } from '../../config/firebase';
 // import { useAuthState } from 'react-firebase-hooks/auth';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
+// import { getLogin, setisLogin } from '../../features/user/userSlice';
 
 export const Login = () => {
   const [visiblePass, setVisiblePass] = useState(false);
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
-
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
+
+  const [login, setLogin] = useState(false);
+  const [user, setUser] = useState();
+
+  let token = localStorage.getItem("user")
+  let image = localStorage.getItem("image")
+  let first_name = localStorage.getItem("first_name")
 
   // const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
@@ -34,14 +41,34 @@ export const Login = () => {
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  const login = useSelector(getLogin);
+//   const login = useSelector(getLogin);
 
-  const handleSubmitLogin = (e) => {
-    e.preventDefault();
-    dispatch(setisLogin(true));
-    console.log(login.isLogin);
-    navigate('/');
-  };
+//   const handleSubmitLogin = (e) => {
+//     e.preventDefault();
+//     dispatch(setisLogin(true));
+//     console.log(login.isLogin);
+//     navigate('/');
+//   };
+    const handleSubmitLogin = async () => {
+        try {
+            const res = await axios.post("https://api-flyket.up.railway.app/api/auth/sign-in",
+            {
+                email: email,
+                password: pwd,
+            });
+            setUser(res.data.data);
+            localStorage.setItem("login_data", JSON.stringify(res.data.data));
+            localStorage.setItem("user", JSON.stringify(res.data.data.token));
+            localStorage.setItem("image", JSON.stringify(res.data.data.image));
+            localStorage.setItem("first_name", JSON.stringify(res.data.data.first_name));
+            setEmail("");
+            setPwd("");
+            setLogin(true);
+        } catch (error) {
+
+        }
+    };
+
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);

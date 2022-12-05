@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
 // import { FcGoogle } from 'react-icons/fc';
 import { FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
@@ -9,32 +10,35 @@ import {
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-import { Listbox, Transition } from '@headlessui/react';
-import { HiChevronUpDown } from 'react-icons/hi2';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
+// import { Listbox, Transition } from '@headlessui/react';
+// import { HiChevronUpDown } from 'react-icons/hi2';
+// import { getLogin, setisLogin } from '../../features/user/userSlice';
 // import { useAuthState } from "react-firebase-hooks/auth";
 // import {
 //   auth,
 //   registerWithEmailAndPassword,
 //   signInWithGoogle,
 // } from "../../config/firebase";
-const title = [
-  { name: 'Mr.' },
-  { name: 'Ms.' },
-  { name: 'Miss.' },
-  { name: 'Mrs.' },
-];
+// const title = [
+//   { name: 'Mr.' },
+//   { name: 'Ms.' },
+//   { name: 'Miss.' },
+//   { name: 'Mrs.' },
+// ];
 
 export const Register = () => {
+  const [title, setTitle] = useState('');
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhoneNumber] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [rolename, setRoleName] = useState('');
 
   const [visiblePass, setVisiblePass] = useState(false);
-  const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
 
-  const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
@@ -46,9 +50,9 @@ export const Register = () => {
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  const [selected, setSelected] = useState(title[0]);
+  // const [selected, setSelected] = useState(title[0]);
 
-  const login = useSelector(getLogin);
+  // const login = useSelector(getLogin);
 
   // const register = () => {
   //   if (!name) alert("Please enter name");
@@ -62,12 +66,25 @@ export const Register = () => {
   //   register();
   // }, [user, loading]);
 
-  const handleSubmitLogin = (e) => {
-    e.preventDefault();
-    dispatch(setisLogin(true));
-    console.log(login.isLogin);
-    navigate('/');
-  };
+  // const handleSubmitLogin = (e) => {
+  //   e.preventDefault();
+  //   dispatch(setisLogin(true));
+  //   console.log(login.isLogin);
+  //   navigate('/');
+  // };
+  const handleSubmitRegister = async () => {
+    try {
+        const res = await axios.post("https://api-flyket.up.railway.app/api/auth/sign-up",
+        {
+            first_name: firstname,
+            last_name: lastname,
+            email: email,
+            password: pwd,
+        });
+    } catch (error) {
+        
+    }
+};
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
@@ -105,9 +122,9 @@ export const Register = () => {
             <p className="text-sm font-normal font-sans mt-5">
               Register to start your exploration.
             </p>
-            <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitLogin}>
+            <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitRegister}>
               <div className="rounded-md">
-                <div className="mt-4 w-full">
+                {/* <div className="mt-4 w-full">
                   <Listbox value={selected} onChange={setSelected}>
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default border border-gray-300 rounded-md bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
@@ -163,6 +180,19 @@ export const Register = () => {
                       </Transition>
                     </div>
                   </Listbox>
+                </div> */}
+                <div>
+                  <input
+                    id="title"
+                    name="title"
+                    type="title"
+                    autoComplete="off"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Title (Mr/Mrs/Miss/Ms)"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    required
+                  />
                 </div>
                 <div>
                   <input
@@ -171,7 +201,7 @@ export const Register = () => {
                     type="firstname"
                     autoComplete="off"
                     className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Full Name"
+                    placeholder="First Name"
                     onChange={(e) => setFirstName(e.target.value)}
                     value={firstname}
                     required
@@ -224,6 +254,19 @@ export const Register = () => {
                   <FaInfoCircle />
                   The email is not a valid email address
                 </p>
+                <div>
+                  <input
+                    id="phonenumber"
+                    name="phonenumber"
+                    type="phonenumber"
+                    autoComplete="off"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Phone Number"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={phonenumber}
+                    required
+                  />
+                </div>
                 <div
                   className={
                     pwdFocus && pwd && !validPwd
@@ -271,6 +314,19 @@ export const Register = () => {
                     characters. Must include uppercase and lowercase letters, a
                     number and a special character.
                   </p>
+                </div>
+                <div>
+                  <input
+                    id="rolename"
+                    name="rolename"
+                    type="rolename"
+                    autoComplete="off"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Role Name"
+                    onChange={(e) => setRoleName(e.target.value)}
+                    value={rolename}
+                    required
+                  />
                 </div>
               </div>
               <div>
