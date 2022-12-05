@@ -1,9 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import axios from "axios"
-import { useDispatch, useSelector } from 'react-redux';
-// import { FcGoogle } from 'react-icons/fc';
-import { FaCheckCircle, FaInfoCircle } from 'react-icons/fa';
-// import { GrFacebook } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
+import { FaInfoCircle } from 'react-icons/fa';
 import {
   AiFillCheckCircle,
   AiFillEye,
@@ -12,15 +10,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { Listbox, Transition } from '@headlessui/react';
 import { HiChevronUpDown } from 'react-icons/hi2';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import {
-//   auth,
-//   registerWithEmailAndPassword,
-//   signInWithGoogle,
-// } from "../../config/firebase";
 import apiConfig from '../../api/apiConfig';
-import { setCredentials } from '../../features/auth/authSlice';
 const titles = [
   { name: 'Mr.' },
   { name: 'Ms.' },
@@ -35,7 +25,6 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [phonenumber, setPhoneNumber] = useState('');
   const [pwd, setPwd] = useState('');
-  // const [rolename, setRoleName] = useState('');
 
   const [visiblePass, setVisiblePass] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
@@ -47,52 +36,15 @@ export const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const [user, loading, error] = useAuthState(auth);
-
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
   const [selected, setSelected] = useState(titles[0]);
 
-  // const login = useSelector(getLogin);
-
-  // const register = () => {
-  //   if (!name) alert("Please enter name");
-  //   registerWithEmailAndPassword(name, email, pwd);
-  // };
-
-
-  // useEffect(() => {
-  //   if (loading) return;
-  //   // if (user) history.replace("/dashboard");
-  //   register();
-  // }, [user, loading]);
-
-  // const handleSubmitLogin = (e) => {
-  //   e.preventDefault();
-  //   dispatch(setisLogin(true));
-  //   console.log(login.isLogin);
-  //   navigate('/');
-  // }; 
-  // const handleSubmitRegister = async () => {
-  //   try {
-  //       const res = await axios.post("https://notflixtv.herokuapp.com/api/v1/users",
-  //       {
-  //           first_name: firstname,
-  //           last_name: lastname,
-  //           email: email,
-  //           password: pwd,
-  //       });
-  //   } catch (error) {
-        
-  //   }
-  // };
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(title, firstname, lastname, email, phonenumber, pwd)
-      // dispatch(setisLogin(true));
       const response = await axios.post(`${apiConfig.baseUrl}auth/sign-up`, {
           title: title,
           firstName: firstname,
@@ -102,10 +54,7 @@ export const Register = () => {
           password: pwd,
           roleName: '',
       });
-      // localStorage.setItem('user-info', JSON.stringify(response?.data.data));
-      // setCredentials(response?.data.data);
       console.log(response)
-      // navigate('/login');
     } catch (error) {}
   };
 
@@ -210,19 +159,6 @@ export const Register = () => {
                     </div>
                   </Listbox>
                 </div>
-                {/* <div>
-                  <input
-                    id="title"
-                    name="title"
-                    type="title"
-                    autoComplete="off"
-                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Title (Mr/Mrs/Miss/Ms)"
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
-                    required
-                  />
-                </div> */}
                 <div>
                   <input
                     id="firstname"
@@ -344,19 +280,6 @@ export const Register = () => {
                     number and a special character.
                   </p>
                 </div>
-                {/* <div>
-                  <input
-                    id="rolename"
-                    name="rolename"
-                    type="rolename"
-                    autoComplete="off"
-                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Role Name"
-                    onChange={(e) => setRoleName(e.target.value)}
-                    value={rolename}
-                    required
-                  />
-                </div> */}
               </div>
               <div>
                 <button
