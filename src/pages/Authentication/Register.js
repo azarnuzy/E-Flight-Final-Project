@@ -10,21 +10,23 @@ import {
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-// import { Listbox, Transition } from '@headlessui/react';
-// import { HiChevronUpDown } from 'react-icons/hi2';
-// import { getLogin, setisLogin } from '../../features/user/userSlice';
+import { Listbox, Transition } from '@headlessui/react';
+import { HiChevronUpDown } from 'react-icons/hi2';
+import { getLogin, setisLogin } from '../../features/user/userSlice';
 // import { useAuthState } from "react-firebase-hooks/auth";
 // import {
 //   auth,
 //   registerWithEmailAndPassword,
 //   signInWithGoogle,
 // } from "../../config/firebase";
-// const title = [
-//   { name: 'Mr.' },
-//   { name: 'Ms.' },
-//   { name: 'Miss.' },
-//   { name: 'Mrs.' },
-// ];
+import apiConfig from '../../api/apiConfig';
+import { setCredentials } from '../../features/auth/authSlice';
+const titles = [
+  { name: 'Mr.' },
+  { name: 'Ms.' },
+  { name: 'Miss.' },
+  { name: 'Mrs.' },
+];
 
 export const Register = () => {
   const [title, setTitle] = useState('');
@@ -33,7 +35,7 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [phonenumber, setPhoneNumber] = useState('');
   const [pwd, setPwd] = useState('');
-  const [rolename, setRoleName] = useState('');
+  // const [rolename, setRoleName] = useState('');
 
   const [visiblePass, setVisiblePass] = useState(false);
   const [validPwd, setValidPwd] = useState(false);
@@ -50,7 +52,7 @@ export const Register = () => {
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-  // const [selected, setSelected] = useState(title[0]);
+  const [selected, setSelected] = useState(titles[0]);
 
   // const login = useSelector(getLogin);
 
@@ -71,20 +73,41 @@ export const Register = () => {
   //   dispatch(setisLogin(true));
   //   console.log(login.isLogin);
   //   navigate('/');
-  // };
-  const handleSubmitRegister = async () => {
-    try {
-        const res = await axios.post("https://api-flyket.up.railway.app/api/auth/sign-up",
-        {
-            first_name: firstname,
-            last_name: lastname,
-            email: email,
-            password: pwd,
-        });
-    } catch (error) {
+  // }; 
+  // const handleSubmitRegister = async () => {
+  //   try {
+  //       const res = await axios.post("https://notflixtv.herokuapp.com/api/v1/users",
+  //       {
+  //           first_name: firstname,
+  //           last_name: lastname,
+  //           email: email,
+  //           password: pwd,
+  //       });
+  //   } catch (error) {
         
-    }
-};
+  //   }
+  // };
+  const handleSubmitRegister = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log(title, firstname, lastname, email, phonenumber, pwd)
+      // dispatch(setisLogin(true));
+      const response = await axios.post(`${apiConfig.baseUrl}auth/sign-up`, {
+          title: title,
+          firstName: firstname,
+          lastName: lastname,
+          email: email,
+          phoneNumber: phonenumber,
+          password: pwd,
+          roleName: '',
+      });
+      // localStorage.setItem('user-info', JSON.stringify(response?.data.data));
+      // setCredentials(response?.data.data);
+      console.log(response)
+      // navigate('/login');
+    } catch (error) {}
+  };
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
@@ -124,8 +147,14 @@ export const Register = () => {
             </p>
             <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmitRegister}>
               <div className="rounded-md">
-                {/* <div className="mt-4 w-full">
-                  <Listbox value={selected} onChange={setSelected}>
+                <div className="mt-4 w-full">
+                  <Listbox 
+                    value={selected} 
+                    onChange={(e) => {
+                      setSelected(e);
+                      setTitle(e.name);
+                    }}
+                  >
                     <div className="relative mt-1">
                       <Listbox.Button className="relative w-full cursor-default border border-gray-300 rounded-md bg-white py-2 pl-3 pr-10 text-left sm:text-sm">
                         <span className="block truncate">{selected.name}</span>
@@ -143,7 +172,7 @@ export const Register = () => {
                         leaveTo="opacity-0"
                       >
                         <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {title.map((person, personIdx) => (
+                          {titles.map((person, personIdx) => (
                             <Listbox.Option
                               key={personIdx}
                               className={({ active }) =>
@@ -180,8 +209,8 @@ export const Register = () => {
                       </Transition>
                     </div>
                   </Listbox>
-                </div> */}
-                <div>
+                </div>
+                {/* <div>
                   <input
                     id="title"
                     name="title"
@@ -193,7 +222,7 @@ export const Register = () => {
                     value={title}
                     required
                   />
-                </div>
+                </div> */}
                 <div>
                   <input
                     id="firstname"
@@ -315,7 +344,7 @@ export const Register = () => {
                     number and a special character.
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <input
                     id="rolename"
                     name="rolename"
@@ -327,7 +356,7 @@ export const Register = () => {
                     value={rolename}
                     required
                   />
-                </div>
+                </div> */}
               </div>
               <div>
                 <button

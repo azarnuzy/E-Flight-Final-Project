@@ -6,6 +6,8 @@ import { format } from 'date-fns';
 import ModalChangeSearch from './ModalChangeSearch';
 import { useSearchParams } from 'react-router-dom';
 import parse from 'date-fns/parse';
+import { useSelector } from 'react-redux';
+import { getOrders } from '../../features/order/orderSlice';
 
 export default function FlightSearch() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -27,6 +29,8 @@ export default function FlightSearch() {
   const seatClass = searchParams.get('sc');
   const roundTrip = searchParams.get('rt');
 
+  const order = useSelector(getOrders);
+
   return (
     <div className="w-full mx-auto lg:mt-24 mt-3">
       <div className="rounded-md shadow-md border-gray-200 border-[1px]  border-solid  p-4 flex items-center justify-between gap-3 md:flex-row flex-col">
@@ -36,7 +40,10 @@ export default function FlightSearch() {
           </div>
           <div className="flex items-start  flex-col justify-center">
             <div className="flex gap-1 font-semibold ">
-              <h3>Select Departure Flight</h3>
+              <h3>
+                Select {order.tripPosition === 1 ? 'Return' : 'Departure'}{' '}
+                Flight
+              </h3>
             </div>
             <div className="flex flex-wrap md:gap-3 gap-2 gap-y-[2px] text-gray-400 text-sm ">
               <span>{from} </span>
