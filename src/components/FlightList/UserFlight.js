@@ -185,7 +185,7 @@ export default function UserFlight() {
         {/* </div> */}
         <div className="w-full flex justify-end  mt-3">
           <Link
-            to={'/myorder'}
+            to={'/flight/123'}
             className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
           >
             Submit
