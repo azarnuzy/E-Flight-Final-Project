@@ -1,60 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { FcGoogle } from 'react-icons/fc';
+// import { useDispatch, useSelector } from 'react-redux';
 import { FaInfoCircle } from 'react-icons/fa';
-// import { GrFacebook } from 'react-icons/gr';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-// import {
-//   auth,
-//   logInWithEmailAndPassword,
-//   signInWithGoogle,
-// } from '../../config/firebase';
-// import { useAuthState } from 'react-firebase-hooks/auth';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
+// import { getLogin, setisLogin } from '../../features/user/userSlice';
+import axios from 'axios';
+import apiConfig from '../../api/apiConfig';
+import { setCredentials } from '../../features/auth/authSlice';
 
 export const Login = () => {
   const [visiblePass, setVisiblePass] = useState(false);
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
-
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  // const [isLogin, setIsLogin] = useState(false);
-  const dispatch = useDispatch();
-
-  // const [user, loading] = useAuthState(auth);
+//   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+//   const login = useSelector(getLogin);
 
-  const login = useSelector(getLogin);
-
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    dispatch(setisLogin(true));
-    console.log(login.isLogin);
-    navigate('/');
+
+    try {
+      const response = await axios.post(`${apiConfig.baseUrl}auth/sign-in`, {
+        email,
+        password: pwd,
+      });
+      localStorage.setItem('user-info', JSON.stringify(response?.data.data));
+      setCredentials(response?.data.data);
+      console.log(response)
+      // navigate('/');
+    } catch (error) {}
   };
+
   useEffect(() => {
+    const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
   useEffect(() => {
+    const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     setValidPwd(PWD_REGEX.test(pwd));
   }, [pwd]);
-  // useEffect(() => {
-  //   if (loading) {
-  //     // maybe trigger a loading screen
-  //     return;
-  //   }
-  //   if (user) navigate('/');
-  // }, [user, loading]);
 
   return (
     <div className="flex lg:flex-row flex-col lg:h-screen bg-primary">
@@ -78,7 +70,7 @@ export const Login = () => {
       </div>
       <div className="w-full lg:w-1/2 lg:p-12 p-4 justify-center">
         <div className="w-full max-w-md space-y-8 lg:m-12 lg:mt-14 my-10">
-          <div className="bg-white p-6 rounded rounded-md">
+          <div className="bg-white p-6 rounded-md">
             <h4 className="mt-4 text-center text-xl font-bold tracking-tight">
               LOGIN
             </h4>
@@ -92,7 +84,7 @@ export const Login = () => {
                   className={
                     emailFocus && email && !validEmail
                       ? `px-3 py-2 border text-slate-50 border-red-500 border-solid rounded-md flex justify-between`
-                      : `px-3 py-2 border border-gray-300 rounded rounded-md flex justify-between`
+                      : `px-3 py-2 border border-gray-300  rounded-md flex justify-between`
                   }
                 >
                   <input
@@ -126,7 +118,7 @@ export const Login = () => {
                   className={
                     pwdFocus && pwd && !validPwd
                       ? `px-3 py-2 border text-slate-50 border-red-500 border-solid rounded-md flex justify-between mt-3`
-                      : `px-3 py-2 border border-gray-300 rounded rounded-md flex justify-between mt-3`
+                      : `px-3 py-2 border border-gray-300  rounded-md flex justify-between mt-3`
                   }
                 >
                   <input
