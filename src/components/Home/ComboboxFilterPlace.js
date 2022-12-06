@@ -5,6 +5,7 @@ import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import apiConfig from '../../api/apiConfig';
+import axiosClient from '../../api/axiosClient';
 import { getToken } from '../../features/auth/authSlice';
 import {
   getArrivePlace,
@@ -17,25 +18,6 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
   const from = useSelector(getDeparturePlace);
   const to = useSelector(getArrivePlace);
 
-  const token =
-    useSelector(getToken) ||
-    JSON.parse(localStorage.getItem('user-info')).token;
-
-  useEffect(() => {
-    if (token !== null) {
-      const getAirports = async () => {
-        try {
-          const response = await axios.get(`${apiConfig.baseUrl}airports`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          console.log(response.data.data);
-        } catch (error) {}
-      };
-
-      getAirports();
-    }
-  }, [token]);
-
   let [selected, setSelected] = useState(type === 'departure' ? from : to);
 
   const [query, setQuery] = useState('');
@@ -44,12 +26,26 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
   const filteredPeople =
     query === ''
       ? selectValues
-      : selectValues.filter((select) =>
-          select.name
-            .toLowerCase()
-            .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, ''))
-        );
+      : selectValues.filter((select) => {
+          return (
+            select.name
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            select.city
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            select.country
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            select.iatacode
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(query.toLowerCase().replace(/\s+/g, ''))
+          );
+        });
 
   return (
     <div className="">
@@ -58,8 +54,8 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
         onChange={(e) => {
           setSelected(e);
           type === 'departure'
-            ? dispatch(setDeparturePlace(e.name))
-            : dispatch(setArrivePlace(e.name));
+            ? dispatch(setDeparturePlace(`${e.name} - ${e.city}`))
+            : dispatch(setArrivePlace(`${e.name} - ${e.city}`));
         }}
       >
         <div className="relative mt-1">
@@ -70,7 +66,11 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 focus:outline-none"
               displayValue={(select) => {
-                return select.name || select;
+                let displayName;
+                if (select.city !== undefined) {
+                  displayName = `${select.city} - ${select.iatacode}`;
+                }
+                return displayName || select;
               }}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -94,25 +94,47 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                   Nothing found.
                 </div>
               ) : (
-                filteredPeople.map((select) => (
+                filteredPeople.map((select, i) => (
                   <Combobox.Option
-                    key={select.id}
+                    key={i}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-thirdly text-white' : 'text-gray-900'
+                        active ? 'bg-primary text-white' : 'text-gray-900'
                       }`
                     }
                     value={select}
                   >
                     {({ selected, active }) => (
                       <>
-                        <span
+                        <div
+                          className={`flex justify-between gap-3 items-center truncate${
+                            selected ? 'font-medium' : 'font-normal'
+                          }`}
+                        >
+                          <div>
+                            <div className="">
+                              <span
+                                className={`${
+                                  active ? 'text-white' : 'text-thirdly'
+                                }`}
+                              >
+                                {select.city}
+                              </span>
+                              , {select.country}
+                            </div>
+                            <span className="text-xs">{select.name}</span>
+                          </div>
+                          <div className="py-1 px-3 text-md flex items-center rounded-sm bg-gray-400 text-gray-200">
+                            {select.iatacode}{' '}
+                          </div>
+                        </div>
+                        {/* <span
                           className={`flex gap-3 items-center truncate${
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
                           {select.name}
-                        </span>
+                        </span> */}
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${

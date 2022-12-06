@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import apiConfig from '../../api/apiConfig';
+import axiosClient from '../../api/axiosClient';
 
 const initialState = {
   departurePlace: 'Jakarta',
@@ -9,7 +11,20 @@ const initialState = {
   seatClass: 'Economy',
   roundTrip: false,
   status: 'idle',
+  airport: [],
 };
+
+export const fetchAirport = createAsyncThunk(
+  'search/fetchAirport',
+  async () => {
+    try {
+      const response = await axiosClient.get(`${apiConfig.baseUrl}airports`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
 const searchSlice = createSlice({
   name: 'search',
@@ -44,6 +59,13 @@ const searchSlice = createSlice({
       state.status = 'success';
     },
   },
+  extraReducers(builder) {
+    builder.addCase(fetchAirport.fulfilled, (state, action) => {
+      state.status = 'success';
+      // console.log(action.payload);
+      state.airport = action.payload;
+    });
+  },
 });
 
 export const getDeparturePlace = (state) => state.search.departurePlace;
@@ -54,6 +76,8 @@ export const getReturnDate = (state) => state.search.returnDate;
 export const getSeatClass = (state) => state.search.seatClass;
 export const getRoundTrip = (state) => state.search.roundTrip;
 export const getStatusSearch = (state) => state.search.status;
+export const getAirports = (state) => state.search.airport;
+export const getStatusAirport = (state) => state.search.status;
 export const {
   setDeparturePlace,
   setArrivePlace,

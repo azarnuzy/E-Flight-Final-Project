@@ -1,11 +1,13 @@
 import { Switch } from '@headlessui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { emptyOrders } from '../../features/order/orderSlice';
 import {
+  fetchAirport,
+  getAirports,
   getArrivePlace,
   getDepartureDate,
   getDeparturePlace,
@@ -13,6 +15,7 @@ import {
   getReturnDate,
   getRoundTrip,
   getSeatClass,
+  getStatusAirport,
   setRoundTrip,
 } from '../../features/search/searchSlice';
 import ComboboxFilterPlane from './ComboboxFilterPlace';
@@ -38,19 +41,29 @@ export default function FormFlight() {
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
   const roundTrip = useSelector(getRoundTrip);
+  const status = useSelector(getStatusAirport);
+  const airports = useSelector(getAirports);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchAirport());
+    }
+  }, [dispatch, status]);
+
+  console.log(airports);
 
   return (
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
         <div>
           <span className="text-sm font-semibold ml-3">From</span>
-          <ComboboxFilterPlane selectValues={places} type="departure" />
+          <ComboboxFilterPlane selectValues={airports} type="departure" />
         </div>
         <div>
           <span className="text-sm font-semibold ml-3">To</span>
-          <ComboboxFilterPlane selectValues={places} type="arrival" />
+          <ComboboxFilterPlane selectValues={airports} type="arrival" />
         </div>
         <div>
           <span className="text-sm font-semibold ml-3">No. of Passengers</span>
