@@ -12,10 +12,10 @@ import { getEmail } from '../../features/auth/authSlice';
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const isLogin = useSelector(getLogin);
-  // console.log(isLogin);
+  const isLogin = useSelector(getLogin).isLogin;
+  console.log(isLogin);
+
   const email = useSelector(getEmail) || null;
-  console.log(email);
   if (email !== null) {
     console.log(email);
   }

@@ -1,8 +1,11 @@
 import { Combobox, Transition } from '@headlessui/react';
+import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import apiConfig from '../../api/apiConfig';
+import { getToken } from '../../features/auth/authSlice';
 import {
   getArrivePlace,
   getDeparturePlace,
@@ -13,6 +16,25 @@ import {
 export default function ComboboxFilterPlane({ selectValues, type }) {
   const from = useSelector(getDeparturePlace);
   const to = useSelector(getArrivePlace);
+
+  const token =
+    useSelector(getToken) ||
+    JSON.parse(localStorage.getItem('user-info')).token;
+
+  useEffect(() => {
+    if (token !== null) {
+      const getAirports = async () => {
+        try {
+          const response = await axios.get(`${apiConfig.baseUrl}airports`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          console.log(response.data.data);
+        } catch (error) {}
+      };
+
+      getAirports();
+    }
+  }, [token]);
 
   let [selected, setSelected] = useState(type === 'departure' ? from : to);
 

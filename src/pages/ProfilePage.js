@@ -12,7 +12,7 @@ export default function ProfilePage() {
 	return (
 		<div>
 			<Navbar />
-			<div className=' md:flex md:max-w-[1024px] mx-auto md:mt-24 md:justify-between'>
+			<div className='md:flex md:max-w-[1024px] mx-auto md:mt-24 md:justify-between'>
 				{/* Sidebar */}
 				<SideBarProfile />
 				{/* Account Information */}

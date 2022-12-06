@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
-import { getLogin, setisLogin } from '../../features/user/userSlice';
+// import { getLogin, setisLogin } from '../../features/user/userSlice';
 import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
 import { setCredentials } from '../../features/auth/authSlice';
@@ -15,22 +14,20 @@ export const Login = () => {
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
-
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const login = useSelector(getLogin);
+  //   const login = useSelector(getLogin);
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
     try {
-      // dispatch(setisLogin(true));
       const response = await axios.post(`${apiConfig.baseUrl}auth/sign-in`, {
         email,
         password: pwd,
@@ -38,6 +35,7 @@ export const Login = () => {
       localStorage.setItem('user-info', JSON.stringify(response?.data.data));
       console.log(response?.data.data);
       setCredentials(response?.data.data);
+      console.log(response);
       // navigate('/');
     } catch (error) {}
   };
