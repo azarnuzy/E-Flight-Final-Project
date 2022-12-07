@@ -2,6 +2,7 @@ import React from 'react'
 // Import Components
 import ListTitleCategory from './ListTitleCategory';
 export default function AccountInformation() {
+	let email = localStorage.getItem("email")
 	return (
 		<>
 			<div className='bg-white md:ml-10 md:w-3/4 h-full border-2 rounded-md'>
@@ -27,7 +28,7 @@ export default function AccountInformation() {
 						</div>
 						<div className='my-2'>
 							<p className='text-base text-userProfile'>Email</p>
-							<span className='text-sm'>marcus.holloway@gmail.com</span>
+							<span className='text-sm'>{JSON.parse(email)}</span>
 						</div>
 						<div className=''>
 							<p className='text-base text-userProfile'>Phone Number</p>

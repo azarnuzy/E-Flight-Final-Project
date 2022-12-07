@@ -33,9 +33,10 @@ export const Login = () => {
         password: pwd,
       });
       localStorage.setItem('user-info', JSON.stringify(response?.data.data));
+      localStorage.setItem('email', JSON.stringify(response?.data.data.email))
       setCredentials(response?.data.data);
       console.log(response)
-      // navigate('/');
+      navigate('/');
     } catch (error) {}
   };
 

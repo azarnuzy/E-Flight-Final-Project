@@ -54,6 +54,7 @@ export const Register = () => {
           password: pwd,
           roleName: '',
       });
+      // navigate('/login');
       console.log(response)
     } catch (error) {}
   };
