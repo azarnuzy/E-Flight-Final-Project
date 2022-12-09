@@ -14,8 +14,9 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const [isLoginVal, setIsLoginVal] = useState(false);
-  const isLogin = useSelector(getLogin).isLogin;
+  const isLogin = useSelector(getLogin);
 
+  console.log(isLogin);
   useEffect(() => {
     setIsLoginVal(isLogin);
     console.log(isLogin);
