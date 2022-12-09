@@ -18,7 +18,9 @@ export default function Navbar() {
 
   console.log(isLogin);
   useEffect(() => {
-    setIsLoginVal(isLogin);
+    if (JSON.parse(localStorage.getItem('user-info') !== null)) {
+      setIsLoginVal(true);
+    }
     console.log(isLogin);
   }, [isLogin]);
 
