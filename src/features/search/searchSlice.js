@@ -3,8 +3,8 @@ import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
 const initialState = {
-  departurePlace: 'Jakarta',
-  arrivePlace: 'Aceh',
+  departurePlace: 'JKT',
+  arrivePlace: 'JED',
   passenger: 1,
   departureDate: new Date(),
   returnDate: '',
