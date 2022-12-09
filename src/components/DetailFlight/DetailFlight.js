@@ -12,7 +12,7 @@ export default function DetailFlight() {
 	return (
 		<div>
 			<Navbar />
-			<div className='flex gap-3 md:max-w-[1024px] mx-auto md:mt-24 '>
+			<div className='md:flex gap-3 md:max-w-[1024px] mx-auto md:mt-24 p-2 '>
 				<div className='md:w-2/3'>
 					<DetailPemesanan />
 					<DetailPenumpang />
