@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
-import axiosClient from '../../api/axiosClient';
+import { format } from 'date-fns';
 
 const initialState = {
   departurePlace: 'JKT',
@@ -18,7 +19,32 @@ export const fetchAirport = createAsyncThunk(
   'search/fetchAirport',
   async () => {
     try {
-      const response = await axiosClient.get(`${apiConfig.baseUrl}airports`);
+      const response = await axios.get(`${apiConfig.baseUrl}airports`);
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const fetchSearchFlight = createAsyncThunk(
+  'search/fetchSearchFlight',
+  async ({ from, to, departureDate, seatClass }) => {
+    try {
+      const response = await axios.get(
+        `${apiConfig.baseUrl}schedules/departure-date`,
+        {
+          params: {
+            searchScheduleRequest: {
+              originAirportId: from,
+              destinationAirportId: to,
+              flightDate: format(departureDate, 'yyyy-MM-dd'),
+              aircraftClass: seatClass,
+            },
+          },
+        }
+      );
       console.log(response);
       return response.data;
     } catch (error) {
@@ -64,10 +90,16 @@ const searchSlice = createSlice({
     builder
       .addCase(fetchAirport.fulfilled, (state, action) => {
         state.status = 'success';
-        // console.log(action.payload);
-        state.airport = action.payload;
+
+        state.airport = action.payload.data;
       })
       .addCase(fetchAirport.rejected, (state, action) => {
+        // console.log(action.error.message);
+      })
+      .addCase(fetchSearchFlight.fulfilled, (state, action) => {
+        console.log(action.payload);
+      })
+      .addCase(fetchSearchFlight.rejected, (state, action) => {
         console.log(action.error.message);
       });
   },

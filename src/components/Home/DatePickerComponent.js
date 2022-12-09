@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { addMonths } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import {
   getDepartureDate,
   getReturnDate,

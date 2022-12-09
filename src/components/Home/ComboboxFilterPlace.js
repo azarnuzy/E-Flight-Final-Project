@@ -1,12 +1,9 @@
 import { Combobox, Transition } from '@headlessui/react';
-import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import apiConfig from '../../api/apiConfig';
-import axiosClient from '../../api/axiosClient';
-import { getToken } from '../../features/auth/authSlice';
+
 import {
   getArrivePlace,
   getDeparturePlace,
@@ -72,7 +69,6 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                 if (select.city !== undefined) {
                   displayName = `${select.city} - ${select.iatacode}`;
                 } else {
-                  console.log(type);
                   if (type === 'departure') {
                     displayName = 'Jakarta - JKT';
                   }
