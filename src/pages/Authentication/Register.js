@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { Listbox, Transition } from '@headlessui/react';
 import { HiChevronUpDown } from 'react-icons/hi2';
+import Swal from 'sweetalert2';
 import apiConfig from '../../api/apiConfig';
 const titles = [
   { name: 'Mr.' },
@@ -34,7 +35,6 @@ export const Register = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -54,9 +54,15 @@ export const Register = () => {
           password: pwd,
           roleName: '',
       });
-      // navigate('/login');
+      navigate('/login');
       console.log(response)
-    } catch (error) {}
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Kamu sudah pernah registrasi!"
+    })
+    }
   };
 
   useEffect(() => {
