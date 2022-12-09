@@ -1,24 +1,26 @@
 import React from 'react'
 import { RiRefund2Fill } from "react-icons/ri";
-import { GrSchedule } from "react-icons/gr";
+import { BsArrowRight, BsCalendarDate } from "react-icons/bs";
+import { BiArrowFromLeft, BiArrowToRight } from 'react-icons/bi';
+// import { GrSchedule } from "react-icons/gr";
 
 function TotalFlight() {
     return (
         <div className='md:w-full border p-2 rounded-md '>
             <span className='font-bold text-base'>Penerbangan</span>
             <div className='flex justify-between my-5'>
-                <p className='font-semibold text-sm'>Jakarta -> Yogyakarta</p>
+                <p className='flex items-center gap-2 font-semibold text-sm'>Jakarta <BsArrowRight /> Yogyakarta</p>
                 <p className='text-cyan-600 font-semibold'>Detail</p>
             </div>
             <div className='mt-2 mb-2'>
                 <h1 className='font-semibold'>Kebijakan Tiket</h1>
                 <div className='flex items-center gap-3 my-3'>
-                    <RiRefund2Fill />
-                    <span className='text-sm'>Bisa refund</span>
+                    <RiRefund2Fill className='text-green-500' />
+                    <span className='text-sm text-green-500'>Bisa refund</span>
                 </div>
                 <div className='flex items-center gap-3 my-3'>
-                    <GrSchedule />
-                    <span className='text-sm'>Bisa reschedule</span>
+                    <BsCalendarDate className='text-green-500' />
+                    <span className='text-sm text-green-500'>Bisa reschedule</span>
                 </div>
             </div>
             <div className='border rounded-md text-sm px-1 py-2 mb-3 mt-2 shadow'>

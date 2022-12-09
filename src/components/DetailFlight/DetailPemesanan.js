@@ -5,10 +5,10 @@ import { MdLibraryBooks } from "react-icons/md";
 export default function DetailPemesanan() {
   return (
     <>
-      <div className='bg-white md:ml-10  border-2 rounded-md mb-5 p-3'>
-        <span className='md:text-lg flex items-center gap-3 my-3'><MdLibraryBooks />Detail Pemesanan</span>
-        <div className='flex items-start'>
-          <div className='w-1/3 text-sm'>
+      <div className='bg-white md:ml-10  border rounded-md mb-5 p-3'>
+        <span className='md:text-lg flex items-center gap-3 mt-20 my-3'><MdLibraryBooks />Detail Pemesanan</span>
+        <div className='md:flex items-start'>
+          <div className='w-1/3 mb-3 text-sm'>
             <ListTitleCategory className='' />
           </div>
           <div className='text-sm w-full'>
@@ -52,7 +52,7 @@ export default function DetailPemesanan() {
             type="phoneNumber"
             autoComplete="off"
             required
-            className=" md:w-full mt-2 block px-3 py-2 bg-white border shadow-sm  placeholder-slate-400 focus:outline-none focus:border-primary rounded-md sm:text-sm focus:ring-1" placeholder="Phone Number"
+            className="w-full mt-2 block px-3 py-2 bg-white border shadow-sm  placeholder-slate-400 focus:outline-none focus:border-primary rounded-md sm:text-sm focus:ring-1" placeholder="Phone Number"
           // onChange={(e) => setEmail(e.target.value)}
           // value={phoneNumber}
           // aria-invalid={validEmail ? 'false' : 'true'}

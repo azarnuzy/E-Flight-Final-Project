@@ -5,7 +5,7 @@ import { BsPersonCircle } from "react-icons/bs";
 function DetailPenumpang() {
     return (
         <>
-            <div className='bg-white md:ml-10 h-fit border-2 rounded-md p-3 md:mb-8'>
+            <div className='bg-white md:ml-10 h-fit border rounded-md p-3 md:mb-8 mb-6'>
                 <span className='md:text-lg flex items-center gap-3 my-3'> <BsPersonCircle /> Detail Penumpang</span>
                 <div className=' flex justify-between items-center bg-slate-200 px-1 py-2 text-sm rounded-md'>
                     <p className='font-semibold '>Penumpang 1 : Dewasa</p>
