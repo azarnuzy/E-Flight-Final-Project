@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
 import { setCredentials } from '../../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { setisLogin } from '../../features/user/userSlice';
 
 export const Login = () => {
   const [visiblePass, setVisiblePass] = useState(false);
@@ -18,11 +20,11 @@ export const Login = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-//   const login = useSelector(getLogin);
+  //   const login = useSelector(getLogin);
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
@@ -33,9 +35,10 @@ export const Login = () => {
         password: pwd,
       });
       localStorage.setItem('user-info', JSON.stringify(response?.data.data));
-      localStorage.setItem('email', JSON.stringify(response?.data.data.email))
+      localStorage.setItem('email', JSON.stringify(response?.data.data.email));
       setCredentials(response?.data.data);
-      console.log(response)
+      dispatch(setisLogin(true));
+      console.log(response);
       navigate('/');
     } catch (error) {}
   };
