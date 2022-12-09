@@ -46,7 +46,6 @@ export default function SideBarProfile() {
           />
           <div className="text-center mb-2">
             <h1 className="font-medium">Marcus Holloway </h1>
-            <span className="text-xs text-gray-500">Avid traveller </span>
           </div>
         </div>
         <div className="border-b-2 border-grey-800  py-3 md:py-5  ">
