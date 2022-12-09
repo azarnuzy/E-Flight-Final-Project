@@ -19,6 +19,7 @@ export const fetchAirport = createAsyncThunk(
   async () => {
     try {
       const response = await axiosClient.get(`${apiConfig.baseUrl}airports`);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -60,11 +61,15 @@ const searchSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchAirport.fulfilled, (state, action) => {
-      state.status = 'success';
-      // console.log(action.payload);
-      state.airport = action.payload;
-    });
+    builder
+      .addCase(fetchAirport.fulfilled, (state, action) => {
+        state.status = 'success';
+        // console.log(action.payload);
+        state.airport = action.payload;
+      })
+      .addCase(fetchAirport.rejected, (state, action) => {
+        console.log(action.error.message);
+      });
   },
 });
 

@@ -47,10 +47,10 @@ export default function FormFlight() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (JSON.parse(localStorage.getItem('user-info')) !== null) {
       dispatch(fetchAirport());
     }
-  }, [dispatch, status]);
+  }, [dispatch]);
 
   console.log(airports);
 

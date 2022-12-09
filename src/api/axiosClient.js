@@ -4,14 +4,20 @@ import apiConfig from './apiConfig';
 const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
   headers: {
-    Authorization: `Bearer ${
-      JSON.parse(localStorage.getItem('user-info')).token
-    }`,
+    Authorization: '',
   },
 });
 
-axiosClient.interceptors.request.use(async (config) => {
-  return config;
+axiosClient.interceptors.request.use(async (request) => {
+  // add auth header with jwt if account is logged in and request is to the api url
+  const account = JSON.parse(localStorage.getItem('user-info'));
+  const isLoggedIn = account?.token;
+  if (isLoggedIn) {
+    request.headers.Authorization = `Bearer ${account.token}`;
+  } else {
+  }
+
+  return request;
 });
 
 axiosClient.interceptors.response.use(
