@@ -1,21 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import apiConfig from '../../api/apiConfig';
+import axiosClient from '../../api/axiosClient';
 
 const initialState = {
-  users: [],
+  users: {},
   loading: false,
   isLogin: false,
 };
 
-//   export const getMovies = createAsyncThunk('movies/getMovies', async () => {
-//     const API_KEY = "c368a12c060c2bbd33ea2c9aea9366e6"
-//     try{
-//         const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
-//         return res.data.results;
-//     } catch (error) {
-//         console.error(error);
-//     }
-// })
+export const fetchUser = createAsyncThunk('user/account', async (email) => {
+  try {
+    const response = await axiosClient.get(
+      `${apiConfig.baseUrl}users/${email}`,
+      {
+        params: { email: email },
+      }
+    );
+
+    return response.data;
+  } catch (error) {}
+});
 
 export const userSlice = createSlice({
   name: 'user',
@@ -25,8 +29,19 @@ export const userSlice = createSlice({
       state.isLogin = action.payload;
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.users = action.payload;
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        console.log(action.error.message);
+      });
+  },
 });
 
 export const { setisLogin } = userSlice.actions;
 export const getLogin = (state) => state.user.isLogin;
+export const getUser = (state) => state.user.users;
 export default userSlice.reducer;
