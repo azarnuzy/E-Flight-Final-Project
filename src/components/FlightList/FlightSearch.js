@@ -5,15 +5,12 @@ import { FaPlaneDeparture } from 'react-icons/fa';
 import { format } from 'date-fns';
 import ModalChangeSearch from './ModalChangeSearch';
 import { useSearchParams } from 'react-router-dom';
-import parse from 'date-fns/parse';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../features/order/orderSlice';
-import axios from 'axios';
-import apiConfig from '../../api/apiConfig';
 import { fetchSearchFlight } from '../../features/search/searchSlice';
 
 export default function FlightSearch() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
   const dispatch = useDispatch();
 
   const from = searchParams.get('fr');
@@ -24,6 +21,7 @@ export default function FlightSearch() {
   const roundTrip = searchParams.get('rt');
 
   const order = useSelector(getOrders);
+
   const departureDate = new Date(
     searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
   );
@@ -37,8 +35,13 @@ export default function FlightSearch() {
       : new Date();
 
   useEffect(() => {
-    dispatch(fetchSearchFlight({ from, to, departureDate, seatClass }));
-  }, [departureDate, dispatch, from, seatClass, to]);
+    const flightDate = new Date(
+      searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
+    );
+    dispatch(fetchSearchFlight({ from, to, flightDate, seatClass }));
+    // console.log(departureDate, dispatch, from, seatClass, to);
+  }, [dispatch, from, searchParams, seatClass, to]);
+
   return (
     <div className="w-full mx-auto lg:mt-24 mt-3">
       <div className="rounded-md shadow-md border-gray-200 border-[1px]  border-solid  p-4 flex items-center justify-between gap-3 md:flex-row flex-col">

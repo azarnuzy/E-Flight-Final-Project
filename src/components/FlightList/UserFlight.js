@@ -1,27 +1,19 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import React from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
-import {
-  getArrivePlace,
-  getDepartureDate,
-  getDeparturePlace,
-  getReturnDate,
-  getRoundTrip,
-} from '../../features/search/searchSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
 import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
-  const passengers = searchParams.get('ps');
   const departureDate = new Date(
     searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
   );
@@ -33,7 +25,6 @@ export default function UserFlight() {
             .replace(' GMT 0700 (Western Indonesia Time)', '')
         )
       : new Date();
-  const seatClass = searchParams.get('sc');
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
 
@@ -184,15 +175,6 @@ export default function UserFlight() {
             </div>
           </div>
         )}
-        {/* <div className="w-full shadow-sm flex text-gray-400"> */}
-        {/* <div className="mr-4 h-14 w-1 bg-primary"></div> */}
-        {/* <div className="ml-4">
-            <span className="text-sm">Sun, 27 Nov 2022</span>
-            <span className="flex items-center font-bold gap-1">
-              Yogyakarta <AiOutlineArrowRight className="text-sm" /> Jakarta
-            </span>
-          </div> */}
-        {/* </div> */}
         <div className="w-full flex justify-end  mt-3">
           <Link
             to={'/flight/123'}

@@ -16,12 +16,10 @@ export default function Navbar() {
   const [isLoginVal, setIsLoginVal] = useState(false);
   const isLogin = useSelector(getLogin);
 
-  console.log(isLogin);
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('user-info') !== null)) {
       setIsLoginVal(true);
     }
-    console.log(isLogin);
   }, [isLogin]);
 
   // let isLogin = useSelector(getLogin);

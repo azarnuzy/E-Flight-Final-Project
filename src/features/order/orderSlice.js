@@ -31,22 +31,40 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     setOrders(state, action) {
-      state.myFlight[action.payload.tripPosition].airplane =
-        action.payload.item.airplane;
+      const departureTime = action.payload.item.departureTime
+        .replace('T', ' ')
+        .split(' ')[1]
+        .split(':')
+        .slice(0, -1)
+        .join(':');
+      const arrivalTime = action.payload.item.arrivalTime
+        .replace('T', ' ')
+        .split(' ')[1]
+        .split(':')
+        .slice(0, -1)
+        .join(':');
+      const rupiah = (number) => {
+        return new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+        }).format(number);
+      };
+
+      state.myFlight[action.payload.tripPosition].airplane = 'Garuda Indonesia';
       state.myFlight[action.payload.tripPosition].departure_time =
-        action.payload.item.departure_time;
-      state.myFlight[action.payload.tripPosition].arrival_time =
-        action.payload.item.arrival_time;
+        departureTime;
+      state.myFlight[action.payload.tripPosition].arrival_time = arrivalTime;
       state.myFlight[action.payload.tripPosition].from_airport =
-        action.payload.item.from_airport;
+        action.payload.item.originAirportCode;
       state.myFlight[action.payload.tripPosition].to_airport =
-        action.payload.item.to_airport;
-      state.myFlight[action.payload.tripPosition].duration =
-        action.payload.item.duration;
-      state.myFlight[action.payload.tripPosition].distance =
-        action.payload.item.distance;
-      state.myFlight[action.payload.tripPosition].price =
-        action.payload.item.price;
+        action.payload.item.destinationAirportCode;
+      state.myFlight[
+        action.payload.tripPosition
+      ].duration = `${action.payload.item.hours}h ${action.payload.item.minutes}m`;
+      state.myFlight[action.payload.tripPosition].distance = 'direct';
+      state.myFlight[action.payload.tripPosition].price = rupiah(
+        action.payload.item.price
+      );
     },
     emptyOrders(state, action) {
       state.myFlight[action.payload.tripPosition].airplane = '';
