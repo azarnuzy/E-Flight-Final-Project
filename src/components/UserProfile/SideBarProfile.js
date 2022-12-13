@@ -7,13 +7,15 @@ import { BiHelpCircle } from 'react-icons/bi';
 import { CiSettings } from 'react-icons/ci';
 import { MdLogout } from 'react-icons/md';
 import Swal from 'sweetalert2';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
+import { getLogin, getUser, setisLogin } from '../../features/user/userSlice';
 import { setCredentials } from '../../features/auth/authSlice';
 
 export default function SideBarProfile() {
   const navigate = useNavigate();
   const isLogin = useState();
   const dispatch = useDispatch();
+
+  const user = useSelector(getUser);
   //Logout
   const handleLogout = () => {
     Swal.fire({
@@ -40,12 +42,17 @@ export default function SideBarProfile() {
       <div className="bg-grey-600 h-screen md:w-1/4 md:h-full pt-5 border-2 rounded-md ">
         <div className="border-b-2 border-grey-800">
           <img
-            src="https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0"
+            src={
+              user?.imgUrl ||
+              'https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0'
+            }
             alt="img-profile"
-            className="rounded-full w-32 h-32 mx-auto"
+            className="rounded-full w-32 h-32 mx-auto object-cover"
           />
           <div className="text-center mb-2">
-            <h1 className="font-medium">Marcus Holloway </h1>
+            <h1 className="font-medium">
+              {user?.firstName} {user?.lastName}{' '}
+            </h1>
           </div>
         </div>
         <div className="border-b-2 border-grey-800  py-3 md:py-5  ">
