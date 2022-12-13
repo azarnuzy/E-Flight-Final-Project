@@ -23,14 +23,11 @@ export const fetchUser = createAsyncThunk('user/account', async (email) => {
 
 export const editUser = createAsyncThunk(
   'user/editAccount',
-  async ({ email, firstName, lastName, phoneNumber }) => {
-    console.log(email, firstName, lastName, phoneNumber);
+  async ({ id, firstName, lastName, phoneNumber }) => {
+    console.log(id, firstName, lastName, phoneNumber);
     try {
       const response = await axiosClient.post(
-        `${apiConfig.baseUrl}users/update`,
-        {
-          params: { email: email },
-        },
+        `${apiConfig.baseUrl}users/update/${id}`,
         {
           firstName: firstName,
           lastName: lastName,
@@ -38,7 +35,6 @@ export const editUser = createAsyncThunk(
         }
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {}
   }
