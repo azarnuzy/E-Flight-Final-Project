@@ -3,37 +3,33 @@ import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
 const initialState = {
-    notif: [],
+    payment: [],
     loading: false,
 }
   
-     export const getNotification = createAsyncThunk('user/notification', async (user_id) => {
+     export const getPayments = createAsyncThunk('user/payments', async () => {
         try {
             const response = await axiosClient.get(
-            `${apiConfig.baseUrl}notification/${user_id}`,
-            {
-                params: {user_id: user_id},
-            }
+                `${apiConfig.baseUrl}payments`
             );
-        
-            return(response.data.notifications);
+            return response.data;
         } catch (error) {}
     });
   
   
   export const postSlice = createSlice({
-    name: 'notification',
+    name: 'paymentOrder',
     initialState,
     reducers: {},
     extraReducers: {
-        [getNotification.pending]: (state) => {
+        [getPayments.pending]: (state) => {
           state.loading = true
         },
-        [getNotification.fulfilled]: (state, { payload }) => {
+        [getPayments.fulfilled]: (state, { payload }) => {
           state.loading = false
-          state.notif = payload
+          state.payment = payload
         },
-        [getNotification.rejected]: (state) => {
+        [getPayments.rejected]: (state) => {
           state.loading = false
         },
     },

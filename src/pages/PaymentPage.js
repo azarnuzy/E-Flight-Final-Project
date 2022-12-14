@@ -1,13 +1,28 @@
-import React from 'react'
-import { BiArrowFromRight } from 'react-icons/bi'
-import { BsArrowBarLeft } from 'react-icons/bs'
-import DetailPemesanan from '../components/DetailFlight/DetailPemesanan'
+import React, {useEffect} from 'react'
 import TotalFlight from '../components/DetailFlight/TotalFlight'
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import Footer from '../components/Footer/Footer'
 import Navbar from '../components/Navbar/Navbar'
 import { SlArrowRight } from "react-icons/sl";
+import { getPayments } from '../features/payment/PaymentSlice'
 
 export const PaymentPage = () => {
+    const dispatch = useDispatch();
+    const payments = useSelector((state) => state.paymentOrder.payment);
+    
+    const handlePayment = () => {
+        Swal.fire({
+            title: 'Confirm Payment?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: `No`,
+        })
+    }
+
+    useEffect(() => {
+        dispatch(getPayments())
+    }, [dispatch])
   return (
     <div>
 			<Navbar />
@@ -16,79 +31,17 @@ export const PaymentPage = () => {
                     <div className='bg-white md:ml-10 mb-2 p-3'>
                         <h5 className='font-semibold text-xl'>Metode Pembayaran</h5>
                     </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
+                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 pb-3 -mt-2'>
                         <h5 className='font-semibold'>Rekomendasi Metode Pembayaran</h5>
                         <p className='text-sm mt-1 font-extralight'>Nikmati benefit ekstra dengan metode pembayaran rekomendasi dari Flyket.com</p>
-                    </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
-                        <h5 className='font-semibold'>Kartu Kredit/Debit</h5>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Kartu Kredit</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <p className='mt-4 pt-4 border-slate-200 border-t-2'>Kartu Debit</p>
-                    </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
-                        <h5 className='font-semibold'>Cicilan Tanpa Kartu Kredit</h5>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Kredivo</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <p className='mt-4 pt-4 border-slate-200 border-t-2'>Akulaku</p>
-                    </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
-                        <h5 className='font-semibold'>Transfer Bank</h5>
-                        <p className='text-sm mt-1 font-extralight'>Anda bisa membayar dengan transfer melalui ATM, Internet Banking & Mobile Banking</p>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Bank BCA</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Bank Mandiri</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Bank BNI</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <p className='mt-4 pt-4 border-slate-200 border-t-2'>Bank BRI</p>
-                    </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
-                        <h5 className='font-semibold'>Uang Elektronik</h5>
-                        <p className='text-sm mt-1 font-extralight'>Bayar lebih mudah dan cepat dengan uang elektronik.</p>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>OVO</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>GoPay</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>DANA</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>LinkAja</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Sakuku</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <p className='mt-4 pt-4 border-slate-200 border-t-2'>QRIS</p>
-                    </div>
-                    <div className='bg-white md:ml-10 border rounded-md mb-5 p-3 -mt-2'>
-                        <h5 className='font-semibold'>Gerai Retail</h5>
-                        <p className='text-sm mt-1 font-extralight'>Bayar di gerai retail terdekat dari domisili Anda.</p>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Alfamart</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
-                        <div className='flex flex-col space-between'>
-                            <p className='mt-4 pt-4 border-slate-200 border-t-2'>Indomaret</p>
-                            {/* <SlArrowRight/> */}
-                        </div>
+                        {payments && payments.map((item) => (
+                            <div className='border-slate-200 border-t-2 mt-4 pt-4 cursor-pointer' onClick={handlePayment}>
+                                <div className='flex flex-row justify-between'>
+                                    <p>{item.name}</p>
+                                    <SlArrowRight className='mt-1 text-md text-slate-500'/>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 				</div>
 				<div className='md:w-1/3' >

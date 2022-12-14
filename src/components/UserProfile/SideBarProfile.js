@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BsFillPersonFill, BsFillWalletFill, BsCardList } from 'react-icons/bs';
 import { RiRefund2Fill } from 'react-icons/ri';
 import { BiHelpCircle } from 'react-icons/bi';
 import { CiSettings } from 'react-icons/ci';
 import { MdLogout } from 'react-icons/md';
 import Swal from 'sweetalert2';
-import { getLogin, setisLogin } from '../../features/user/userSlice';
-import { setCredentials } from '../../features/auth/authSlice';
+import { setisLogin } from '../../features/user/userSlice';
 
 export default function SideBarProfile() {
   const navigate = useNavigate();
-  const isLogin = useState();
   const dispatch = useDispatch();
+  
   //Logout
   const handleLogout = () => {
     Swal.fire({
@@ -23,13 +22,9 @@ export default function SideBarProfile() {
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-        // setTimeout(function () {
-        //   window.location.reload(1);
-        // }, 2000);
         localStorage.clear();
         dispatch(setisLogin(false));
         navigate('/');
-        // isLogin();
       } else if (result.isDenied) {
         Swal.fire('Log Out Failed!', '', 'info');
       }

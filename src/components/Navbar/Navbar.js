@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosNotifications } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -22,7 +21,6 @@ export default function Navbar() {
     }
   }, [isLogin]);
 
-  // let isLogin = useSelector(getLogin);
 
   const email = useSelector(getEmail) || null;
   if (email !== null) {

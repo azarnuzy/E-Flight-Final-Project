@@ -39,7 +39,7 @@ export default function Footer() {
             </button>
           </div>
           <div className="lg:ml-[200px] lg:mt-3 mt-6">
-            <h5 className="text-xl font-bold">Ikuti Kami:</h5>
+            <h5 className="text-xl font-bold">Follow Us:</h5>
             <div className="flex gap-2 justify-center items-center my-5 text-xl">
               <a href="https://youtube.com/">
                 <FaYoutube className="hover:text-color5" />
