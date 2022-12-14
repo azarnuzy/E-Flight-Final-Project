@@ -1,16 +1,24 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
+import { fetchUser, getUser } from '../../features/user/userSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
 import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
-  let [searchParams] = useSearchParams();
+  let [searchParams] = useSearchParams()
+  const user = useSelector(getUser)
 
   const dispatch = useDispatch();
+  // id
+  const [id, setId] = useState(user.id);
+  const email = JSON.parse(localStorage.getItem('email'))
+  useEffect(() => {
+    dispatch(fetchUser(email));
+  }, [dispatch, email]);
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
@@ -20,22 +28,24 @@ export default function UserFlight() {
   const returnDate =
     searchParams.get('rd').length > 0
       ? new Date(
-          searchParams
-            .get('rd')
-            .replace(' GMT 0700 (Western Indonesia Time)', '')
-        )
+        searchParams
+          .get('rd')
+          .replace(' GMT 0700 (Western Indonesia Time)', '')
+      )
       : new Date();
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
+  console.log('order', order)
+  const seatClass = searchParams.get('sc')
+  const totalPassenger = searchParams.get('ps')
 
   return (
     <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
       <div className="ml-30">
         <h2 className="text-lg font-bold pl-3 mb-2">Your Flight</h2>
         <div
-          className={`flex shadow cursor-pointer hover:opacity-75 ${
-            order.tripPosition !== 0 ? 'text-gray-500' : 'text-black'
-          }`}
+          className={`flex shadow cursor-pointer hover:opacity-75 ${order.tripPosition !== 0 ? 'text-gray-500' : 'text-black'
+            }`}
           onClick={() => {
             dispatch(setTripPosition(0));
             // console.log(order.tripPosition);
@@ -104,9 +114,8 @@ export default function UserFlight() {
         </div>
         {roundTrip === 'true' && (
           <div
-            className={`flex shadow mt-3 cursor-pointer hover:opacity-75 ${
-              order.tripPosition !== 1 ? 'text-gray-500' : 'text-black'
-            } `}
+            className={`flex shadow mt-3 cursor-pointer hover:opacity-75 ${order.tripPosition !== 1 ? 'text-gray-500' : 'text-black'
+              } `}
             onClick={() => {
               dispatch(setTripPosition(1));
               // console.log(order.tripPosition);
@@ -177,9 +186,8 @@ export default function UserFlight() {
         )}
         <div className="w-full flex justify-end  mt-3">
           <Link
-            to={'/flight/123'}
-            className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
-          >
+            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}`}
+            className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold">
             Submit
           </Link>
         </div>

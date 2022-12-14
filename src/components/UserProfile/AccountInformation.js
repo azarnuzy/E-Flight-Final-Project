@@ -6,6 +6,7 @@ import { editUser, fetchUser, getUser } from '../../features/user/userSlice';
 import ListTitleCategory from './ListTitleCategory';
 export default function AccountInformation() {
   const user = useSelector(getUser);
+  console.log(user)
   const dispatch = useDispatch();
 
   let email = JSON.parse(localStorage.getItem('email'));
@@ -18,14 +19,14 @@ export default function AccountInformation() {
   const handleEdit = async () => {
     try {
       setIsEdit((isEdit) => !isEdit);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleEditAccount = (email, firstName, lastName, phoneNumber) => {
     console.log(email, firstName, lastName, phoneNumber);
     try {
       dispatch(editUser({ email, firstName, lastName, phoneNumber }));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {

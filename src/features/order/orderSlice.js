@@ -11,6 +11,7 @@ const initialState = {
       duration: '',
       distance: '',
       price: '',
+      scheduleId: '',
     },
     {
       airplane: '',
@@ -21,10 +22,12 @@ const initialState = {
       duration: '',
       distance: '',
       price: '',
+      scheduleId: '',
     },
   ],
   tripPosition: 0,
 };
+
 
 const orderSlice = createSlice({
   name: 'order',
@@ -65,6 +68,8 @@ const orderSlice = createSlice({
       state.myFlight[action.payload.tripPosition].price = rupiah(
         action.payload.item.price
       );
+      state.myFlight[action.payload.tripPosition].scheduleId =
+        action.payload.item.flightScheduleId;
     },
     emptyOrders(state, action) {
       state.myFlight[action.payload.tripPosition].airplane = '';

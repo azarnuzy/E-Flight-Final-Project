@@ -19,7 +19,7 @@ export default function RoutesComponents() {
       <Route path="/myprofile" element={<ProfilePage />} />
       <Route path="/myorder" element={<MyOrdersPage />} />
       <Route path="/flight/search/" element={<FlightList />} />
-      <Route path="/flight/:id" element={<DetailFlight />} />
+      <Route path="/detailOrder/" element={<DetailFlight />} />
     </Routes>
   )
 };
