@@ -1,12 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer/Footer'
 import Navbar from '../components/Navbar/Navbar'
 import { HiSpeakerphone } from 'react-icons/hi'
 import dataNotif from '../assets/data.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotification } from '../features/notif/NotifSlice'
+import { useParams } from 'react-router-dom'
+import { fetchUser, getUser } from '../features/user/userSlice'
+
 
 export const Notification = () => {
 
   const [data] = useState(dataNotif);
+  // const {user_id} = useParams();
+  const dispatch = useDispatch();
+
+  const email = JSON.parse(localStorage.getItem("email"))
+
+  const user = useSelector(getUser)
+  // const notif = useSelector(getNotification);
+
+  useEffect(() => {
+    dispatch(getNotification(user.id))
+    dispatch(fetchUser(email))
+  }, [dispatch, email, user.id])
   return (
     <div>
         <Navbar/>

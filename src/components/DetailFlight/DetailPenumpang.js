@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import ListTitleCategory from '../UserProfile/ListTitleCategory'
 import SwitchToggle from './SwitchToggle'
 import { BsPersonCircle } from "react-icons/bs";
+
 function DetailPenumpang() {
+    const navigate = useNavigate();
     return (
         <>
             <div className='bg-white md:ml-10 h-fit border rounded-md p-3 md:mb-8 mb-6'>
@@ -39,6 +42,7 @@ function DetailPenumpang() {
                 <div>
                 </div>
             </div>
+            <button className='bg-primary text-white rounded-full p-3 ml-[29rem] my-2' onClick={() => navigate(`/payment`)}>Lanjut ke Pembayaran</button> 
         </>
     )
 }

@@ -14,8 +14,8 @@ export default function Footer() {
     //     </span>
     //   </div>
     // </div>
-    <footer>
-      <div className="text-center items-center text-white bg-primary p-5">
+    <footer className='bg-primary'>
+      <div className="text-center items-center text-white p-5">
         <div className="grid lg:grid-cols-3 grid-cols-1 mt-10">
           <div className="lg:ml-[60px] mx-auto">
             <div className="flex flex-row gap-2 my-2">

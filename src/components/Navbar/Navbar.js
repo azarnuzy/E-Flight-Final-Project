@@ -35,14 +35,15 @@ export default function Navbar() {
         <img src={logo} alt="" className="w-[40px]" />{' '}
         <span className="text-white text-2xl">FlyKet</span>
       </Link>
-      <div className="flex gap-3 items-center">
-        <button onClick={() => navigate(`/notification`)}>
-          <IoIosNotifications className="text-white text-2xl" />
-        </button>
-        {isLoginVal ? (
-          <Link to={'/myprofile'}>
-            <img src={ava} alt="" className="w-8" />
-          </Link>
+      {isLoginVal ? (
+          <div className='flex gap-3 items-center'>
+            <button onClick={() => navigate(`/notification`)}>
+              <IoIosNotifications className="text-white text-2xl" />
+            </button>
+            <Link to={'/myprofile'}>
+              <img src={ava} alt="" className="w-8" />
+            </Link>
+          </div>
         ) : (
           <Link
             className="text-primary bg-white py-1 px-3 rounded-md"
@@ -52,6 +53,5 @@ export default function Navbar() {
           </Link>
         )}
       </div>
-    </div>
   );
 }

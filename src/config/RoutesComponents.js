@@ -8,11 +8,12 @@ import FlightList from '../pages/FlightList';
 import DetailFlight from '../components/DetailFlight/DetailFlight';
 import Home from '../pages/Home';
 import { Notification } from '../pages/Notification';
+import { PaymentPage } from '../pages/PaymentPage';
 
 export default function RoutesComponents() {
   return (
     <Routes>
-      <Route path='/notification' element={<Notification />} />
+      <Route path="/notification" element={<Notification />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/" element={<Home />} />
@@ -20,6 +21,7 @@ export default function RoutesComponents() {
       <Route path="/myorder" element={<MyOrdersPage />} />
       <Route path="/flight/search/" element={<FlightList />} />
       <Route path="/flight/:id" element={<DetailFlight />} />
+      <Route path="/payment" element={<PaymentPage/>} />
     </Routes>
   )
 };
