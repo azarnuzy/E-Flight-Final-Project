@@ -4,6 +4,7 @@ import axiosClient from '../../api/axiosClient';
 
 const initialState = {
   users: {},
+  imgStatus: '',
   loading: false,
   isLogin: false,
 };
@@ -40,6 +41,25 @@ export const editUser = createAsyncThunk(
   }
 );
 
+export const updateImageProfile = createAsyncThunk(
+  'user/udpateImageProfile',
+  async ({ id, data }) => {
+    console.log(data);
+    try {
+      const response = await axiosClient.post(
+        `${apiConfig.baseUrl}users/upload-image`,
+        {
+          file: data,
+          'user-id': id,
+        }
+      );
+
+      console.log(response);
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -60,6 +80,12 @@ export const userSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(editUser.rejected, (state, action) => {
+        console.log(action.error.message);
+      })
+      .addCase(updateImageProfile.fulfilled, (state, action) => {
+        state.imgUrl = 'success';
+      })
+      .addCase(updateImageProfile.rejected, (state, action) => {
         console.log(action.error.message);
       });
   },
