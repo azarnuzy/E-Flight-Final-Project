@@ -8,6 +8,7 @@ import {
 } from '../../features/user/userSlice';
 export default function AccountInformation() {
   const user = useSelector(getUser);
+  console.log(user);
   const dispatch = useDispatch();
 
   let email = JSON.parse(localStorage.getItem('email'));
@@ -34,8 +35,7 @@ export default function AccountInformation() {
       if (image) {
         console.log(image);
         const formData = new FormData();
-        formData.append('File', files[0]);
-
+        formData.append('file', image[0]);
         console.log(formData);
         await dispatch(updateImageProfile({ id, formData }));
       }
@@ -43,8 +43,6 @@ export default function AccountInformation() {
       setImage('');
     } catch (error) {}
   };
-
-  const files = image ? [...image] : [];
 
   useEffect(() => {
     dispatch(fetchUser(email));

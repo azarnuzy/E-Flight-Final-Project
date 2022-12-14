@@ -1,16 +1,24 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
+import { fetchUser, getUser } from '../../features/user/userSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
 import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
   let [searchParams] = useSearchParams();
+  const user = useSelector(getUser);
 
   const dispatch = useDispatch();
+  // id
+  const [id, setId] = useState(user.id);
+  const email = JSON.parse(localStorage.getItem('email'));
+  useEffect(() => {
+    dispatch(fetchUser(email));
+  }, [dispatch, email]);
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
@@ -27,6 +35,8 @@ export default function UserFlight() {
       : new Date();
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
+  const seatClass = searchParams.get('sc');
+  const totalPassenger = searchParams.get('ps');
 
   return (
     <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
@@ -177,7 +187,7 @@ export default function UserFlight() {
         )}
         <div className="w-full flex justify-end  mt-3">
           <Link
-            to={'/flight/123'}
+            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}`}
             className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
           >
             Submit

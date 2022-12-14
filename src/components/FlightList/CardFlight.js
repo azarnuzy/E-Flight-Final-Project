@@ -13,6 +13,7 @@ export default function CardFlight({ item }) {
   const dispatch = useDispatch();
   let [searchParams] = useSearchParams();
   const order = useSelector(getOrders);
+
   const roundTrip = searchParams.get('rt');
   // const departureTime =
   // console.log(item.departureTime);

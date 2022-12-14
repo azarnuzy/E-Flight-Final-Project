@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import apiConfig from '../../api/apiConfig';
+import axiosClient from '../../api/axiosClient';
 
 const initialState = {
   myFlight: [
@@ -27,6 +29,26 @@ const initialState = {
   ],
   tripPosition: 0,
 };
+
+export const fetchSeat = createAsyncThunk(
+  'order/fetchSeat',
+  async ({ scheduleId }) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}booking/show-seat`,
+        {
+          params: {
+            'schedule-id': scheduleId,
+          },
+        }
+      );
+      // console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
 const orderSlice = createSlice({
   name: 'order',
@@ -68,7 +90,7 @@ const orderSlice = createSlice({
         action.payload.item.price
       );
       state.myFlight[action.payload.tripPosition].scheduleId =
-        action.payload.item.scheduleId;
+        action.payload.item.flightScheduleId;
     },
     emptyOrders(state, action) {
       state.myFlight[action.payload.tripPosition].airplane = '';
@@ -83,6 +105,9 @@ const orderSlice = createSlice({
     setTripPosition(state, action) {
       state.tripPosition = action.payload;
     },
+  },
+  extraReducers(builder) {
+    // builder.addCase(fetchSeat.fulfilled, (state, action) =>  )
   },
 });
 

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
@@ -43,20 +44,29 @@ export const editUser = createAsyncThunk(
 
 export const updateImageProfile = createAsyncThunk(
   'user/udpateImageProfile',
-  async ({ id, data }) => {
-    console.log(data);
+  async ({ id, formData }) => {
+    console.log(formData);
     try {
-      const response = await axiosClient.post(
+      const token = JSON.parse(localStorage.getItem('user-info')).token;
+      const response = await axios.post(
         `${apiConfig.baseUrl}users/upload-image`,
         {
-          file: data,
+          headers: {
+            'content-type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        {
+          file: formData,
           'user-id': id,
         }
       );
 
       console.log(response);
-      return response.data;
-    } catch (error) {}
+      return response.formData;
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
