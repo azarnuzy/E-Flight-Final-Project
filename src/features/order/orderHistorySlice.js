@@ -13,7 +13,7 @@ export const getHistory = createAsyncThunk('history/getHistory', async (id) => {
     const response = await axios.get(
       `${apiConfig.baseUrl}history/booking/${id}`
     );
-    console.log(response);
+
     return response.data.data;
   } catch (err) {
     console.log(err);

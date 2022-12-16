@@ -18,7 +18,6 @@ export default function OrderHistory() {
     dispatch(getHistory(user.userId));
   }, [dispatch, user.userId]);
 
-  console.log(history);
   return (
     <>
       <div className="bg-white md:ml-10 md:w-3/4 h-full  ">
