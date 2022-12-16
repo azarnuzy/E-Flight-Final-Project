@@ -3,8 +3,9 @@ import searchReducer from '../features/search/searchSlice';
 import orderReducer from '../features/order/orderSlice';
 import userReducer from '../features/user/userSlice';
 import authReducer from '../features/auth/authSlice';
-import notifReducer from '../features/notif/NotifSlice'
-import paymentReducer from '../features/payment/PaymentSlice'
+import notifReducer from '../features/notif/NotifSlice';
+import paymentReducer from '../features/payment/PaymentSlice';
+import orderHistoryReducer from '../features/order/orderHistorySlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     auth: authReducer,
     notification: notifReducer,
     paymentOrder: paymentReducer,
+    orderHistory: orderHistoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
