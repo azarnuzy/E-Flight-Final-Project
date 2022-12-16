@@ -1,9 +1,8 @@
-import { Switch } from '@headlessui/react';
 import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 import { emptyOrders } from '../../features/order/orderSlice';
 import {
   fetchAirport,
@@ -15,7 +14,6 @@ import {
   getReturnDate,
   getRoundTrip,
   getSeatClass,
-  getStatusAirport,
   setRoundTrip,
 } from '../../features/search/searchSlice';
 import ComboboxFilterPlane from './ComboboxFilterPlace';
@@ -23,14 +21,14 @@ import DatePickerDepart, { DatePickerReturn } from './DatePickerComponent';
 import InputPassengers from './InputPassengers';
 import ListBoxCategory from './ListBoxCategory';
 
-const places = [
-  { id: 1, name: 'Jakarta' },
-  { id: 2, name: 'Bandung' },
-  { id: 3, name: 'Aceh' },
-  { id: 4, name: 'Makasar' },
-  { id: 5, name: 'Solo' },
-  { id: 6, name: 'Yogyakarta' },
-];
+// const places = [
+//   { id: 1, name: 'Jakarta' },
+//   { id: 2, name: 'Bandung' },
+//   { id: 3, name: 'Aceh' },
+//   { id: 4, name: 'Makasar' },
+//   { id: 5, name: 'Solo' },
+//   { id: 6, name: 'Yogyakarta' },
+// ];
 
 export default function FormFlight() {
   const [enabled, setEnabled] = useState(true);
@@ -41,18 +39,14 @@ export default function FormFlight() {
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
   const roundTrip = useSelector(getRoundTrip);
-  const status = useSelector(getStatusAirport);
+  // const status = useSelector(getStatusAirport);
   const airports = useSelector(getAirports);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchAirport());
-    }
-  }, [dispatch, status]);
-
-  console.log(airports);
+    dispatch(fetchAirport());
+  }, [dispatch]);
 
   return (
     <div className="md:w-3/4 w-full mx-auto mb-10 md:shadow-md bg-white md:rounded-md p-5">

@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../components/Footer/Footer'
 import Navbar from '../components/Navbar/Navbar'
 import { HiSpeakerphone } from 'react-icons/hi'
-import dataNotif from '../assets/data.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotification } from '../features/notif/NotifSlice'
+import { fetchUser, getUser } from '../features/user/userSlice'
+
 
 export const Notification = () => {
 
-  const [data] = useState(dataNotif);
+  const dispatch = useDispatch();
+
+  const email = JSON.parse(localStorage.getItem("email"))
+  const user = useSelector(getUser)
+
+  const data = useSelector((state) => state.notification.notif);
+
+  useEffect(() => {
+    dispatch(getNotification(user.id))
+    dispatch(fetchUser(email))
+  }, [dispatch, email, user.id])
   return (
     <div>
         <Navbar/>
@@ -23,7 +36,7 @@ export const Notification = () => {
                   <div className='ml-3'>
                     <h5 className='font-bold text-base my-1'>{item.title}</h5>
                     <p className='text-sm text-slate-600 my-1'>{item.content}</p>
-                    <p className='text-xs text-slate-400 mt-2'>{item.time}</p>
+                    <p className='text-xs text-slate-400 mt-2'>{item.createdAt}</p>
                   </div> 
                 </div>
               </div>

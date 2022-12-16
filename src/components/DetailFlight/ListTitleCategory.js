@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { HiChevronUpDown } from 'react-icons/hi2';
+import { useDispatch } from 'react-redux';
+import { setTitlePassenger } from '../../features/order/orderSlice';
 const people = [
   { name: 'Mr.' },
   { name: 'Ms.' },
@@ -11,10 +13,17 @@ const people = [
 
 export default function ListTitleCategory() {
   const [selected, setSelected] = useState(people[0]);
+  const dispatch = useDispatch();
 
   return (
-    <div className="">
-      <Listbox value={selected} onChange={setSelected}>
+    <div className="w-full">
+      <Listbox
+        value={selected}
+        onChange={(e) => {
+          dispatch(setTitlePassenger(e));
+          setSelected(e);
+        }}
+      >
         <div className="relative md:mr-5 ">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-2 md:pr-10 text-left shadow focus:outline-none sm:text-sm">
             <span className="flex gap-3 truncate items-center">

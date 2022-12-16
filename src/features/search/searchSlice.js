@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
-import axiosClient from '../../api/axiosClient';
+import { format } from 'date-fns';
 
 const initialState = {
-  departurePlace: 'Jakarta',
-  arrivePlace: 'Aceh',
+  departurePlace: 'JKT',
+  arrivePlace: 'JED',
   passenger: 1,
   departureDate: new Date(),
   returnDate: '',
@@ -12,13 +13,50 @@ const initialState = {
   roundTrip: false,
   status: 'idle',
   airport: [],
+  shcedules: [],
 };
 
 export const fetchAirport = createAsyncThunk(
   'search/fetchAirport',
   async () => {
     try {
-      const response = await axiosClient.get(`${apiConfig.baseUrl}airports`);
+      const response = await axios.get(`${apiConfig.baseUrl}airports`);
+      // console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const fetchSearchFlight = createAsyncThunk(
+  'search/fetchSearchFlight',
+  async ({ from, to, flightDate, seatClass }) => {
+    try {
+      const response = await axios.get(
+        `${apiConfig.baseUrl}schedules/departure-date`,
+        {
+          params: {
+            flightDate: format(flightDate, 'yyyy-MM-dd'),
+            originAirportId: from,
+            destinationAirportId: to,
+            aircraftClass: seatClass,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const fetchSchedule = createAsyncThunk(
+  'search/fetchSchedule',
+  async ({ from, to, departureDate, seatClass }) => {
+    try {
+      const response = await axios.get(`${apiConfig.baseUrl}schedules`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -60,11 +98,26 @@ const searchSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchAirport.fulfilled, (state, action) => {
-      state.status = 'success';
-      // console.log(action.payload);
-      state.airport = action.payload;
-    });
+    builder
+      .addCase(fetchAirport.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.airport = action.payload.data;
+      })
+      .addCase(fetchAirport.rejected, (state, action) => {
+        console.log(action.error.message);
+      })
+      .addCase(fetchSearchFlight.fulfilled, (state, action) => {
+        state.shcedules = action.payload.data;
+      })
+      .addCase(fetchSearchFlight.rejected, (state, action) => {
+        console.log(action.error.message);
+      })
+      .addCase(fetchSchedule.fulfilled, (state, action) => {
+        state.shcedules = action.payload.data;
+      })
+      .addCase(fetchSchedule.rejected, (state, action) => {
+        console.log(action.error.message);
+      });
   },
 });
 
@@ -78,6 +131,7 @@ export const getRoundTrip = (state) => state.search.roundTrip;
 export const getStatusSearch = (state) => state.search.status;
 export const getAirports = (state) => state.search.airport;
 export const getStatusAirport = (state) => state.search.status;
+export const getSchedules = (state) => state.search.shcedules;
 export const {
   setDeparturePlace,
   setArrivePlace,

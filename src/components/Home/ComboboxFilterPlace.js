@@ -1,12 +1,9 @@
 import { Combobox, Transition } from '@headlessui/react';
-import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AiFillCheckCircle, AiOutlineUp } from 'react-icons/ai';
 import { FaPlaneArrival, FaPlaneDeparture } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import apiConfig from '../../api/apiConfig';
-import axiosClient from '../../api/axiosClient';
-import { getToken } from '../../features/auth/authSlice';
+
 import {
   getArrivePlace,
   getDeparturePlace,
@@ -15,7 +12,9 @@ import {
 } from '../../features/search/searchSlice';
 
 export default function ComboboxFilterPlane({ selectValues, type }) {
+  // const fromValue = `${selectValues[0].city} - ${selectValues[0].iatacode}`;
   const from = useSelector(getDeparturePlace);
+  // const toValue = `${selectValues[1].city} - ${selectValues[1].iatacode}`;
   const to = useSelector(getArrivePlace);
 
   let [selected, setSelected] = useState(type === 'departure' ? from : to);
@@ -54,8 +53,8 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
         onChange={(e) => {
           setSelected(e);
           type === 'departure'
-            ? dispatch(setDeparturePlace(`${e.name} - ${e.city}`))
-            : dispatch(setArrivePlace(`${e.name} - ${e.city}`));
+            ? dispatch(setDeparturePlace(`${e.iatacode}`))
+            : dispatch(setArrivePlace(`${e.iatacode}`));
         }}
       >
         <div className="relative mt-1">
@@ -69,8 +68,15 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                 let displayName;
                 if (select.city !== undefined) {
                   displayName = `${select.city} - ${select.iatacode}`;
+                } else {
+                  if (type === 'departure') {
+                    displayName = 'Jakarta - JKT';
+                  }
+                  if (type !== 'departure') {
+                    displayName = 'Jeddah - JED';
+                  }
                 }
-                return displayName || select;
+                return displayName;
               }}
               onChange={(event) => setQuery(event.target.value)}
             />

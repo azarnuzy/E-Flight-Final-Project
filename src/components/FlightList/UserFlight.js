@@ -1,27 +1,27 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
-import {
-  getArrivePlace,
-  getDepartureDate,
-  getDeparturePlace,
-  getReturnDate,
-  getRoundTrip,
-} from '../../features/search/searchSlice';
+import { fetchUser, getUser } from '../../features/user/userSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
 import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
+  const user = useSelector(getUser);
 
   const dispatch = useDispatch();
+  // id
+  const [id, setId] = useState(user?.id || '');
+  const email = JSON.parse(localStorage.getItem('email'));
+  useEffect(() => {
+    dispatch(fetchUser(email));
+  }, [dispatch, email]);
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
-  const passengers = searchParams.get('ps');
   const departureDate = new Date(
     searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
   );
@@ -33,9 +33,10 @@ export default function UserFlight() {
             .replace(' GMT 0700 (Western Indonesia Time)', '')
         )
       : new Date();
-  const seatClass = searchParams.get('sc');
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
+  const seatClass = searchParams.get('sc');
+  const totalPassenger = searchParams.get('ps');
 
   return (
     <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
@@ -184,18 +185,9 @@ export default function UserFlight() {
             </div>
           </div>
         )}
-        {/* <div className="w-full shadow-sm flex text-gray-400"> */}
-        {/* <div className="mr-4 h-14 w-1 bg-primary"></div> */}
-        {/* <div className="ml-4">
-            <span className="text-sm">Sun, 27 Nov 2022</span>
-            <span className="flex items-center font-bold gap-1">
-              Yogyakarta <AiOutlineArrowRight className="text-sm" /> Jakarta
-            </span>
-          </div> */}
-        {/* </div> */}
         <div className="w-full flex justify-end  mt-3">
           <Link
-            to={'/flight/123'}
+            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}`}
             className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
           >
             Submit
