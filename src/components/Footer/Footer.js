@@ -14,8 +14,8 @@ export default function Footer() {
     //     </span>
     //   </div>
     // </div>
-    <footer>
-      <div className="text-center items-center text-white bg-primary p-5">
+    <footer className='bg-primary'>
+      <div className="text-center items-center text-white p-5">
         <div className="grid lg:grid-cols-3 grid-cols-1 mt-10">
           <div className="lg:ml-[60px] mx-auto">
             <div className="flex flex-row gap-2 my-2">
@@ -39,7 +39,7 @@ export default function Footer() {
             </button>
           </div>
           <div className="lg:ml-[200px] lg:mt-3 mt-6">
-            <h5 className="text-xl font-bold">Ikuti Kami:</h5>
+            <h5 className="text-xl font-bold">Follow Us:</h5>
             <div className="flex gap-2 justify-center items-center my-5 text-xl">
               <a href="https://youtube.com/">
                 <FaYoutube className="hover:text-color5" />

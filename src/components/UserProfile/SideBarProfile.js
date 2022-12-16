@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFillPersonFill, BsFillWalletFill, BsCardList } from 'react-icons/bs';
@@ -12,7 +12,6 @@ import { setCredentials } from '../../features/auth/authSlice';
 
 export default function SideBarProfile() {
   const navigate = useNavigate();
-  const isLogin = useState();
   const dispatch = useDispatch();
 
   const user = useSelector(getUser);
@@ -25,13 +24,9 @@ export default function SideBarProfile() {
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-        // setTimeout(function () {
-        //   window.location.reload(1);
-        // }, 2000);
         localStorage.clear();
         dispatch(setisLogin(false));
         navigate('/');
-        // isLogin();
       } else if (result.isDenied) {
         Swal.fire('Log Out Failed!', '', 'info');
       }

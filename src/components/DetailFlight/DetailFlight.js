@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   bookFlight,
   getNamePassenger,
@@ -42,9 +42,12 @@ export default function DetailFlight() {
           {/* <DetailPemesanan /> */}
           <DetailPenumpang />
           <div className="w-full flex justify-end">
-            <button className="py-2 px-4 bg-primary text-white font-medium rounded-full hover:opacity-80">
+            <Link
+              to={'/payment'}
+              className="py-2 px-4 bg-primary text-white font-medium rounded-full hover:opacity-80"
+            >
               Lanjutkan Pembayaran
-            </button>
+            </Link>
           </div>
         </div>
         <div className="md:w-1/3">

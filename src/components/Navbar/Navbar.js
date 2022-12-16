@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosNotifications } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -22,7 +21,6 @@ export default function Navbar() {
     }
   }, [isLogin]);
 
-  // let isLogin = useSelector(getLogin);
 
   const email = useSelector(getEmail) || null;
   if (email !== null) {
@@ -35,14 +33,15 @@ export default function Navbar() {
         <img src={logo} alt="" className="w-[40px]" />{' '}
         <span className="text-white text-2xl">FlyKet</span>
       </Link>
-      <div className="flex gap-3 items-center">
-        <button onClick={() => navigate(`/notification`)}>
-          <IoIosNotifications className="text-white text-2xl" />
-        </button>
-        {isLoginVal ? (
-          <Link to={'/myprofile'}>
-            <img src={ava} alt="" className="w-8" />
-          </Link>
+      {isLoginVal ? (
+          <div className='flex gap-3 items-center'>
+            <button onClick={() => navigate(`/notification`)}>
+              <IoIosNotifications className="text-white text-2xl" />
+            </button>
+            <Link to={'/myprofile'}>
+              <img src={ava} alt="" className="w-8" />
+            </Link>
+          </div>
         ) : (
           <Link
             className="text-primary bg-white py-1 px-3 rounded-md"
@@ -52,6 +51,5 @@ export default function Navbar() {
           </Link>
         )}
       </div>
-    </div>
   );
 }
