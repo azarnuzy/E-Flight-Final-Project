@@ -18,8 +18,12 @@ export const fetchUser = createAsyncThunk('user/account', async (email) => {
     );
 
     return response.data;
-  } catch (error) {}
+  } catch (error) { }
 });
+
+
+
+
 
 export const editUser = createAsyncThunk(
   'user/editAccount',
@@ -40,7 +44,7 @@ export const editUser = createAsyncThunk(
 
       console.log(response.data);
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   }
 );
 
