@@ -14,7 +14,7 @@ export default function UserFlight() {
 
   const dispatch = useDispatch();
   // id
-  const [id, setId] = useState(user.id);
+  const [id, setId] = useState(user?.id || '');
   const email = JSON.parse(localStorage.getItem('email'));
   useEffect(() => {
     dispatch(fetchUser(email));

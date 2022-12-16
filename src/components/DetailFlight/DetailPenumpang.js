@@ -1,8 +1,20 @@
 import React from 'react';
-import ListTitleCategory from '../UserProfile/ListTitleCategory';
 import SwitchToggle from './SwitchToggle';
 import { BsPersonCircle } from 'react-icons/bs';
+import ListSeat from './ListSeat';
+import ListTitleCategory from './ListTitleCategory';
+import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setNamePassenger } from '../../features/order/orderSlice';
+import { useEffect } from 'react';
 function DetailPenumpang() {
+  const [searchParams] = useSearchParams();
+  const totalPassenger = searchParams.get('totalPassenger');
+
+  const [fullName, setFullName] = useState();
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="bg-white md:ml-10 h-fit border rounded-md p-3 md:mb-8 mb-6">
@@ -18,18 +30,24 @@ function DetailPenumpang() {
                     </div> */}
         </div>
         <div className="">
-          <div className="mt-5 mb-5 w-1/3">
+          <div className="flex gap-3 mt-5 mb-5 w-2/3">
             <ListTitleCategory />
+            <ListSeat />
           </div>
           <div>
             <input
-              id="email"
-              name="email"
-              type="email"
+              id="fullName"
+              name="fullName"
+              type="fullName"
               autoComplete="off"
               required
               className="w-full mt-2 block px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:primary rounded-md sm:text-sm focus:ring-1"
-              placeholder="Fullname"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => {
+                setFullName(e.target.value);
+                dispatch(setNamePassenger(e.target.value));
+              }}
               // onChange={(e) => setEmail(e.target.value)}
               // value={email}
               // aria-invalid={validEmail ? 'false' : 'true'}

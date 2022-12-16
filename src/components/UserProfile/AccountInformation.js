@@ -36,7 +36,6 @@ export default function AccountInformation() {
         console.log(image);
         const formData = new FormData();
         formData.append('file', image[0]);
-        console.log(formData);
         await dispatch(updateImageProfile({ id, formData }));
       }
       setIsEdit(false);

@@ -28,25 +28,46 @@ const initialState = {
     },
   ],
   tripPosition: 0,
+  seats: [],
+  seatNo: '',
+  namePassenger: '',
+  titlePassenger: '',
+  passengerRequest: {},
 };
 
 export const fetchSeat = createAsyncThunk(
   'order/fetchSeat',
-  async ({ scheduleId }) => {
+  async (scheduleId) => {
     try {
-      const response = await axiosClient.get(
-        `${apiConfig.baseUrl}booking/show-seat`,
-        {
-          params: {
-            'schedule-id': scheduleId,
-          },
-        }
-      );
+      const response = await axiosClient.get(`${apiConfig.baseUrl}seats`);
       // console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
     }
+  }
+);
+
+export const bookFlight = createAsyncThunk(
+  'order/booking',
+  async ({ uId, shceduleId, seatClass, totalPs, amount, passengers }) => {
+    try {
+      const response = await axiosClient.post(
+        `${apiConfig.baseUrl}booking/add`,
+        {
+          params: { uId: uId },
+        },
+        {
+          shceduleId,
+          seatClass,
+          totalPassenger: totalPs,
+          amount,
+          passengerRequest: passengers,
+        }
+      );
+
+      return response.data;
+    } catch (error) {}
   }
 );
 
@@ -105,14 +126,43 @@ const orderSlice = createSlice({
     setTripPosition(state, action) {
       state.tripPosition = action.payload;
     },
+    setPassengerReq(state, action) {
+      state.passengerRequest = {
+        title: action.payload.title,
+        name: action.payload.name,
+        seatNo: action.payload.seatNo,
+      };
+    },
+    setNamePassenger(state, action) {
+      state.namePassenger = action.payload;
+    },
+    setTitlePassenger(state, action) {
+      state.titlePassenger = action.payload;
+    },
+    setNoSeat(state, action) {
+      state.seatNo = action.payload;
+    },
   },
   extraReducers(builder) {
-    // builder.addCase(fetchSeat.fulfilled, (state, action) =>  )
+    builder.addCase(fetchSeat.fulfilled, (state, action) => {
+      state.seats = action.payload;
+    });
   },
 });
 
 export const getOrders = (state) => state.order;
+export const getSeats = (state) => state.order.seats;
+export const getNamePassenger = (state) => state.order.namePassenger;
+export const getTitlePassenger = (state) => state.order.titlePassenger;
+export const getSeatNo = (state) => state.order.seatNo;
 
-export const { setOrders, emptyOrders, setTripPosition } = orderSlice.actions;
+export const {
+  setOrders,
+  emptyOrders,
+  setTripPosition,
+  setNamePassenger,
+  setTitlePassenger,
+  setNoSeat,
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

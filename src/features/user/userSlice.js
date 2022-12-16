@@ -48,18 +48,14 @@ export const updateImageProfile = createAsyncThunk(
     console.log(formData);
     try {
       const token = JSON.parse(localStorage.getItem('user-info')).token;
-      const response = await axios.post(
+      const response = await axiosClient.post(
         `${apiConfig.baseUrl}users/upload-image`,
         {
           headers: {
             'content-type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
           },
         },
-        {
-          file: formData,
-          'user-id': id,
-        }
+        { formData, 'user-id': id }
       );
 
       console.log(response);
