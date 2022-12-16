@@ -20,12 +20,8 @@ export const fetchUser = createAsyncThunk('user/account', async (email) => {
     );
 
     return response.data;
-  } catch (error) { }
+  } catch (error) {}
 });
-
-
-
-
 
 export const editUser = createAsyncThunk(
   'user/editAccount',
@@ -42,7 +38,7 @@ export const editUser = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error) { }
+    } catch (error) {}
   }
 );
 
@@ -50,16 +46,18 @@ export const updateImageProfile = createAsyncThunk(
   'user/udpateImageProfile',
   async ({ id, formData }) => {
     console.log(formData);
+    console.log(id);
     try {
       const token = JSON.parse(localStorage.getItem('user-info')).token;
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}users/upload-image`,
+        formData,
         {
           headers: {
-            'content-type': 'multipart/form-data',
+            'Content-type': 'multipart/form-data',
           },
-        },
-        { formData, 'user-id': id }
+        }
+        // { file: formData, 'user-id': id }
       );
 
       console.log(response);

@@ -20,6 +20,8 @@ export default function AccountInformation() {
   const [title] = useState();
   const [image, setImage] = useState();
 
+  const id = JSON.parse(localStorage.getItem('user-info')).userId;
+
   const handleEdit = async () => {
     try {
       setFirstName(user?.firstName);
@@ -33,9 +35,10 @@ export default function AccountInformation() {
     try {
       await dispatch(editUser({ id, firstName, lastName, phoneNumber }));
       if (image) {
-        console.log(image);
+        // console.log(image);
         const formData = new FormData();
         formData.append('file', image[0]);
+        formData.append('user-id', id);
         await dispatch(updateImageProfile({ id, formData }));
       }
       setIsEdit(false);
@@ -120,7 +123,6 @@ export default function AccountInformation() {
                     onChange={(e) => {
                       setImage(e.target.files);
                     }}
-                    multiple
                   />
                 </label>
               </div>
