@@ -29,10 +29,10 @@ const initialState = {
   ],
   tripPosition: 0,
   seats: [],
-  seatNo: '',
-  namePassenger: '',
-  titlePassenger: '',
-  passengerRequest: {},
+  seatNo: {},
+  namePassenger: {},
+  titlePassenger: {},
+  passengerRequest: [],
 };
 
 export const fetchSeat = createAsyncThunk(
@@ -127,11 +127,12 @@ const orderSlice = createSlice({
       state.tripPosition = action.payload;
     },
     setPassengerReq(state, action) {
-      state.passengerRequest = {
-        title: action.payload.title,
-        name: action.payload.name,
-        seatNo: action.payload.seatNo,
-      };
+      // state.passengerRequest[action.payload.index] ={
+      //   title: action.payload.title,
+      //   name: action.payload.name,
+      //   seatNo: action.payload.seatNo,
+      // };
+      state.passengerRequest = action.payload;
     },
     setNamePassenger(state, action) {
       state.namePassenger = action.payload;

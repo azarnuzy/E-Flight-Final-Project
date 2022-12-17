@@ -45,10 +45,7 @@ export const editUser = createAsyncThunk(
 export const updateImageProfile = createAsyncThunk(
   'user/udpateImageProfile',
   async ({ id, formData }) => {
-    console.log(formData);
-    console.log(id);
     try {
-      const token = JSON.parse(localStorage.getItem('user-info')).token;
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}users/upload-image`,
         formData,
@@ -57,10 +54,8 @@ export const updateImageProfile = createAsyncThunk(
             'Content-type': 'multipart/form-data',
           },
         }
-        // { file: formData, 'user-id': id }
       );
 
-      console.log(response);
       return response.formData;
     } catch (error) {
       console.error(error);

@@ -187,7 +187,7 @@ export default function UserFlight() {
         )}
         <div className="w-full flex justify-end  mt-3">
           <Link
-            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}`}
+            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}&&pr=${order.myFlight[0].price}`}
             className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
           >
             Submit

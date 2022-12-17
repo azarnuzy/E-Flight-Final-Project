@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { HiChevronUpDown } from 'react-icons/hi2';
-import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -11,9 +10,9 @@ import {
   setNoSeat,
 } from '../../features/order/orderSlice';
 
-export default function ListSeat() {
+export default function ListSeat({ index }) {
   const seats = useSelector(getSeats);
-  const [selected, setSelected] = useState(seats[0]?.id || 'Select Your Seat');
+  const [selected, setSelected] = useState('Select Your Seat');
 
   const dispatch = useDispatch();
 
@@ -25,7 +24,12 @@ export default function ListSeat() {
       <Listbox
         value={selected}
         onChange={(e) => {
-          dispatch(setNoSeat(e));
+          console.log(e);
+          dispatch(
+            setNoSeat({
+              [`${index}`]: e,
+            })
+          );
           setSelected(e);
         }}
       >
@@ -45,7 +49,7 @@ export default function ListSeat() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-primary ring-opacity-5  focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg z-[100] ring-1 ring-primary ring-opacity-5  focus:outline-none sm:text-sm ">
               {seats.map((seat, seatIdx) => {
                 return (
                   <Listbox.Option

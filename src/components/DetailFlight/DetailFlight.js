@@ -24,15 +24,13 @@ export default function DetailFlight() {
   const seat = useSelector(getSeatNo);
   const uId = JSON.parse(localStorage.getItem('user-info')).userId;
   const shceduleId = searchParams.get('scheduleId');
-  const totalPassenger = searchParams.get('totalPassenger');
-
+  const totalPassenger = Number(searchParams.get('totalPassenger'));
+  const amount =
+    (Number(searchParams.get('pr').replace(/[^0-9-]+/g, '')) / 100) *
+    totalPassenger;
   const dispatch = useDispatch();
 
   const passenger = {};
-
-  // useEffect(() => {
-  //   dispatch(bookFlight({ uId, shceduleId, seat, totalPassenger }));
-  // }, []);
 
   return (
     <div>
@@ -51,7 +49,7 @@ export default function DetailFlight() {
           </div>
         </div>
         <div className="md:w-1/3">
-          <TotalFlight />
+          <TotalFlight total={amount} />
         </div>
       </div>
       <Footer />
