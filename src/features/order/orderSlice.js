@@ -29,11 +29,12 @@ const initialState = {
   ],
   tripPosition: 0,
   seats: [],
-  seatNo: {},
-  namePassenger: {},
-  titlePassenger: {},
+  seatNo: [],
+  namePassenger: [],
+  titlePassenger: [],
   passengerRequest: [],
   scheduleById: {},
+  booking: {},
 };
 
 export const fetchSeat = createAsyncThunk(
@@ -52,23 +53,23 @@ export const fetchSeat = createAsyncThunk(
 export const bookFlight = createAsyncThunk(
   'order/booking',
   async ({ uId, shceduleId, seatClass, totalPs, amount, passengers }) => {
+    console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
     try {
       const response = await axiosClient.post(
-        `${apiConfig.baseUrl}booking/add`,
+        `${apiConfig.baseUrl}booking/add?uid=${uId}`,
         {
-          params: { uId: uId },
-        },
-        {
-          shceduleId,
+          scheduleId: shceduleId,
           seatClass,
           totalPassenger: totalPs,
           amount,
-          passengerRequest: passengers,
+          passengerRequests: passengers,
         }
       );
 
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
@@ -152,22 +153,27 @@ const orderSlice = createSlice({
       state.passengerRequest = action.payload;
     },
     setNamePassenger(state, action) {
-      state.namePassenger = action.payload;
+      // console.log(action.payload.e.target.value);
+      state.namePassenger[action.payload.i] = action.payload.e.target.value;
     },
     setTitlePassenger(state, action) {
-      state.titlePassenger = action.payload;
+      state.titlePassenger[action.payload.index] = action.payload.e.name;
     },
     setNoSeat(state, action) {
-      state.seatNo = action.payload;
+      state.seatNo[action.payload.index] = action.payload.e;
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchSeat.fulfilled, (state, action) => {
-      state.seats = action.payload;
-    });
-    builder.addCase(fetchScheduleById.fulfilled, (state, action) => {
-      state.scheduleById = action.payload;
-    });
+    builder
+      .addCase(fetchSeat.fulfilled, (state, action) => {
+        state.seats = action.payload;
+      })
+      .addCase(fetchScheduleById.fulfilled, (state, action) => {
+        state.scheduleById = action.payload;
+      })
+      .addCase(bookFlight, (state, action) => {
+        state.booking = action.payload;
+      });
   },
 });
 
@@ -177,6 +183,7 @@ export const getNamePassenger = (state) => state.order.namePassenger;
 export const getTitlePassenger = (state) => state.order.titlePassenger;
 export const getSeatNo = (state) => state.order.seatNo;
 export const getScheduleById = (state) => state.order.scheduleById;
+export const getBooking = (state) => state.order.booking;
 
 export const {
   setOrders,

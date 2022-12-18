@@ -22,7 +22,7 @@ export default function RoutesComponents() {
       <Route path="/flight/search/" element={<FlightList />} />
       <Route path="/detailOrder/" element={<DetailFlight />} />
       <Route path="/flight/:id" element={<DetailFlight />} />
-      <Route path="/payment" element={<PaymentPage />} />
+      <Route path="/payment/:id" element={<PaymentPage />} />
     </Routes>
   );
 }

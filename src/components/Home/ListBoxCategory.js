@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSeatClass, setSeatClass } from '../../features/search/searchSlice';
 
 const categories = [
-  { name: 'Economy' },
-  { name: 'Premium Economy' },
-  { name: 'Bussiness' },
-  { name: 'First' },
+  { name: 'ECONOMY' },
+  { name: 'BUSINESS' },
+  { name: 'FIRST' },
 ];
 
 export default function ListBoxCategory() {

@@ -27,10 +27,19 @@ function TotalFlight({ total }) {
   const dispatch = useDispatch();
   const scheduleById = useSelector(getScheduleById);
 
-  const date = format(new Date(scheduleById.departureTime), 'iii, d MMM yy');
+  // console.log(scheduleById);
+  const date = format(
+    new Date(scheduleById?.departureTime || '2022-12-30'),
+    'iii, d MMM yy'
+  );
 
-  const time = format(new Date(scheduleById.departureTime), 'hh:mm');
+  const time = format(
+    new Date(scheduleById?.departureTime || '2022-12-30'),
+    'hh:mm'
+  );
 
+  // const date = 0,
+  //   time = 0;
   useEffect(() => {
     dispatch(fetchScheduleById(scheduleId));
   }, [dispatch, scheduleId]);

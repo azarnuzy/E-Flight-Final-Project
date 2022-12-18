@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchSeat,
+  getSeatNo,
   getSeats,
   setNoSeat,
 } from '../../features/order/orderSlice';
@@ -24,12 +25,7 @@ export default function ListSeat({ index }) {
       <Listbox
         value={selected}
         onChange={(e) => {
-          console.log(e);
-          dispatch(
-            setNoSeat({
-              [`${index}`]: e,
-            })
-          );
+          dispatch(setNoSeat({ e, index }));
           setSelected(e);
         }}
       >

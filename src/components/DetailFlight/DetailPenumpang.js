@@ -57,11 +57,8 @@ function DetailPenumpang() {
                   placeholder="Full Name"
                   value={names[`name${i}`]}
                   onChange={(e) => {
-                    dispatch(
-                      setNamePassenger({
-                        [`${i}`]: e.target.value,
-                      })
-                    );
+                    // console.log(e.target.value);
+                    dispatch(setNamePassenger({ e, i }));
                     // dispatch(setNamePassenger(e.target.value));
                   }}
                 />

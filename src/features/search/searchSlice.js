@@ -9,7 +9,7 @@ const initialState = {
   passenger: 1,
   departureDate: new Date(),
   returnDate: '',
-  seatClass: 'Economy',
+  seatClass: 'ECONOMY',
   roundTrip: false,
   status: 'idle',
   airport: [],
