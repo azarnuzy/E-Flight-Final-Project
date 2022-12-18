@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import TotalFlight from '../components/DetailFlight/TotalFlight';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import Footer from '../components/Footer/Footer';
@@ -7,6 +6,7 @@ import Navbar from '../components/Navbar/Navbar';
 import { SlArrowRight } from 'react-icons/sl';
 import { getPayments } from '../features/payment/PaymentSlice';
 import { useNavigate } from 'react-router-dom';
+import TotalFlight from '../components/Payment/TotalFlight';
 
 export const PaymentPage = () => {
   const dispatch = useDispatch();
