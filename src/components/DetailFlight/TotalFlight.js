@@ -2,6 +2,15 @@ import React from 'react';
 import { RiRefund2Fill } from 'react-icons/ri';
 import { BsArrowRight, BsCalendarDate } from 'react-icons/bs';
 import { BiArrowFromLeft, BiArrowToRight } from 'react-icons/bi';
+import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import {
+  fetchScheduleById,
+  getScheduleById,
+} from '../../features/order/orderSlice';
+import { format } from 'date-fns';
+import garudaLogo from '../../assets/garuda-logo.png';
 // import { GrSchedule } from "react-icons/gr";
 
 function TotalFlight({ total }) {
@@ -12,17 +21,47 @@ function TotalFlight({ total }) {
     }).format(number);
   };
 
-  console.log(total);
+  const [searchParams] = useSearchParams();
+
+  const scheduleId = searchParams.get('scheduleId');
+  const dispatch = useDispatch();
+  const scheduleById = useSelector(getScheduleById);
+
+  const date = format(new Date(scheduleById.departureTime), 'iii, d MMM yy');
+
+  const time = format(new Date(scheduleById.departureTime), 'hh:mm');
+
+  useEffect(() => {
+    dispatch(fetchScheduleById(scheduleId));
+  }, [dispatch, scheduleId]);
 
   const amount = rupiah(total);
   return (
     <div className="md:w-full border p-2 rounded-md ">
       <span className="font-bold text-base">Penerbangan</span>
-      <div className="flex justify-between my-5">
+      <div className="flex justify-between my-3">
         <p className="flex items-center gap-2 font-semibold text-sm">
-          Jakarta <BsArrowRight /> Yogyakarta
+          {scheduleById.originAirportCity} <BsArrowRight />{' '}
+          {scheduleById.destinationAirportCity}
         </p>
-        <p className="text-cyan-600 font-semibold">Detail</p>
+        {/* <p className="text-cyan-600 font-semibold">Detail</p> */}
+      </div>
+      <div className="flex gap-3 flex-wrap text-xs my-3">
+        <div className="border w-14 md:p-2 border-solid shadow-sm  flex items-center justify-center">
+          <img src={garudaLogo} alt="garudaLogo" />
+        </div>
+        <div className="flex items-center">
+          {scheduleById.originAirportCode} -{' '}
+          {scheduleById.destinationAirportCode}
+        </div>
+        <div className="flex items-center">
+          <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
+        </div>
+        <div className="flex items-center">{date}</div>
+        <div className="flex items-center">
+          <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>
+        </div>
+        <div className="flex items-center">{time}</div>
       </div>
       {/* <div className="mt-2 mb-2">
         <h1 className="font-semibold">Kebijakan Tiket</h1>

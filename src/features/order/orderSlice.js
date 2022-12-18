@@ -33,6 +33,7 @@ const initialState = {
   namePassenger: {},
   titlePassenger: {},
   passengerRequest: [],
+  scheduleById: {},
 };
 
 export const fetchSeat = createAsyncThunk(
@@ -63,6 +64,22 @@ export const bookFlight = createAsyncThunk(
           totalPassenger: totalPs,
           amount,
           passengerRequest: passengers,
+        }
+      );
+
+      return response.data;
+    } catch (error) {}
+  }
+);
+
+export const fetchScheduleById = createAsyncThunk(
+  'order/fetchScheduleById',
+  async (scheduleId) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}schedules/${scheduleId}`,
+        {
+          params: { id: scheduleId },
         }
       );
 
@@ -148,6 +165,9 @@ const orderSlice = createSlice({
     builder.addCase(fetchSeat.fulfilled, (state, action) => {
       state.seats = action.payload;
     });
+    builder.addCase(fetchScheduleById.fulfilled, (state, action) => {
+      state.scheduleById = action.payload;
+    });
   },
 });
 
@@ -156,6 +176,7 @@ export const getSeats = (state) => state.order.seats;
 export const getNamePassenger = (state) => state.order.namePassenger;
 export const getTitlePassenger = (state) => state.order.titlePassenger;
 export const getSeatNo = (state) => state.order.seatNo;
+export const getScheduleById = (state) => state.order.scheduleById;
 
 export const {
   setOrders,
