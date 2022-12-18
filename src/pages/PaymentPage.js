@@ -5,23 +5,30 @@ import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import { SlArrowRight } from 'react-icons/sl';
 import { getPayments } from '../features/payment/PaymentSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TotalFlight from '../components/Payment/TotalFlight';
+import { setPayment } from '../features/order/orderSlice';
 
 export const PaymentPage = () => {
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.paymentOrder.payment);
   const navigate = useNavigate();
 
-  const handlePayment = () => {
+  const uid = JSON.parse(localStorage.getItem('user-info')).userId;
+
+  const { id } = useParams();
+  const bookingId = id;
+
+  const handlePayment = (paymentId) => {
+    console.log(paymentId);
     Swal.fire({
       title: 'Confirm Payment?',
       showDenyButton: true,
       confirmButtonText: 'Yes',
       denyButtonText: `No`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        dispatch(setPayment({ uid, bookingId, paymentId }));
         Swal.fire('Saved!', '', 'success');
         navigate('/myorder');
       }
@@ -31,6 +38,7 @@ export const PaymentPage = () => {
   useEffect(() => {
     dispatch(getPayments());
   }, [dispatch]);
+
   return (
     <div>
       <Navbar />
@@ -46,10 +54,13 @@ export const PaymentPage = () => {
               Flyket.com
             </p>
             {payments &&
-              payments.map((item) => (
+              payments.map((item, i) => (
                 <div
                   className="border-slate-200 border-t-2 mt-4 pt-4 cursor-pointer"
-                  onClick={handlePayment}
+                  onClick={() => {
+                    handlePayment(item.id);
+                  }}
+                  key={i}
                 >
                   <div className="flex flex-row justify-between">
                     <p>{item.name}</p>

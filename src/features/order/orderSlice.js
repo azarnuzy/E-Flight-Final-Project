@@ -108,6 +108,25 @@ export const fetchDetailBooking = createAsyncThunk(
   }
 );
 
+export const setPayment = createAsyncThunk(
+  'order/setPayment',
+  async ({ uid, bookingId, paymentId }) => {
+    console.log(uid, bookingId, paymentId);
+    try {
+      const response = await axiosClient.post(
+        `${apiConfig.baseUrl}booking/set-payment`,
+        {
+          uid,
+          bookingId,
+          paymentId,
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 const orderSlice = createSlice({
   name: 'order',
   initialState,

@@ -50,8 +50,8 @@ function TotalFlight({ total }) {
       <span className="font-bold text-base">Penerbangan</span>
       <div className="flex justify-between my-3">
         <p className="flex items-center gap-2 font-semibold text-sm">
-          {scheduleById.originAirportCity} <BsArrowRight />{' '}
-          {scheduleById.destinationAirportCity}
+          {scheduleById?.originAirportCity} <BsArrowRight />{' '}
+          {scheduleById?.destinationAirportCity}
         </p>
         {/* <p className="text-cyan-600 font-semibold">Detail</p> */}
       </div>
@@ -60,8 +60,8 @@ function TotalFlight({ total }) {
           <img src={garudaLogo} alt="garudaLogo" />
         </div>
         <div className="flex items-center">
-          {scheduleById.originAirportCode} -{' '}
-          {scheduleById.destinationAirportCode}
+          {scheduleById?.originAirportCode} -{' '}
+          {scheduleById?.destinationAirportCode}
         </div>
         <div className="flex items-center">
           <span className="h-[4px] w-[4px] bg-gray-400 rounded-full"></span>

@@ -51,7 +51,7 @@ export default function DetailFlight() {
     );
 
     // console.log(booking.pay);
-    navigate(`/payment/${booking.payload.bookingId}`);
+    navigate(`/payment/${booking.payload.bookingId}?scheduleId=${shceduleId}`);
   };
 
   return (
