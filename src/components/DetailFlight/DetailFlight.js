@@ -50,6 +50,8 @@ export default function DetailFlight() {
       bookFlight({ uId, shceduleId, seatClass, totalPs, amount, passengers })
     );
 
+    console.log(booking);
+
     // console.log(booking.pay);
     navigate(`/payment/${booking.payload.bookingId}?scheduleId=${shceduleId}`);
   };

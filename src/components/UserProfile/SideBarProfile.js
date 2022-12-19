@@ -54,7 +54,7 @@ export default function SideBarProfile() {
           <div className="py-3 md:py-3 pl-4 flex items-center gap-3 hover:bg-gray-100 ">
             <BsFillPersonFill className="text-primary  hover:bg-gray-100" />
             <Link
-              to={'/'}
+              to={'/myprofile'}
               className="text-sm hover:text-secondary hover:bg-gray-100"
             >
               {' '}
