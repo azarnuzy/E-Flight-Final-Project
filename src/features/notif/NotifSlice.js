@@ -16,6 +16,7 @@ const initialState = {
             }
             );
         
+            console.log(response)
             return(response.data.notifications);
         } catch (error) {}
     });
