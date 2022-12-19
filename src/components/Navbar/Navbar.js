@@ -4,7 +4,7 @@ import logo from '../../assets/Logo.png';
 import { IoIosNotifications } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getLogin } from '../../features/user/userSlice';
+import { getLogin, getUser } from '../../features/user/userSlice';
 import ava from '../../assets/profile_picture.png';
 import { getEmail } from '../../features/auth/authSlice';
 import { useEffect, useState } from 'react';
@@ -14,6 +14,8 @@ export default function Navbar() {
 
   const [isLoginVal, setIsLoginVal] = useState(false);
   const isLogin = useSelector(getLogin);
+
+  const user = useSelector(getUser);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('user-info') !== null)) {
@@ -38,7 +40,7 @@ export default function Navbar() {
             <IoIosNotifications className="text-white text-2xl" />
           </button>
           <Link to={'/myprofile'}>
-            <img src={ava} alt="" className="w-8" />
+            <img src= {user?.imgUrl || ava} alt="" className="w-[40px] h-[42px] rounded-full" />
           </Link>
         </div>
       ) : (
