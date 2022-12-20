@@ -8,7 +8,7 @@ import {
 } from '../../features/user/userSlice';
 export default function AccountInformation() {
   const user = useSelector(getUser);
-  console.log(user);
+
   const dispatch = useDispatch();
 
   let email = JSON.parse(localStorage.getItem('email'));

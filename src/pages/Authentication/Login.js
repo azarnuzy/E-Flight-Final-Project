@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
@@ -19,6 +19,15 @@ export const Login = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname + '?' || '/';
+  const searchParams = location.state?.params;
+
+  searchParams.forEach(([value, key]) => {
+    from += `${key}=${value}&`;
+  });
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -35,14 +44,23 @@ export const Login = () => {
       localStorage.setItem('email', JSON.stringify(response?.data.data.email));
       setCredentials(response?.data.data);
       dispatch(setisLogin(true));
-      console.log(response);
-      navigate('/');
-    } catch (error) {
+      console.log(from);
+      navigate(from, { replace: true });
+    } catch (err) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Email atau Password Salah!',
       });
+      //   if (!err?.response) {
+      //     setErrMsg('No Server Response');
+      // } else if (err.response?.status === 400) {
+      //     setErrMsg('Missing Username or Password');
+      // } else if (err.response?.status === 401) {
+      //     setErrMsg('Unauthorized');
+      // } else {
+      //     setErrMsg('Login Failed');
+      // }
     }
   };
 

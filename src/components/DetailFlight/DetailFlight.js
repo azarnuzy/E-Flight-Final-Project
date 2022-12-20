@@ -6,6 +6,7 @@ import {
   bookFlight,
   getBooking,
   getNamePassenger,
+  getOrders,
   getSeatNo,
   getTitlePassenger,
 } from '../../features/order/orderSlice';
@@ -18,23 +19,30 @@ import TotalFlight from './TotalFlight';
 // import Footer from '../Footer/Footer'
 
 export default function DetailFlight() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
+
+  const order = useSelector(getOrders);
 
   const name = useSelector(getNamePassenger);
   const title = useSelector(getTitlePassenger);
   const seat = useSelector(getSeatNo);
   const uId = JSON.parse(localStorage.getItem('user-info')).userId;
-  const shceduleId = searchParams.get('scheduleId');
+  const shceduleId =
+    searchParams.get('scheduleId').length > 0
+      ? searchParams.get('scheduleId')
+      : order.myFlight[0].shceduleId;
   const totalPs = Number(searchParams.get('totalPassenger'));
   const seatClass = searchParams.get('sc');
-  const amount =
-    (Number(searchParams.get('pr').replace(/[^0-9-]+/g, '')) / 100) * totalPs;
+  const price =
+    searchParams.get('pr').length > 0
+      ? searchParams.get('pr')
+      : order.myFlight[0].price;
+  const amount = (Number(price.replace(/[^0-9-]+/g, '')) / 100) * totalPs;
   const dispatch = useDispatch();
 
   const passengers = [];
-
   // console.log(name, title, seat);
 
   // const bookingId = useSelector(getBooking.bookingId);

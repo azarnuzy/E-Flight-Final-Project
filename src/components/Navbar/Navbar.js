@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
 import { IoIosNotifications } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getLogin, getUser } from '../../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser, getLogin, getUser } from '../../features/user/userSlice';
 import ava from '../../assets/profile_picture.png';
-import { getEmail } from '../../features/auth/authSlice';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -16,17 +15,20 @@ export default function Navbar() {
   const isLogin = useSelector(getLogin);
 
   const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const email = JSON.parse(localStorage.getItem('user-info'))?.email;
+
+  useEffect(() => {
+    if (email !== undefined) {
+      dispatch(fetchUser(email));
+    }
+  }, [dispatch, email]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('user-info') !== null)) {
       setIsLoginVal(true);
     }
   }, [isLogin]);
-
-  const email = useSelector(getEmail) || null;
-  if (email !== null) {
-    console.log(email);
-  }
 
   return (
     <div className="w-full bg-primary flex items-center justify-between px-5 py-2 fixed top-0 z-10">
@@ -40,7 +42,11 @@ export default function Navbar() {
             <IoIosNotifications className="text-white text-2xl" />
           </button>
           <Link to={'/myprofile'}>
-            <img src= {user?.imgUrl || ava} alt="" className="w-[40px] h-[42px] rounded-full" />
+            <img
+              src={user?.imgUrl || ava}
+              alt=""
+              className="w-[40px] h-[42px] rounded-full"
+            />
           </Link>
         </div>
       ) : (
