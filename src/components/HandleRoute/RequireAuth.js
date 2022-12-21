@@ -22,6 +22,8 @@ const RequireAuth = ({ allowedRoles }) => {
     params.push([key, value]);
   });
 
+  console.log(user);
+
   return token !== undefined ? (
     <Outlet />
   ) : (

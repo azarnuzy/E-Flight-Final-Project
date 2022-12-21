@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { emptyOrders } from '../../features/order/orderSlice';
 import {
+  getAirports,
   getArrivePlace,
   getDepartureDate,
   getDeparturePlace,
@@ -31,24 +32,27 @@ const places = [
 
 export default function ChangeSearchForm({ closeModal }) {
   const [enabled, setEnabled] = useState(true);
+  const [searchParams] = useSearchParams();
   const departurePlace = useSelector(getDeparturePlace);
   const arrivePlace = useSelector(getArrivePlace);
   const passenger = useSelector(getPassenger);
   const departureDate = useSelector(getDepartureDate);
   const returnDate = useSelector(getReturnDate);
   const seatClass = useSelector(getSeatClass);
+  const airports = useSelector(getAirports);
   const roundTrip = useSelector(getRoundTrip);
   const dispatch = useDispatch();
+  console.log(airports);
   return (
     <div className="p-4 w-full mx-auto md:shadow-md bg-white md:rounded-md ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
         <div>
           <span className="text-sm font-semibold ml-3">From</span>
-          <ComboboxFilterPlane selectValues={places} type="departure" />
+          <ComboboxFilterPlane selectValues={airports} type="departure" />
         </div>
         <div>
           <span className="text-sm font-semibold ml-3">To</span>
-          <ComboboxFilterPlane selectValues={places} type="arrival" />
+          <ComboboxFilterPlane selectValues={airports} type="arrival" />
         </div>
         <div>
           <span className="text-sm font-semibold ml-3">No. of Passengers</span>

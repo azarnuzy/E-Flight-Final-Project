@@ -24,7 +24,7 @@ export const Login = () => {
   let from = location.state?.from?.pathname + '?' || '/';
   const searchParams = location.state?.params;
 
-  searchParams.forEach(([value, key]) => {
+  searchParams?.forEach(([value, key]) => {
     from += `${key}=${value}&`;
   });
 
@@ -44,6 +44,7 @@ export const Login = () => {
       localStorage.setItem('email', JSON.stringify(response?.data.data.email));
       setCredentials(response?.data.data);
       dispatch(setisLogin(true));
+
       console.log(from);
       navigate(from, { replace: true });
     } catch (err) {
