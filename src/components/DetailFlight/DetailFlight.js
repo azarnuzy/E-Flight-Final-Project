@@ -66,7 +66,7 @@ export default function DetailFlight() {
               onClick={handleOrder}
               className="py-2 px-4 bg-primary text-white font-medium rounded-full hover:opacity-80"
             >
-              Lanjutkan Pembayaran
+              Proceed to payment
             </button>
           </div>
         </div>

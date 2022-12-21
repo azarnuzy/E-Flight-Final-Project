@@ -47,7 +47,7 @@ function TotalFlight({ total }) {
   const amount = rupiah(total);
   return (
     <div className="md:w-full border p-2 rounded-md ">
-      <span className="font-bold text-base">Penerbangan</span>
+      <span className="font-bold text-base">Flight Detail</span>
       <div className="flex justify-between my-3">
         <p className="flex items-center gap-2 font-semibold text-sm">
           {scheduleById?.originAirportCity} <BsArrowRight />{' '}
@@ -89,7 +89,7 @@ function TotalFlight({ total }) {
       <hr />
       <div className="flex justify-between gap-3 my-2 mb-2">
         <div>
-          <h4 className="font-bold">Total Pembayaran</h4>
+          <h4 className="font-bold">Total Payment</h4>
         </div>
         <div>
           <h4 className="font-semibold text-sky-700">{amount}</h4>

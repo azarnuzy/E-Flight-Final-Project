@@ -20,7 +20,7 @@ export default function ProfilePage() {
         <AccountInformation />
       </div>
       {/* Bottom Content */}
-      <RecentOrders />
+      {/* <RecentOrders /> */}
       <Footer />
     </div>
   );

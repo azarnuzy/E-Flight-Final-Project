@@ -20,21 +20,20 @@ export default function OrderHistory() {
 
   return (
     <>
-      <div className="bg-white md:ml-10 md:w-3/4 h-full  ">
+      <div className="bg-white md:ml-10 md:w-3/4 h-full mb-10 ">
         <div className=" p-3 drop-shadow-md bg-white rounded-md mb-4">
-          <h1 className="text-lg font-semibold">Riwayat Pesanan</h1>
+          <h1 className="text-lg font-semibold">Order History</h1>
           <p className=" text-sm mt-3">
-            Menampilkan riwayat perjalananmu baru-baru ini.
+          Displays recent order history.
           </p>
         </div>
-        {/* Order Details */}
         {history &&
           history.map((res, index) => (
             <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3">
               <div className="flex justify-between">
                 <div className="flex items-center gap-3 mb-3">
                   <RiPlaneLine className="text-primary" />
-                  <span className="text-base">Pesawat</span>
+                  <span className="text-base">Plane</span>
                 </div>
                 <div>
                   <button>
@@ -49,8 +48,8 @@ export default function OrderHistory() {
               </div>
               <div className="flex flex-wrap gap-5 gap-y-1 ">
                 <div className="flex items-center">
-                  <p>Sekali Jalan</p>
-                  <VscDebugStackframeDot /> <p>{res.totalPassenger} dewasa</p>
+                  <p>One-way</p>
+                  <VscDebugStackframeDot /> <p>{res.totalPassenger} adult</p>
                 </div>
                 <span className="hidden md:inline-block">|</span>
                 <div className="flex items-center">
