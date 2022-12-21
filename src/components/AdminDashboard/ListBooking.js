@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import {
   fetchAllHistory,
   getHistories,
   getPage,
+  validateBook,
 } from '../../features/admin/adminSlice';
 
 function ListBooking() {
@@ -55,8 +57,22 @@ function ListBooking() {
     }
   };
 
+  const handleValidate = ({ userId, bookingId }) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(validateBook({ userId, bookingId }));
+      }
+    });
+  };
+
   return (
     <section className="container mx-auto">
+      <h1 className="text-lg font-bold mb-3">List Booking </h1>
       <div className="w-full overflow-hidden rounded-lg shadow-lg">
         <div className="w-full overflow-x-auto">
           <table className="w-full">
@@ -75,7 +91,7 @@ function ListBooking() {
             <tbody className="bg-white">
               {displayHistories[pagination]?.map((item, i) => {
                 return (
-                  <tr className="text-gray-700">
+                  <tr className="text-gray-700" key={i}>
                     <td className="px-2 py-1 text-xs border">
                       {i + pagination * 10 + 1}.
                     </td>
@@ -99,7 +115,15 @@ function ListBooking() {
                     </td>
                     <td className="px-2 py-1 text-xs border">
                       {item.bookingStatus === 'WAITING' ? (
-                        <button className="text-green-600 bg-green-100 flex items-center rounded-md p-1">
+                        <button
+                          className="text-green-600 bg-green-100 flex items-center rounded-md p-1"
+                          onClick={() => {
+                            handleValidate({
+                              userId: item.userId,
+                              bookingId: item.bookingId,
+                            });
+                          }}
+                        >
                           <AiFillCheckCircle className="" />
                           <span
                             className={`px-2 py-1 font-semibold leading-tight  rounded-sm   `}

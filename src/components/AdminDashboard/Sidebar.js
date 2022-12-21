@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
 import { AiFillBook, AiFillCaretRight } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import logo from '../../assets/Logo.png';
+import { setisLogin } from '../../features/user/userSlice';
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Do you want to Log Out?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        dispatch(setisLogin(false));
+        navigate('/login');
+      } else if (result.isDenied) {
+        Swal.fire('Log Out Failed!', '', 'info');
+      }
+    });
+  };
   return (
     <div
       className={` ${
@@ -55,6 +78,7 @@ function Sidebar() {
           key={2}
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 mt-3
         `}
+          onClick={handleLogout}
         >
           <MdLogout />
           <span

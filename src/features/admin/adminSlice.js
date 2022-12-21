@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import Swal from 'sweetalert2';
 import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
@@ -26,14 +27,37 @@ export const fetchAllHistory = createAsyncThunk(
   }
 );
 
+export const validateBook = createAsyncThunk(
+  'admin/validateBook',
+  async ({ userId, bookingId }) => {
+    try {
+      const params = { userId, bookingId };
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}booking/validate`,
+        { params }
+      );
+
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchAllHistory.fulfilled, (state, action) => {
-      state.histories = action.payload;
-    });
+    builder
+      .addCase(fetchAllHistory.fulfilled, (state, action) => {
+        state.histories = action.payload;
+      })
+      .addCase(validateBook.fulfilled, (state, action) => {
+        Swal.fire({
+          icon: 'success',
+          title: `Booking Validation Is Success`,
+          timer: 300,
+        });
+      });
   },
 });
 
