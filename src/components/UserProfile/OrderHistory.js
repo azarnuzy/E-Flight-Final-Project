@@ -30,7 +30,6 @@ export default function OrderHistory() {
         {/* Order Details */}
         {history &&
           history.map((res, index) => {
-            console.log(res);
             return (
               <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3">
                 <div className="flex justify-between">
