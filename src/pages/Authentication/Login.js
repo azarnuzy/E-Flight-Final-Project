@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaInfoCircle } from 'react-icons/fa';
 import { AiFillEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiConfig from '../../api/apiConfig';
@@ -21,7 +21,7 @@ export const Login = () => {
 
   const location = useLocation();
 
-  let from = location.state?.from?.pathname + '?' || '/';
+  let from = location.state?.from?.pathname + '?' || '';
   const searchParams = location.state?.params;
 
   searchParams?.forEach(([value, key]) => {
@@ -45,8 +45,12 @@ export const Login = () => {
       setCredentials(response?.data.data);
       dispatch(setisLogin(true));
 
-      console.log(from);
-      navigate(from, { replace: true });
+      // console.log(from);
+      if (from.indexOf('undefined') === 0) {
+        navigate('/');
+      } else {
+        navigate(from, { replace: true });
+      }
     } catch (err) {
       Swal.fire({
         icon: 'error',

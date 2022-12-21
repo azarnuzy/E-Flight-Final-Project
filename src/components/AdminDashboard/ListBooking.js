@@ -20,7 +20,7 @@ function ListBooking() {
   const histories = useSelector(getHistories);
 
   const nextPage = (page) => {
-    if (page + 1 < histories?.length) {
+    if (page + 1 < histories?.length / 10) {
       setPagination(page + 1);
     }
   };

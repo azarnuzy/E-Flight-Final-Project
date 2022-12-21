@@ -12,6 +12,8 @@ import { PaymentPage } from '../pages/PaymentPage';
 import Layout from '../components/HandleRoute/Layout';
 import RequireAuth from '../components/HandleRoute/RequireAuth';
 import Admin from '../pages/Admin';
+import Unauthorized from '../components/HandleRoute/Unauthorized';
+import Missing from '../components/HandleRoute/Missing';
 
 export default function RoutesComponents() {
   return (
@@ -22,8 +24,13 @@ export default function RoutesComponents() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/flight/search/" element={<FlightList />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route element={<RequireAuth allowedRoles={''} />}>
+        <Route path="unauthorized" element={<Unauthorized />} />
+        {/* protect admin page */}
+        <Route element={<RequireAuth allowedRoles={'ADMIN'} />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+        {/* protect user page */}
+        <Route element={<RequireAuth allowedRoles={'BUYER'} />}>
           <Route path="/notification" element={<Notification />} />
           <Route path="/myprofile" element={<ProfilePage />} />
           <Route path="/flight/:id" element={<DetailFlight />} />
@@ -31,6 +38,8 @@ export default function RoutesComponents() {
           <Route path="/detailOrder/" element={<DetailFlight />} />
           <Route path="/payment/:id" element={<PaymentPage />} />
         </Route>
+
+        <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
   );
