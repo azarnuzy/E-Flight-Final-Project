@@ -1,16 +1,16 @@
 import React from 'react';
-import ListBooking from '../components/AdminDashboard/ListBooking';
 import Sidebar from '../components/AdminDashboard/Sidebar';
+import ComponentWaitingList from '../components/AdminDashboard/ComponentWaitingList';
 
-function Admin() {
+function WaitingList() {
   return (
     <div className="flex">
       <Sidebar />
       <div className="h-screen flex-1 p-5">
-        <ListBooking />
+        <ComponentWaitingList />
       </div>
     </div>
   );
 }
 
-export default Admin;
+export default WaitingList;

@@ -20,7 +20,7 @@ const Unauthorized = () => {
           </button>
         </div>
       </section>
-      <div className="absolute bottom-0">
+      <div className="absolute bottom-0 w-full">
         <Footer />
       </div>
     </div>

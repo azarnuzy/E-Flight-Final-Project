@@ -11,9 +11,10 @@ import { Notification } from '../pages/Notification';
 import { PaymentPage } from '../pages/PaymentPage';
 import Layout from '../components/HandleRoute/Layout';
 import RequireAuth from '../components/HandleRoute/RequireAuth';
-import Admin from '../pages/Admin';
+import BookingList from '../pages/BookingList';
 import Unauthorized from '../components/HandleRoute/Unauthorized';
 import Missing from '../components/HandleRoute/Missing';
+import WaitingList from '../pages/WaitingList';
 
 export default function RoutesComponents() {
   return (
@@ -26,8 +27,9 @@ export default function RoutesComponents() {
         <Route path="/flight/search/" element={<FlightList />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         {/* protect admin page */}
-        <Route element={<RequireAuth allowedRoles={'ADMIN'} />}>
-          <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<RequireAuth allowedRoles={'ADMIN'} />}>
+          <Route path="bookingList" element={<BookingList />} />
+          <Route path="waitingList" element={<WaitingList />} />
         </Route>
         {/* protect user page */}
         <Route element={<RequireAuth allowedRoles={'BUYER'} />}>

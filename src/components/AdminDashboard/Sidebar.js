@@ -64,6 +64,9 @@ function Sidebar() {
           key={1}
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
         `}
+          onClick={() => {
+            navigate('/admin/bookingList');
+          }}
         >
           <AiFillBook />
           <span
@@ -71,11 +74,28 @@ function Sidebar() {
               !open && 'hidden'
             } origin-left duration-200 font-semibold`}
           >
-            List Booking
+            Booking List
           </span>
         </li>
         <li
           key={2}
+          className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
+        `}
+          onClick={() => {
+            navigate('/admin/waitingList');
+          }}
+        >
+          <AiFillBook />
+          <span
+            className={`${
+              !open && 'hidden'
+            } origin-left duration-200 font-semibold`}
+          >
+            Waiting List
+          </span>
+        </li>
+        <li
+          key={3}
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 mt-3
         `}
           onClick={handleLogout}
