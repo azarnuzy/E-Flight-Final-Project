@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import apiConfig from './apiConfig';
 
 const axiosClient = axios.create({
@@ -12,6 +13,7 @@ axiosClient.interceptors.request.use(async (request) => {
   // add auth header with jwt if account is logged in and request is to the api url
   const account = JSON.parse(localStorage.getItem('user-info'));
   const isLoggedIn = account?.token;
+
   if (isLoggedIn) {
     request.headers.Authorization = `Bearer ${account.token}`;
   } else {
@@ -29,6 +31,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    localStorage.clear();
     throw error;
   }
 );
