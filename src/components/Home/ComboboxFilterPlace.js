@@ -30,19 +30,19 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
           select.name
             .toLowerCase()
             .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            .includes(query?.toLowerCase().replace(/\s+/g, '')) ||
           select.city
             .toLowerCase()
             .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            .includes(query?.toLowerCase().replace(/\s+/g, '')) ||
           select.country
             .toLowerCase()
             .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+            .includes(query?.toLowerCase().replace(/\s+/g, '')) ||
           select.iatacode
             .toLowerCase()
             .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, ''))
+            .includes(query?.toLowerCase().replace(/\s+/g, ''))
         );
       });
 

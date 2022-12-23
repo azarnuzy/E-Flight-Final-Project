@@ -18,7 +18,7 @@ export default function ProfilePage() {
                 <OrderHistory />
             </div >
             {/* Bottom Content */}
-            <RecentOrders />
+            {/* <RecentOrders /> */}
             <Footer />
         </div >
     )

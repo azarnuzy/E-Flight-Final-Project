@@ -34,8 +34,11 @@ const initialState = {
   titlePassenger: [],
   passengerRequest: [],
   scheduleById: {},
+  scheduleById2: {},
   booking: {},
+  booking2: {},
   detailBooking: {},
+  detailBooking2: {},
 };
 
 export const fetchSeat = createAsyncThunk(
@@ -54,7 +57,29 @@ export const fetchSeat = createAsyncThunk(
 export const bookFlight = createAsyncThunk(
   'order/booking',
   async ({ uId, shceduleId, seatClass, totalPs, amount, passengers }) => {
-    console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
+    // console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
+    try {
+      const response = await axiosClient.post(
+        `${apiConfig.baseUrl}booking/add?uid=${uId}`,
+        {
+          scheduleId: shceduleId,
+          seatClass,
+          totalPassenger: totalPs,
+          amount,
+          passengerRequests: passengers,
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+export const bookFlight2 = createAsyncThunk(
+  'order/booking2',
+  async ({ uId, shceduleId, seatClass, totalPs, amount, passengers }) => {
+    // console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
     try {
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}booking/add?uid=${uId}`,
@@ -90,8 +115,41 @@ export const fetchScheduleById = createAsyncThunk(
   }
 );
 
+export const fetchScheduleById2 = createAsyncThunk(
+  'order/fetchScheduleById2',
+  async (scheduleId) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}schedules/${scheduleId}`,
+        {
+          params: { id: scheduleId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 export const fetchDetailBooking = createAsyncThunk(
   'order/fetchDetailBooking',
+  async (bookingId) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}booking/detail/${bookingId}`,
+        {
+          params: { booking_id: bookingId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+export const fetchDetailBooking2 = createAsyncThunk(
+  'order/fetchDetailBooking2',
   async (bookingId) => {
     try {
       const response = await axiosClient.get(
@@ -111,7 +169,6 @@ export const fetchDetailBooking = createAsyncThunk(
 export const setPayment = createAsyncThunk(
   'order/setPayment',
   async ({ uid, bookingId, paymentId }) => {
-    console.log(uid, bookingId, paymentId);
     try {
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}booking/set-payment`,
@@ -121,7 +178,24 @@ export const setPayment = createAsyncThunk(
           paymentId,
         }
       );
-      console.log(response);
+
+      return response.data;
+    } catch (error) {}
+  }
+);
+export const setPayment2 = createAsyncThunk(
+  'order/setPayment',
+  async ({ uid, bookingId, paymentId }) => {
+    try {
+      const response = await axiosClient.post(
+        `${apiConfig.baseUrl}booking/set-payment`,
+        {
+          uid,
+          bookingId,
+          paymentId,
+        }
+      );
+
       return response.data;
     } catch (error) {}
   }
@@ -209,11 +283,20 @@ const orderSlice = createSlice({
       .addCase(fetchScheduleById.fulfilled, (state, action) => {
         state.scheduleById = action.payload;
       })
+      .addCase(fetchScheduleById2.fulfilled, (state, action) => {
+        state.scheduleById2 = action.payload;
+      })
       .addCase(bookFlight.fulfilled, (state, action) => {
         state.booking = action.payload;
       })
+      .addCase(bookFlight2.fulfilled, (state, action) => {
+        state.booking2 = action.payload;
+      })
       .addCase(fetchDetailBooking.fulfilled, (state, action) => {
         state.detailBooking = action.payload;
+      })
+      .addCase(fetchDetailBooking2.fulfilled, (state, action) => {
+        state.detailBooking2 = action.payload;
       });
   },
 });
@@ -225,7 +308,10 @@ export const getTitlePassenger = (state) => state.order.titlePassenger;
 export const getSeatNo = (state) => state.order.seatNo;
 export const getScheduleById = (state) => state.order.scheduleById;
 export const getBooking = (state) => state.order.booking;
+export const getBooking2 = (state) => state.order.booking2;
 export const getDetailBooking = (state) => state.order.detailBooking;
+export const getDetailBooking2 = (state) => state.order.detailBooking2;
+export const getScheduleById2 = (state) => state.order.scheduleById2;
 
 export const {
   setOrders,

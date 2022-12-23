@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlane, FaSuitcaseRolling } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import garudaLogo from '../../assets/garuda-logo.png';
 import {
   getOrders,
@@ -13,6 +13,7 @@ export default function CardFlight({ item }) {
   const dispatch = useDispatch();
   let [searchParams] = useSearchParams();
   const order = useSelector(getOrders);
+  const navigate = useNavigate();
 
   const roundTrip = searchParams.get('rt');
   // const departureTime =
@@ -36,6 +37,21 @@ export default function CardFlight({ item }) {
       currency: 'IDR',
     }).format(number);
   };
+  const from = searchParams.get('fr');
+  const to = searchParams.get('to');
+  const passengers = searchParams.get('ps');
+  const seatClass = searchParams.get('sc');
+  const departureDate = new Date(
+    searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
+  );
+  const returnDate =
+    searchParams.get('rd').length > 0
+      ? new Date(
+          searchParams
+            .get('rd')
+            .replace(' GMT 0700 (Western Indonesia Time)', '')
+        )
+      : new Date();
   return (
     <div className="shadow-md border-gray-100 p-3 border-solid border-[1px] mt-2">
       <div className="flex justify-between md:flex-row gap-y-2 flex-col items-center">
@@ -85,6 +101,11 @@ export default function CardFlight({ item }) {
                 setOrders({ item: item, tripPosition: order.tripPosition })
               );
               if (roundTrip === 'true') {
+                if (order.tripPosition === 0) {
+                  navigate(
+                    `/flight/search?fr=${to}&to=${from}&ps=${passengers}&date=${returnDate}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`
+                  );
+                }
                 dispatch(setTripPosition(1));
               }
               window.scrollTo(0, 0);

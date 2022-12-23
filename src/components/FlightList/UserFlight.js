@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
 import { fetchUser, getUser } from '../../features/user/userSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
@@ -11,7 +11,7 @@ import { FaPlane } from 'react-icons/fa';
 export default function UserFlight() {
   let [searchParams] = useSearchParams();
   const user = useSelector(getUser);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // id
   const [id, setId] = useState(user?.id || '');
@@ -22,6 +22,7 @@ export default function UserFlight() {
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
+  const date = searchParams.get('date');
   const departureDate = new Date(
     searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
   );
@@ -35,6 +36,7 @@ export default function UserFlight() {
       : new Date();
   const roundTrip = searchParams.get('rt');
   const order = useSelector(getOrders);
+  const passengers = searchParams.get('ps');
   const seatClass = searchParams.get('sc');
   const totalPassenger = searchParams.get('ps');
 
@@ -47,6 +49,11 @@ export default function UserFlight() {
             order.tripPosition !== 0 ? 'text-gray-500' : 'text-black'
           }`}
           onClick={() => {
+            if (order.tripPosition === 1) {
+              navigate(
+                `/flight/search?fr=${to}&to=${from}&ps=${passengers}&date=${departureDate}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`
+              );
+            }
             dispatch(setTripPosition(0));
             // console.log(order.tripPosition);
           }}
@@ -63,7 +70,11 @@ export default function UserFlight() {
                   {format(new Date(departureDate), 'iii, d MMM yyyy')}
                 </span>
                 <span className="flex items-center font-bold gap-1">
-                  {from} <AiOutlineArrowRight className="text-sm" /> {to}
+                  {order.tripPosition === 1
+                    ? order.myFlight[0].from_airport
+                    : from}{' '}
+                  <AiOutlineArrowRight className="text-sm" />{' '}
+                  {order.tripPosition === 1 ? order.myFlight[0].to_airport : to}
                 </span>
               </div>
             </div>
@@ -118,6 +129,11 @@ export default function UserFlight() {
               order.tripPosition !== 1 ? 'text-gray-500' : 'text-black'
             } `}
             onClick={() => {
+              if (order.tripPosition === 0) {
+                navigate(
+                  `/flight/search?fr=${to}&to=${from}&ps=${passengers}&date=${returnDate}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`
+                );
+              }
               dispatch(setTripPosition(1));
               // console.log(order.tripPosition);
             }}
@@ -135,7 +151,13 @@ export default function UserFlight() {
                     {format(new Date(returnDate), 'iii, d MMM yyyy')}
                   </span>
                   <span className="flex items-center font-bold gap-1">
-                    {to} <AiOutlineArrowRight className="text-sm" /> {from}
+                    {order.tripPosition === 1
+                      ? order.myFlight[0].to_airport
+                      : to}{' '}
+                    <AiOutlineArrowRight className="text-sm" />{' '}
+                    {order.tripPosition === 1
+                      ? order.myFlight[0].from_airport
+                      : from}
                   </span>
                 </div>
               </div>
@@ -186,12 +208,38 @@ export default function UserFlight() {
           </div>
         )}
         <div className="w-full flex justify-end  mt-3">
-          <Link
-            to={`/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&&sc=${seatClass}&&totalPassenger=${totalPassenger}&&pr=${order.myFlight[0].price}`}
-            className="py-1 px-4 bg-primary m-2 rounded-md text-white font-semibold"
+          <button
+            onClick={() => {
+              if (roundTrip === 'true') {
+                if (
+                  order.myFlight[0].scheduleId.length > 0 &&
+                  order.myFlight[1].scheduleId.length > 0
+                ) {
+                  navigate(
+                    `/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&scheduleId2=${order.myFlight[1].scheduleId}&sc=${seatClass}&totalPassenger=${totalPassenger}&pr=${order.myFlight[0].price}&pr2=${order.myFlight[1].price}`
+                  );
+                }
+              } else {
+                if (order.myFlight[0].scheduleId.length > 0) {
+                  navigate(
+                    `/detailOrder?scheduleId=${order.myFlight[0].scheduleId}&scheduleId2=${order.myFlight[1].scheduleId}&sc=${seatClass}&totalPassenger=${totalPassenger}&pr=${order.myFlight[0].price}&pr2=${order.myFlight[1].price}`
+                  );
+                }
+              }
+            }}
+            className={`${
+              order.myFlight[0].scheduleId.length > 0 &&
+              order.myFlight[1].scheduleId.length > 0 &&
+              roundTrip === 'true'
+                ? 'bg-primary text-white'
+                : roundTrip === 'false' &&
+                  order.myFlight[0].scheduleId.length > 0
+                ? 'bg-primary text-white'
+                : 'bg-gray-200 text-gray-600 cursor-default'
+            } py-1 px-4  m-2 rounded-md  font-semibold`}
           >
             Submit
-          </Link>
+          </button>
         </div>
       </div>
     </div>

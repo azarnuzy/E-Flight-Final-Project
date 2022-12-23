@@ -5,6 +5,7 @@ import apiConfig from '../../api/apiConfig';
 const initialState = {
   token: null,
   email: null,
+  role: null,
 };
 
 export const authSlice = createSlice({

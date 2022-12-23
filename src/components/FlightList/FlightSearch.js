@@ -7,7 +7,10 @@ import ModalChangeSearch from './ModalChangeSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../features/order/orderSlice';
-import { fetchSearchFlight } from '../../features/search/searchSlice';
+import {
+  fetchAirport,
+  fetchSearchFlight,
+} from '../../features/search/searchSlice';
 
 export default function FlightSearch() {
   let [searchParams] = useSearchParams();
@@ -36,9 +39,10 @@ export default function FlightSearch() {
 
   useEffect(() => {
     const flightDate = new Date(
-      searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
+      searchParams.get('date').replace(' GMT 0700 (Western Indonesia Time)', '')
     );
     dispatch(fetchSearchFlight({ from, to, flightDate, seatClass }));
+    dispatch(fetchAirport());
     // console.log(departureDate, dispatch, from, seatClass, to);
   }, [dispatch, from, searchParams, seatClass, to]);
 

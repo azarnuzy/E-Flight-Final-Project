@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import { SlArrowRight } from 'react-icons/sl';
 import { getPayments } from '../features/payment/PaymentSlice';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TotalFlight from '../components/Payment/TotalFlight';
 import { setPayment } from '../features/order/orderSlice';
 
@@ -13,14 +13,15 @@ export const PaymentPage = () => {
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.paymentOrder.payment);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const uid = JSON.parse(localStorage.getItem('user-info')).userId;
 
   const { id } = useParams();
   const bookingId = id;
-
+  const scheduleId2 = searchParams.get('scheduleId2');
+  const bookingId2 = searchParams.get('booking2');
   const handlePayment = (paymentId) => {
-    console.log(paymentId);
     Swal.fire({
       title: 'Confirm Payment?',
       showDenyButton: true,
@@ -29,6 +30,9 @@ export const PaymentPage = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(setPayment({ uid, bookingId, paymentId }));
+        if (scheduleId2 !== 'undefined') {
+          dispatch(setPayment({ uid, bookingId: bookingId2, paymentId }));
+        }
         Swal.fire('Saved!', '', 'success');
         navigate('/myorder');
       }
@@ -45,13 +49,12 @@ export const PaymentPage = () => {
       <div className="md:flex gap-3 md:max-w-[1024px] mx-auto md:mt-24 p-2 mt-20 ">
         <div className="md:w-2/3">
           <div className="bg-white md:ml-10 mb-2 p-3">
-            <h5 className="font-semibold text-xl mx-auto">Metode Pembayaran</h5>
+            <h5 className="font-semibold text-xl mx-auto">Payment Methods</h5>
           </div>
           <div className="bg-white md:ml-10 border rounded-md mb-5 p-3 pb-3 -mt-2">
-            <h5 className="font-semibold">Rekomendasi Metode Pembayaran</h5>
+            <h5 className="font-semibold">Payment Method Recommendations</h5>
             <p className="text-sm mt-1 font-extralight">
-              Nikmati benefit ekstra dengan metode pembayaran rekomendasi dari
-              Flyket.com
+            Enjoy extra benefits with recommended payment methods from Flyket.com
             </p>
             {payments &&
               payments.map((item, i) => (
