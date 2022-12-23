@@ -21,18 +21,8 @@ import DatePickerDepart, {
 import InputPassengers from '../Home/InputPassengers';
 import ListBoxCategory from '../Home/ListBoxCategory';
 
-const places = [
-  { id: 1, name: 'Jakarta' },
-  { id: 2, name: 'Bandung' },
-  { id: 3, name: 'Aceh' },
-  { id: 4, name: 'Makasar' },
-  { id: 5, name: 'Solo' },
-  { id: 6, name: 'Yogyakarta' },
-];
-
 export default function ChangeSearchForm({ closeModal }) {
   const [enabled, setEnabled] = useState(true);
-  const [searchParams] = useSearchParams();
   const departurePlace = useSelector(getDeparturePlace);
   const arrivePlace = useSelector(getArrivePlace);
   const passenger = useSelector(getPassenger);
@@ -42,7 +32,7 @@ export default function ChangeSearchForm({ closeModal }) {
   const airports = useSelector(getAirports);
   const roundTrip = useSelector(getRoundTrip);
   const dispatch = useDispatch();
-  console.log(airports);
+
   return (
     <div className="p-4 w-full mx-auto md:shadow-md bg-white md:rounded-md ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-between gap-3">
@@ -90,7 +80,7 @@ export default function ChangeSearchForm({ closeModal }) {
       </div>
       <div className="w-full flex justify-end mt-3">
         <Link
-          to={`/flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`}
+          to={`/flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&date=${departureDate}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
           onClick={() => {
             closeModal();

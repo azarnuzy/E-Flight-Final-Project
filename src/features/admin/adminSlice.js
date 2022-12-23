@@ -65,7 +65,11 @@ export const validateBook = createAsyncThunk(
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
-  reducers: {},
+  reducers: {
+    setStatusAdmin(state, action) {
+      state.status = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAllHistory.fulfilled, (state, action) => {
@@ -81,13 +85,12 @@ export const adminSlice = createSlice({
       })
       .addCase(fetchValidateList.fulfilled, (state, action) => {
         state.status = 'success';
-        console.log(action.payload);
         state.validateList = action.payload;
       });
   },
 });
 
-export const { setCredentials, logOut } = adminSlice.actions;
+export const { setStatusAdmin } = adminSlice.actions;
 
 export const getHistories = (state) => state.admin.histories;
 export const getValidateList = (state) => state.admin.validateList;

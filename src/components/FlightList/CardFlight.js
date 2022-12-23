@@ -101,9 +101,11 @@ export default function CardFlight({ item }) {
                 setOrders({ item: item, tripPosition: order.tripPosition })
               );
               if (roundTrip === 'true') {
-                navigate(
-                  `/flight/search?fr=${to}&to=${from}&ps=${passengers}&dd=${returnDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`
-                );
+                if (order.tripPosition === 0) {
+                  navigate(
+                    `/flight/search?fr=${to}&to=${from}&ps=${passengers}&date=${returnDate}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`
+                  );
+                }
                 dispatch(setTripPosition(1));
               }
               window.scrollTo(0, 0);

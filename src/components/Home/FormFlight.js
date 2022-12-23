@@ -41,7 +41,7 @@ export default function FormFlight() {
   const roundTrip = useSelector(getRoundTrip);
   // const status = useSelector(getStatusAirport);
   const airports = useSelector(getAirports);
-
+  const date = useSelector(getDepartureDate);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function FormFlight() {
       </div>
       <div className="w-full flex justify-end mt-3">
         <Link
-          to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`}
+          to={`flight/search?fr=${departurePlace}&to=${arrivePlace}&ps=${passenger}&date=${date}&dd=${departureDate}&rd=${returnDate}&sc=${seatClass}&rt=${roundTrip}`}
           className=" rounded-lg bg-primary text-white py-2 text-sm px-8"
           onClick={() => {
             dispatch(emptyOrders());

@@ -39,7 +39,7 @@ export default function FlightSearch() {
 
   useEffect(() => {
     const flightDate = new Date(
-      searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
+      searchParams.get('date').replace(' GMT 0700 (Western Indonesia Time)', '')
     );
     dispatch(fetchSearchFlight({ from, to, flightDate, seatClass }));
     dispatch(fetchAirport());

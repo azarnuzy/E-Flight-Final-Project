@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   bookFlight,
+  bookFlight2,
   getBooking,
   getNamePassenger,
   getOrders,
@@ -30,38 +31,82 @@ export default function DetailFlight() {
   const seat = useSelector(getSeatNo);
   const uId = JSON.parse(localStorage.getItem('user-info')).userId;
   const shceduleId =
-    searchParams.get('scheduleId').length > 0
+    searchParams.get('scheduleId')?.length > 0
       ? searchParams.get('scheduleId')
       : order.myFlight[0].shceduleId;
+  const shceduleId2 =
+    searchParams.get('scheduleId2')?.length > 0
+      ? searchParams.get('scheduleId2')
+      : order.myFlight[1].shceduleId;
+
   const totalPs = Number(searchParams.get('totalPassenger'));
   const seatClass = searchParams.get('sc');
   const price =
-    searchParams.get('pr').length > 0
+    searchParams.get('pr')?.length > 0
       ? searchParams.get('pr')
       : order.myFlight[0].price;
+  const price2 =
+    searchParams.get('pr2')?.length > 0
+      ? searchParams.get('pr2')
+      : order.myFlight[1].price;
   const amount = (Number(price.replace(/[^0-9-]+/g, '')) / 100) * totalPs;
+  const amount2 = (Number(price2.replace(/[^0-9-]+/g, '')) / 100) * totalPs;
+
   const dispatch = useDispatch();
 
   const passengers = [];
-  // console.log(name, title, seat);
+  // console.log(name[0]?.length, title, seat);
 
+  const isFullFill = (title, name, seatNo) => {
+    let cek = false;
+    for (let i = 0; i < totalPs; i++) {
+      if (
+        title[i]?.length > 0 &&
+        name[i]?.length > 0 &&
+        seatNo[i]?.length > 0
+      ) {
+        cek = true;
+      } else {
+        cek = false;
+      }
+    }
+
+    return cek;
+  };
   // const bookingId = useSelector(getBooking.bookingId);
   const handleOrder = async () => {
-    for (let i = 0; i < totalPs; i++) {
-      passengers.push({
-        title: title[i],
-        name: name[i],
-        seatNo: seat[i],
-      });
+    if (isFullFill(title, name, seat)) {
+      for (let i = 0; i < totalPs; i++) {
+        passengers.push({
+          title: title[i],
+          name: name[i],
+          seatNo: seat[i],
+        });
+      }
+      const booking = await dispatch(
+        bookFlight({ uId, shceduleId, seatClass, totalPs, amount, passengers })
+      );
+      let booking2;
+      if (shceduleId2?.length > 0) {
+        booking2 = await dispatch(
+          bookFlight2({
+            uId,
+            shceduleId: shceduleId2,
+            seatClass,
+            totalPs,
+            amount: amount2,
+            passengers,
+          })
+        );
+      }
+      navigate(
+        `/payment/${
+          booking.payload.bookingId
+        }?scheduleId=${shceduleId}&scheduleId2=${shceduleId2}&booking2=${
+          booking2?.payload.bookingId || ''
+        }`
+      );
     }
-    const booking = await dispatch(
-      bookFlight({ uId, shceduleId, seatClass, totalPs, amount, passengers })
-    );
-
-    console.log(booking);
-
-    // console.log(booking.pay);
-    navigate(`/payment/${booking.payload.bookingId}?scheduleId=${shceduleId}`);
   };
 
   return (
@@ -74,14 +119,18 @@ export default function DetailFlight() {
           <div className="w-full flex justify-end">
             <button
               onClick={handleOrder}
-              className="py-2 px-4 bg-primary text-white font-medium rounded-full hover:opacity-80"
+              className={`py-2 px-4 ${
+                isFullFill(title, name, seat)
+                  ? 'bg-primary text-white hover:opacity-80'
+                  : 'bg-gray-200 text-gray-600 cursor-default'
+              } bg-primary text-white font-medium rounded-full `}
             >
               Lanjutkan Pembayaran
             </button>
           </div>
         </div>
         <div className="md:w-1/3">
-          <TotalFlight total={amount} />
+          <TotalFlight total={amount} total2={amount2} />
         </div>
       </div>
       <Footer />

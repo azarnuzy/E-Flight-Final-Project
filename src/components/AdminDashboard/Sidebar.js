@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import logo from '../../assets/Logo.png';
+import { setStatusAdmin } from '../../features/admin/adminSlice';
 import { setisLogin } from '../../features/user/userSlice';
 
 function Sidebar() {
@@ -43,7 +44,12 @@ function Sidebar() {
       >
         <AiFillCaretRight className="transform scale-110" />
       </div>
-      <Link to={'/'} className="flex gap-x-4 items-center">
+      <button
+        onClick={() => {
+          navigate('/');
+        }}
+        className="flex gap-x-4 items-center"
+      >
         <img
           alt="sidebarLogo"
           src={logo}
@@ -58,13 +64,14 @@ function Sidebar() {
         >
           FlyKet
         </h1>
-      </Link>
+      </button>
       <ul className="pt-6">
         <li
           key={1}
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
         `}
           onClick={() => {
+            dispatch(setStatusAdmin('idle'));
             navigate('/admin/bookingList');
           }}
         >
@@ -82,6 +89,7 @@ function Sidebar() {
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
         `}
           onClick={() => {
+            dispatch(setStatusAdmin('idle'));
             navigate('/admin/waitingList');
           }}
         >
