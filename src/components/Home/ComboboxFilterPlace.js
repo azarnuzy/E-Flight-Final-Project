@@ -26,25 +26,25 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
     query === ''
       ? selectValues
       : selectValues.filter((select) => {
-          return (
-            select.name
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
-            select.city
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
-            select.country
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, '')) ||
-            select.iatacode
-              .toLowerCase()
-              .replace(/\s+/g, '')
-              .includes(query.toLowerCase().replace(/\s+/g, ''))
-          );
-        });
+        return (
+          select.name
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+          select.city
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+          select.country
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, '')) ||
+          select.iatacode
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, ''))
+        );
+      });
 
   return (
     <div className="">
@@ -104,8 +104,7 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                   <Combobox.Option
                     key={i}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-primary text-white' : 'text-gray-900'
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-primary text-white' : 'text-gray-900'
                       }`
                     }
                     value={select}
@@ -113,16 +112,14 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                     {({ selected, active }) => (
                       <>
                         <div
-                          className={`flex justify-between gap-3 items-center truncate${
-                            selected ? 'font-medium' : 'font-normal'
-                          }`}
+                          className={`flex justify-between gap-3 items-center truncate${selected ? 'font-medium' : 'font-normal'
+                            }`}
                         >
                           <div>
                             <div className="">
                               <span
-                                className={`${
-                                  active ? 'text-white' : 'text-thirdly'
-                                }`}
+                                className={`${active ? 'text-white' : 'text-thirdly'
+                                  }`}
                               >
                                 {select.city}
                               </span>
@@ -143,9 +140,8 @@ export default function ComboboxFilterPlane({ selectValues, type }) {
                         </span> */}
                         {selected ? (
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                              active ? 'text-white' : 'text-thirdly'
-                            }`}
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-thirdly'
+                              }`}
                           >
                             <AiFillCheckCircle
                               className="h-5 w-5"
