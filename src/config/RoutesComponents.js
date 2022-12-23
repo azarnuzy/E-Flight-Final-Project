@@ -27,12 +27,12 @@ export default function RoutesComponents() {
         <Route path="/flight/search/" element={<FlightList />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         {/* protect admin page */}
-        <Route path="/admin" element={<RequireAuth allowedRoles={'ADMIN'} />}>
+        <Route path="/admin" element={<RequireAuth allowedRoles={['ADMIN']} />}>
           <Route path="bookingList" element={<BookingList />} />
           <Route path="waitingList" element={<WaitingList />} />
         </Route>
         {/* protect user page */}
-        <Route element={<RequireAuth allowedRoles={'BUYER'} />}>
+        <Route element={<RequireAuth allowedRoles={['ADMIN', 'BUYER']} />}>
           <Route path="/notification" element={<Notification />} />
           <Route path="/myprofile" element={<ProfilePage />} />
           <Route path="/flight/:id" element={<DetailFlight />} />

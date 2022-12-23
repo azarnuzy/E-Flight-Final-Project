@@ -18,7 +18,7 @@ const RequireAuth = ({ allowedRoles }) => {
     params.push([key, value]);
   });
 
-  return roles === allowedRoles ? (
+  return allowedRoles.includes(roles) ? (
     <Outlet />
   ) : roles ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

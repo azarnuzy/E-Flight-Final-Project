@@ -99,7 +99,7 @@ function ComponentWaitingList() {
                     <td className="px-2 py-1 text-xs border">
                       {item.bookingStatus === 'WAITING' ? (
                         <button
-                          className="text-green-600 bg-green-100 flex items-center rounded-md p-1"
+                          className="text-green-600 bg-green-100  items-center rounded-md p-1 hover:opacity-80 w-full"
                           onClick={() => {
                             handleValidate({
                               userId: item.userId,
@@ -107,10 +107,10 @@ function ComponentWaitingList() {
                             });
                           }}
                         >
-                          <AiFillCheckCircle className="" />
                           <span
-                            className={`px-2 py-1 font-semibold leading-tight  rounded-sm   `}
+                            className={`px-2 py-1 font-semibold leading-tight  rounded-sm flex items-center justify-center gap-2  w-full text-center`}
                           >
+                            <AiFillCheckCircle className="" />
                             Approve
                           </span>
                         </button>

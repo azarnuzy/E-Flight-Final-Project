@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiFillBook, AiFillCaretRight } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import logo from '../../assets/Logo.png';
 import { setisLogin } from '../../features/user/userSlice';
@@ -43,7 +43,7 @@ function Sidebar() {
       >
         <AiFillCaretRight className="transform scale-110" />
       </div>
-      <div className="flex gap-x-4 items-center">
+      <Link to={'/'} className="flex gap-x-4 items-center">
         <img
           alt="sidebarLogo"
           src={logo}
@@ -58,7 +58,7 @@ function Sidebar() {
         >
           FlyKet
         </h1>
-      </div>
+      </Link>
       <ul className="pt-6">
         <li
           key={1}
