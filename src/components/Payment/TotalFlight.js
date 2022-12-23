@@ -1,7 +1,5 @@
 import React from 'react';
-import { RiRefund2Fill } from 'react-icons/ri';
-import { BsArrowRight, BsCalendarDate } from 'react-icons/bs';
-import { BiArrowFromLeft, BiArrowToRight } from 'react-icons/bi';
+import { BsArrowRight } from 'react-icons/bs';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -17,15 +15,12 @@ import {
 } from '../../features/order/orderSlice';
 import { format } from 'date-fns';
 import garudaLogo from '../../assets/garuda-logo.png';
-import { useState } from 'react';
-// import { GrSchedule } from "react-icons/gr";
 
 function TotalFlight() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  //   const [detailooking, setDetailBooking] = useState();
 
   const scheduleId = searchParams.get('scheduleId');
   const scheduleId2 = searchParams.get('scheduleId2');
@@ -35,7 +30,6 @@ function TotalFlight() {
   const detail = useSelector(getDetailBooking);
   const detail2 = useSelector(getDetailBooking2);
 
-  //   const detailBooking = useSelector(getDetailBooking);
   useEffect(() => {
     dispatch(fetchScheduleById(scheduleId));
     if (scheduleId2 !== 'undefined') {
@@ -80,13 +74,12 @@ function TotalFlight() {
   }
   return (
     <div className="md:w-full border p-2 rounded-md ">
-      <span className="font-bold text-base">Penerbangan</span>
+      <span className="font-bold text-base">Flight</span>
       <div className="flex justify-between my-3">
         <p className="flex items-center gap-2 font-semibold text-sm">
           {detailBooking?.originAirportCity} <BsArrowRight />{' '}
           {detailBooking?.destinationAirportCity}
         </p>
-        {/* <p className="text-cyan-600 font-semibold">Detail</p> */}
       </div>
       <div className="flex gap-3 flex-wrap text-xs my-3">
         <div className="border w-14 md:p-2 border-solid shadow-sm  flex items-center justify-center">
@@ -137,7 +130,7 @@ function TotalFlight() {
       <hr />
       <div className="flex justify-between gap-3 my-2 mb-2">
         <div>
-          <h4 className="font-bold">Total Pembayaran</h4>
+          <h4 className="font-bold">Total Payment</h4>
         </div>
         <div>
           <h4 className="font-semibold text-sky-700">{total}</h4>

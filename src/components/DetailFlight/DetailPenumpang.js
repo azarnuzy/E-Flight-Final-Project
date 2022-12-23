@@ -36,10 +36,10 @@ function DetailPenumpang() {
       <div className="bg-white md:ml-10 h-fit border rounded-md p-3 md:mb-8 mb-6">
         <span className="md:text-lg flex items-center gap-3 my-3">
           {' '}
-          <BsPersonCircle /> Detail Penumpang
+          <BsPersonCircle /> Passenger details
         </span>
         <div className=" flex justify-between items-center bg-slate-200 px-1 py-2 text-sm rounded-md">
-          <p className="font-semibold ">Penumpang 1 : Dewasa</p>
+          <p className="font-semibold ">Passenger 1 : Adult</p>
         </div>
         {passengers.map((item, i) => {
           return (
@@ -63,7 +63,7 @@ function DetailPenumpang() {
                   }}
                 />
                 <span className="pl-2 font-sans text-xs font-extralight">
-                  Isi sesuai KTP/Pasport/SIM tanpa tanda baca dan gelar!
+                Fill in according to KTP / Passport / SIM without punctuation and titles!
                 </span>
               </div>
             </div>

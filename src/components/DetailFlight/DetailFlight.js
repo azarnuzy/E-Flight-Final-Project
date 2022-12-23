@@ -125,7 +125,7 @@ export default function DetailFlight() {
                   : 'bg-gray-200 text-gray-600 cursor-default'
               } bg-primary text-white font-medium rounded-full `}
             >
-              Lanjutkan Pembayaran
+              Proceed to payment
             </button>
           </div>
         </div>

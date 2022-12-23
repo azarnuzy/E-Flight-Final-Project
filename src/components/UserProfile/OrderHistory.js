@@ -20,14 +20,11 @@ export default function OrderHistory() {
 
   return (
     <>
-      <div className="bg-white md:ml-10 md:w-3/4 h-full  ">
+      <div className="bg-white md:ml-10 md:w-3/4 h-full mb-10 ">
         <div className=" p-3 drop-shadow-md bg-white rounded-md mb-4">
-          <h1 className="text-lg font-semibold">Riwayat Pesanan</h1>
-          <p className=" text-sm mt-3">
-            Menampilkan riwayat perjalananmu baru-baru ini.
-          </p>
+          <h1 className="text-lg font-semibold">Order History</h1>
+          <p className=" text-sm mt-3">Displays recent order history.</p>
         </div>
-        {/* Order Details */}
         {history &&
           history.map((res, index) => {
             return (
