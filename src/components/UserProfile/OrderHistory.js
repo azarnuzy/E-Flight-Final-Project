@@ -32,7 +32,7 @@ export default function OrderHistory() {
                 <div className="flex justify-between">
                   <div className="flex items-center gap-3 mb-3">
                     <RiPlaneLine className="text-primary" />
-                    <span className="text-base">Pesawat</span>
+                    <span className="text-base">Plane</span>
                   </div>
                   <div>
                     <button>
@@ -47,8 +47,8 @@ export default function OrderHistory() {
                 </div>
                 <div className="flex flex-wrap gap-5 gap-y-1 ">
                   <div className="flex items-center">
-                    <p>Sekali Jalan</p>
-                    <VscDebugStackframeDot /> <p>{res.totalPassenger} dewasa</p>
+                    <p>One Way</p>
+                    <VscDebugStackframeDot /> <p>{res.totalPassenger} adult</p>
                   </div>
                   <span className="hidden md:inline-block">|</span>
                   <div className="flex items-center">
