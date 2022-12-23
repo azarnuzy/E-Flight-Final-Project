@@ -38,6 +38,7 @@ export default function UserFlight() {
   const seatClass = searchParams.get('sc');
   const totalPassenger = searchParams.get('ps');
 
+  console.log(order);
   return (
     <div className=" lg:w-1/3 w-full md:mt-24 mt-20 h-fit shadow-md border-gray-100 border-solid border-[1px] pt-3">
       <div className="ml-30">
@@ -63,7 +64,11 @@ export default function UserFlight() {
                   {format(new Date(departureDate), 'iii, d MMM yyyy')}
                 </span>
                 <span className="flex items-center font-bold gap-1">
-                  {from} <AiOutlineArrowRight className="text-sm" /> {to}
+                  {order.tripPosition === 1
+                    ? order.myFlight[0].from_airport
+                    : from}{' '}
+                  <AiOutlineArrowRight className="text-sm" />{' '}
+                  {order.tripPosition === 1 ? order.myFlight[0].to_airport : to}
                 </span>
               </div>
             </div>
@@ -135,7 +140,13 @@ export default function UserFlight() {
                     {format(new Date(returnDate), 'iii, d MMM yyyy')}
                   </span>
                   <span className="flex items-center font-bold gap-1">
-                    {to} <AiOutlineArrowRight className="text-sm" /> {from}
+                    {order.tripPosition === 1
+                      ? order.myFlight[0].to_airport
+                      : to}{' '}
+                    <AiOutlineArrowRight className="text-sm" />{' '}
+                    {order.tripPosition === 1
+                      ? order.myFlight[0].from_airport
+                      : from}
                   </span>
                 </div>
               </div>
