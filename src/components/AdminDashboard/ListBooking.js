@@ -1,20 +1,17 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { AiFillCheckCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 import {
   fetchAllHistory,
   getHistories,
   getPage,
-  validateBook,
 } from '../../features/admin/adminSlice';
 
 function ListBooking() {
   const dispatch = useDispatch();
   const page = useSelector(getPage);
-  const size = 100;
+  const size = 1000;
 
   const [pagination, setPagination] = useState(0);
 
