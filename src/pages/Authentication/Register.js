@@ -12,6 +12,9 @@ import { Listbox, Transition } from '@headlessui/react';
 import { HiChevronUpDown } from 'react-icons/hi2';
 import Swal from 'sweetalert2';
 import apiConfig from '../../api/apiConfig';
+import text from '../../assets/text.png'
+import image from '../../assets/image.png'
+import logo from '../../assets/logo-full.png'
 const titles = [
   { name: 'Mr.' },
   { name: 'Ms.' },
@@ -75,25 +78,25 @@ export const Register = () => {
   return (
     <div className="flex lg:flex-row flex-col lg:h-screen lg:w-screen bg-primary">
       <div className="lg:w-1/2 lg:p-10 lg:ml-10 p-6">
-        <img
+      <img
           className="lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer"
           onClick={() => navigate(`/`)}
-          src="https://drive.google.com/uc?export=view&id=1iVUQZ8UqrM6wLna3oJKcGrj4yBZm_thO"
+          src={logo}
           alt="Gambar"
         ></img>
         <img
           className="lg:w-60 w-56 mx-auto lg:m-16 mt-10"
-          src="https://drive.google.com/uc?export=view&id=1rWRgF-zzYTu61iGbr7T1pHFdO2JheT9s"
+          src={text}
           alt="Gambar"
         ></img>
         <img
           className="lg:w-fit w-full lg:mb-5 lg:-mt-2 mt-10"
-          src="https://drive.google.com/uc?export=view&id=10U4uiFObsfOlZpUjxr1yI6fRr-29rOf-"
+          src={image}
           alt="Gambar"
         ></img>
       </div>
       <div className="w-full lg:w-1/2 lg:p-12 p-3 justify-center">
-        <div className="w-full max-w-md space-y-8 lg:mx-12 lg:mt-20 my-10">
+        <div className="w-full max-w-md space-y-8 lg:mx-auto lg:mt-20 my-10">
           <div className="bg-white p-6 rounded rounded-md">
             <h4 className="mt-3 text-center text-xl font-bold tracking-tight">
               REGISTER

@@ -8,6 +8,9 @@ import apiConfig from '../../api/apiConfig';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { setisLogin } from '../../features/user/userSlice';
+import text from '../../assets/text.png'
+import image from '../../assets/image.png'
+import logo from '../../assets/logo-full.png'
 import Swal from 'sweetalert2';
 
 export const Login = () => {
@@ -61,22 +64,22 @@ export const Login = () => {
         <img
           className="lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer"
           onClick={() => navigate(`/`)}
-          src="https://drive.google.com/uc?export=view&id=1iVUQZ8UqrM6wLna3oJKcGrj4yBZm_thO"
+          src={logo}
           alt="Gambar"
         ></img>
         <img
           className="lg:w-60 w-56 mx-auto lg:m-16 mt-10"
-          src="https://drive.google.com/uc?export=view&id=1rWRgF-zzYTu61iGbr7T1pHFdO2JheT9s"
+          src={text}
           alt="Gambar"
         ></img>
         <img
           className="lg:w-fit w-full lg:mb-5 lg:-mt-2 mt-10"
-          src="https://drive.google.com/uc?export=view&id=10U4uiFObsfOlZpUjxr1yI6fRr-29rOf-"
+          src={image}
           alt="Gambar"
         ></img>
       </div>
       <div className="w-full lg:w-1/2 lg:p-12 p-4 justify-center">
-        <div className="w-full max-w-md space-y-8 lg:m-12 lg:mt-14 my-10">
+        <div className="w-full max-w-md space-y-8 lg:mx-auto lg:mt-[150px] my-10">
           <div className="bg-white p-6 rounded-md">
             <h4 className="mt-4 text-center text-xl font-bold tracking-tight">
               LOGIN
