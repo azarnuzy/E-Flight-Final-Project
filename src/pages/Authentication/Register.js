@@ -77,20 +77,20 @@ export const Register = () => {
 
   return (
     <div className="flex lg:flex-row flex-col lg:h-screen lg:w-screen bg-primary">
-      <div className="lg:w-1/2 lg:p-10 lg:ml-10 p-6">
-      <img
-          className="lg:w-36 w-24 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer"
+      <div className="lg:w-1/2 lg:p-10 lg:ml-10 p-5">
+        <img
+          className="lg:w-36 w-20 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer"
           onClick={() => navigate(`/`)}
           src={logo}
           alt="Gambar"
         ></img>
         <img
-          className="lg:w-60 w-56 mx-auto lg:m-16 mt-10"
+          className="lg:w-60 w-[150px] mx-auto lg:m-16 mt-10"
           src={text}
           alt="Gambar"
         ></img>
         <img
-          className="lg:w-fit w-full lg:mb-5 lg:-mt-2 mt-10"
+          className="lg:w-fit w-[260px] lg:mb-5 lg:-mt-2 mt-5 mx-auto"
           src={image}
           alt="Gambar"
         ></img>
