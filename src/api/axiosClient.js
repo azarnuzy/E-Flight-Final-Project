@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import apiConfig from './apiConfig';
 
 const axiosClient = axios.create({
@@ -31,7 +30,10 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    localStorage.clear();
+    if (error.response.status === 401) {
+      localStorage.clear();
+    }
+    // console.log(error.response.status);
     throw error;
   }
 );

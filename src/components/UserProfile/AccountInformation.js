@@ -20,8 +20,6 @@ export default function AccountInformation() {
   const [title] = useState();
   const [image, setImage] = useState();
 
-  const id = JSON.parse(localStorage.getItem('user-info')).userId;
-
   const handleEdit = async () => {
     try {
       setFirstName(user?.firstName);
