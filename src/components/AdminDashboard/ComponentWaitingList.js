@@ -71,6 +71,12 @@ function ComponentWaitingList() {
                   new Date(item.createdAt),
                   'd-M-yy/HH:mm'
                 );
+                const rupiah = (number) => {
+                  return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(number);
+                };
                 return (
                   <tr className="text-gray-700" key={i}>
                     <td className="px-2 py-1 text-xs border">
@@ -81,7 +87,9 @@ function ComponentWaitingList() {
                     <td className="px-2 py-1 text-xs border">
                       {item.bookingId}
                     </td>
-                    <td className="px-2 py-1 text-xs border">{item.amount}</td>
+                    <td className="px-2 py-1 text-xs border">
+                      {rupiah(item.amount)}
+                    </td>
                     <td className="px-2 py-1 text-xs border">
                       <span
                         className={`px-2 py-1 font-semibold leading-tight  rounded-sm  text-blue-600 bg-blue-100 `}

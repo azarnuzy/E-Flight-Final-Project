@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RiPlaneLine } from 'react-icons/ri';
 import { HiArrowRight } from 'react-icons/hi';
-import { VscDebugStackframeDot } from 'react-icons/vsc';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { useSelector, useDispatch } from 'react-redux';
-import { getHistory } from '../../features/order/orderHistorySlice';
+import { getHistory, getInvoice } from '../../features/order/orderHistorySlice';
 export default function OrderHistory() {
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state?.orderHistory || []);
@@ -16,6 +14,10 @@ export default function OrderHistory() {
     dispatch(getHistory(user.userId));
   }, [dispatch, user.userId]);
 
+  const handleInvoice = ({ userId, bookingId }) => {
+    dispatch(getInvoice({ userId, bookingId }));
+  };
+
   return (
     <>
       <div className="bg-white md:ml-10 md:w-3/4 h-full mb-10 ">
@@ -25,17 +27,43 @@ export default function OrderHistory() {
         </div>
         {history &&
           history.map((res, index) => {
+            const status = () => {
+              if (res.bookingStatus === 'ACTIVE') {
+                return (
+                  <Link
+                    key={index}
+                    to={`/payment/${res.bookingId}?scheduleId=${res.flightScheduleId}&scheduleId2=undefined`}
+                    className="text-secondary font-medium hover:text-primary"
+                  >
+                    Proceed to Payment
+                  </Link>
+                );
+              }
+              if (res.bookingStatus === 'COMPLETED') {
+                return (
+                  <button
+                    onClick={() => {
+                      handleInvoice({
+                        userId: user.userId,
+                        bookingId: res.bookingId,
+                      });
+                    }}
+                    className={`text-secondary font-medium hover:text-primary`}
+                  >
+                    Download Invoice
+                  </button>
+                );
+              }
+
+              return '';
+            };
+
             return (
               <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3">
                 <div className="flex justify-between">
                   <div className="flex items-center gap-3 mb-3">
                     <RiPlaneLine className="text-primary" />
                     <span className="text-base">Plane</span>
-                  </div>
-                  <div>
-                    <button>
-                      <BiDotsVerticalRounded />
-                    </button>
                   </div>
                 </div>
                 <p className="text-sm">Order ID : {res.bookingId}</p>
@@ -45,8 +73,7 @@ export default function OrderHistory() {
                 </div>
                 <div className="flex flex-wrap gap-5 gap-y-1 ">
                   <div className="flex items-center">
-                    <p>One Way</p>
-                    <VscDebugStackframeDot /> <p>{res.totalPassenger} adult</p>
+                    <p>{res.totalPassenger} adult</p>
                   </div>
                   <span className="hidden md:inline-block">|</span>
                   <div className="flex items-center">
@@ -61,10 +88,7 @@ export default function OrderHistory() {
                   <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm">
                     {res.bookingStatus}
                   </span>
-                  <Link className="text-secondary font-medium hover:text-primary">
-                    {' '}
-                    See Detail{' '}
-                  </Link>
+                  {status()}
                 </div>
               </div>
             );

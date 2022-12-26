@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiFillBook, AiFillCaretRight } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import logo from '../../assets/Logo.png';
 import { setStatusAdmin } from '../../features/admin/adminSlice';
@@ -66,13 +66,18 @@ function Sidebar() {
         </h1>
       </button>
       <ul className="pt-6">
-        <li
+        <NavLink
+          end
+          to={'/admin/bookingList'}
           key={1}
-          className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
-        `}
+          className={({ isActive }) => {
+            return `${
+              isActive ? 'text-primary bg-white' : 'text-white'
+            } flex  rounded-md p-2 cursor-pointer  text-sm items-center gap-x-4 
+        `;
+          }}
           onClick={() => {
             dispatch(setStatusAdmin('idle'));
-            navigate('/admin/bookingList');
           }}
         >
           <AiFillBook />
@@ -83,14 +88,18 @@ function Sidebar() {
           >
             Booking List
           </span>
-        </li>
-        <li
+        </NavLink>
+        <NavLink
           key={2}
-          className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 
-        `}
+          to={'/admin/waitingList'}
+          className={({ isActive }) => {
+            return `${
+              isActive ? 'text-primary bg-white' : 'text-white'
+            } flex  rounded-md p-2 cursor-pointer  text-sm items-center gap-x-4 
+        `;
+          }}
           onClick={() => {
             dispatch(setStatusAdmin('idle'));
-            navigate('/admin/waitingList');
           }}
         >
           <AiFillBook />
@@ -101,7 +110,7 @@ function Sidebar() {
           >
             Waiting List
           </span>
-        </li>
+        </NavLink>
         <li
           key={3}
           className={`flex  rounded-md p-2 cursor-pointer hover:bg-white text-gray-300 hover:text-primary text-sm items-center gap-x-4 mt-3

@@ -98,7 +98,7 @@ function TotalFlight() {
         </div>
         <div className="flex items-center">{time}</div>
       </div>
-      {scheduleId2 !== 'undefined' && (
+      {(scheduleId2 !== 'undefined' || scheduleId2 === '') && (
         <>
           <div className="flex justify-between my-3">
             <p className="flex items-center gap-2 font-semibold text-sm">
