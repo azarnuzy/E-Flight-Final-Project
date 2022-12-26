@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseUrl: 'https://api-flyket.up.railway.app/api/',
+  baseUrl: 'https://flyket-app.herokuapp.com/api/',
 };
 
 export default apiConfig;
