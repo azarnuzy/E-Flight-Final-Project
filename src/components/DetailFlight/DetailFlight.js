@@ -1,11 +1,9 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   bookFlight,
   bookFlight2,
-  getBooking,
   getNamePassenger,
   getOrders,
   getSeatNo,
@@ -13,14 +11,12 @@ import {
 } from '../../features/order/orderSlice';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
-import DetailPemesanan from './DetailPemesanan';
 import DetailPenumpang from './DetailPenumpang';
-import ListSeat from './ListSeat';
 import TotalFlight from './TotalFlight';
 // import Footer from '../Footer/Footer'
 
 export default function DetailFlight() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
 

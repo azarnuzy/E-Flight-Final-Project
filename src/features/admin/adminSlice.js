@@ -31,16 +31,15 @@ export const fetchValidateList = createAsyncThunk(
 
 export const fetchAllHistory = createAsyncThunk(
   'admin/fetchAllHistory',
-  async ({ page, size }) => {
+  async ({ page, size, sort }) => {
     try {
-      const params = { page: page, size: size, 'booking-date-sort': 'desc' };
+      const params = { page: page, size: size, 'booking-date-sort': sort };
       const response = await axiosClient.get(
         `${apiConfig.baseUrl}history/booking/get-all`,
         {
           params,
         }
       );
-
       return response.data;
     } catch (error) {
       console.error(error);

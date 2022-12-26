@@ -1,22 +1,21 @@
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { AiFillCheckCircle } from 'react-icons/ai';
+import { FaSort } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 import {
   fetchAllHistory,
   getHistories,
   getPage,
-  validateBook,
 } from '../../features/admin/adminSlice';
 
 function ListBooking() {
   const dispatch = useDispatch();
   const page = useSelector(getPage);
-  const size = 100;
+  const size = 1000;
 
   const [pagination, setPagination] = useState(0);
+  const [dateSort, setDateSort] = useState('desc');
 
   const histories = useSelector(getHistories);
 
@@ -40,8 +39,8 @@ function ListBooking() {
   }
 
   useEffect(() => {
-    dispatch(fetchAllHistory({ page, size }));
-  }, [dispatch, page]);
+    dispatch(fetchAllHistory({ page, size, sort: dateSort }));
+  }, [dateSort, dispatch, page]);
 
   const status = (item) => {
     if (item.bookingStatus === 'WAITING') {
@@ -73,39 +72,64 @@ function ListBooking() {
                 <th className="text-center">Booking Id</th>
                 <th className="text-center">Amount</th>
                 <th className="text-center">Status</th>
-                <th className="text-center">Date/Time</th>
+                <th
+                  className="text-center justify-center flex gap-3 items-center hover:opacity-80 cursor-pointer"
+                  onClick={() => {
+                    let sort = 'desc';
+                    if (dateSort === 'desc') {
+                      sort = 'asc';
+                      setDateSort('asc');
+                    }
+                    dispatch(fetchAllHistory({ page, size, sort: sort }));
+                  }}
+                >
+                  Date / Time <FaSort />
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white">
               {displayHistories[pagination]?.map((item, i) => {
                 const datetime = format(
                   new Date(item.createdAt),
-                  'd-M-yy/HH:mm'
+                  'd-M-yy / HH:mm'
                 );
+                const rupiah = (number) => {
+                  return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                  }).format(number);
+                };
+
                 return (
                   <tr className="text-gray-700" key={i}>
                     <td className="px-2 py-1 text-xs border">
                       {i + pagination * 10 + 1}.
                     </td>
-                    <td className="px-2 py-1 text-xs border">{item.userId}</td>
-                    <td className="px-2 py-1 text-xs border">{item.email}</td>
-                    <td className="px-2 py-1 text-xs border">
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
+                      {item.userId}
+                    </td>
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
+                      {item.email}
+                    </td>
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
                       {item.phoneNumber}
                     </td>
-                    <td className="px-2 py-1 text-xs border">
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
                       {item.bookingId}
                     </td>
-                    <td className="px-2 py-1 text-xs border">{item.amount}</td>
-                    <td className="px-2 py-1 text-xs border">
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
+                      {rupiah(item.amount)}
+                    </td>
+                    <td className={` py-1 px-2 text-xs border text-center `}>
                       <span
-                        className={`px-2 py-1 font-semibold leading-tight  rounded-sm  ${status(
+                        className={`px-2 py-1 ${status(
                           item
-                        )} `}
+                        )} font-semibold leading-tight min-w-min  rounded-sm `}
                       >
                         {item.bookingStatus}
                       </span>
                     </td>
-                    <td className="px-2 py-1 text-xs border">
+                    <td className="px-2 py-1 text-xs border truncate overflow-hidden">
                       <span
                         className={`px-2 py-1 font-semibold leading-tight  rounded-sm `}
                       >

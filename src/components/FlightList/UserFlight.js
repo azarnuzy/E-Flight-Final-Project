@@ -1,20 +1,20 @@
 import { format } from 'date-fns';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getOrders, setTripPosition } from '../../features/order/orderSlice';
-import { fetchUser, getUser } from '../../features/user/userSlice';
+import { fetchUser } from '../../features/user/userSlice';
 import garudaLogo from '../../assets/garuda-logo.png';
 import { FaPlane } from 'react-icons/fa';
 
 export default function UserFlight() {
   let [searchParams] = useSearchParams();
-  const user = useSelector(getUser);
+  // const user = useSelector(getUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // id
-  const [id, setId] = useState(user?.id || '');
+  // const [id, setId] = useState(user?.id || '');
   const email = JSON.parse(localStorage.getItem('email'));
   useEffect(() => {
     dispatch(fetchUser(email));
@@ -22,7 +22,7 @@ export default function UserFlight() {
 
   const from = searchParams.get('fr');
   const to = searchParams.get('to');
-  const date = searchParams.get('date');
+  // const date = searchParams.get('date');
   const departureDate = new Date(
     searchParams.get('dd').replace(' GMT 0700 (Western Indonesia Time)', '')
   );
