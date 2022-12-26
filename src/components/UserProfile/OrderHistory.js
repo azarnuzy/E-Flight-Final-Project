@@ -65,7 +65,6 @@ export default function OrderHistory() {
                 </div>
                 <div className="flex justify-between mt-5">
                   <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm">
-                    }
                   </span>
                 </div>
               </div>
