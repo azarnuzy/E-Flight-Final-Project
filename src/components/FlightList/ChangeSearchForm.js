@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { emptyOrders } from '../../features/order/orderSlice';
 import {
   getAirports,

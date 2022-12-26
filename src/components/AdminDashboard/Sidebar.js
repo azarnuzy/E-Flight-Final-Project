@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiFillBook, AiFillCaretRight } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import logo from '../../assets/Logo.png';
 import { setStatusAdmin } from '../../features/admin/adminSlice';

@@ -1,9 +1,7 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar/Navbar';
 import SideBarProfile from '../components/UserProfile/SideBarProfile';
 import OrderHistory from '../components/UserProfile/OrderHistory';
-import RecentOrders from '../components/UserProfile/RecentOrders';
 import Footer from '../components/Footer/Footer';
 
 
@@ -17,8 +15,6 @@ export default function ProfilePage() {
                 {/* Order History */}
                 <OrderHistory />
             </div >
-            {/* Bottom Content */}
-            {/* <RecentOrders /> */}
             <Footer />
         </div >
     )

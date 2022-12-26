@@ -1,14 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { BsFillPersonFill, BsFillWalletFill, BsCardList } from 'react-icons/bs';
-import { RiRefund2Fill } from 'react-icons/ri';
-import { BiHelpCircle } from 'react-icons/bi';
-import { CiSettings } from 'react-icons/ci';
+import { BsFillPersonFill, BsCardList } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';
 import Swal from 'sweetalert2';
-import { getLogin, getUser, setisLogin } from '../../features/user/userSlice';
-import { setCredentials } from '../../features/auth/authSlice';
+import { getUser, setisLogin } from '../../features/user/userSlice';
 
 export default function SideBarProfile() {
   const navigate = useNavigate();

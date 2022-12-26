@@ -2,11 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { HiChevronUpDown } from 'react-icons/hi2';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getTitlePassenger,
-  setTitlePassenger,
-} from '../../features/order/orderSlice';
+import { useDispatch } from 'react-redux';
+import { setTitlePassenger } from '../../features/order/orderSlice';
 const people = [
   { name: 'Mr.' },
   { name: 'Ms.' },
@@ -17,8 +14,6 @@ const people = [
 export default function ListTitleCategory({ index }) {
   const [selected, setSelected] = useState({ name: 'Select Your Title' });
   const dispatch = useDispatch();
-
-  const title = useSelector(getTitlePassenger);
 
   // console.log(title);
   return (

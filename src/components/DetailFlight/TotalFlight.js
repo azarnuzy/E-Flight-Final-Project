@@ -1,7 +1,5 @@
 import React from 'react';
-import { RiRefund2Fill } from 'react-icons/ri';
-import { BsArrowRight, BsCalendarDate } from 'react-icons/bs';
-import { BiArrowFromLeft, BiArrowToRight } from 'react-icons/bi';
+import { BsArrowRight } from 'react-icons/bs';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';

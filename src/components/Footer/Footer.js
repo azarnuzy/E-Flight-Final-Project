@@ -5,16 +5,6 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    // <div className="w-full flex items-center justify-center flex-col md:absolute md:bottom-0 bg-primary py-3">
-    //   <div className="flex justify-center flex-col text-center text-white">
-    //     <div className="font-medium">
-    //       <span className="font-semibold">FlyKet </span> is a E-Flight Company{' '}
-    //     </div>
-    //     <span className="font-medium">
-    //       copyright © 2022, made with ❤️ in Indonesia
-    //     </span>
-    //   </div>
-    // </div>
     <footer className="bg-primary">
       <div className="text-center items-center text-white p-5">
         <div className="grid lg:grid-cols-3 grid-cols-1 mt-10">
@@ -63,7 +53,6 @@ export default function Footer() {
           Copyright &copy; 2022 Flyket. All Right Reserved.
         </p>
       </div>
-          
     </footer>
   );
 }

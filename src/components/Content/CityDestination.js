@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React from 'react'
 import city1 from '../../assets/yogyakarta.jpg'
 import city2 from '../../assets/bali.jpg'
 import city3 from '../../assets/jakarta.jpg'

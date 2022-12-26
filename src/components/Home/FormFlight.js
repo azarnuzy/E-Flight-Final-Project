@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
 import { emptyOrders } from '../../features/order/orderSlice';
 import {
   fetchAirport,

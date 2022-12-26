@@ -1,7 +1,5 @@
 import React from 'react';
 import background from '../../assets/home-swiper-1.png';
-// import background from '../../assets/header.jpg';
-// import background from '../../assets/header1.jpg';
 
 export default function Header() {
   return (
