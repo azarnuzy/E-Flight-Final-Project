@@ -8,9 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getHistory } from '../../features/order/orderHistorySlice';
 export default function OrderHistory() {
   const dispatch = useDispatch();
-  const { history, isLoading, hasError } = useSelector(
-    (state) => state?.orderHistory || []
-  );
+  const { history } = useSelector((state) => state?.orderHistory || []);
 
   const user = JSON.parse(localStorage.getItem('user-info'));
 
