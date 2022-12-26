@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { RiPlaneLine } from 'react-icons/ri';
 import { HiArrowRight } from 'react-icons/hi';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
@@ -7,13 +7,16 @@ import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { useSelector, useDispatch } from 'react-redux';
 import { getHistory } from '../../features/order/orderHistorySlice';
 export default function OrderHistory() {
+  // const searchParams = useSearchParams()
+
   const dispatch = useDispatch();
   const { history, isLoading, hasError } = useSelector(
     (state) => state?.orderHistory || []
   );
 
   const user = JSON.parse(localStorage.getItem('user-info'));
-
+  // const scheduleId = searchParams.get('scheduleId')
+  // console.log(scheduleId)
   useEffect(() => {
     dispatch(getHistory(user.userId));
   }, [dispatch, user.userId]);
@@ -27,8 +30,9 @@ export default function OrderHistory() {
         </div>
         {history &&
           history.map((res, index) => {
+            console.log(res)
             return (
-              <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3">
+              <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3" key={index}>
                 <div className="flex justify-between">
                   <div className="flex items-center gap-3 mb-3">
                     <RiPlaneLine className="text-primary" />
@@ -61,12 +65,8 @@ export default function OrderHistory() {
                 </div>
                 <div className="flex justify-between mt-5">
                   <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm">
-                    {res.bookingStatus}
+                    }
                   </span>
-                  <Link className="text-secondary font-medium hover:text-primary">
-                    {' '}
-                    See Detail{' '}
-                  </Link>
                 </div>
               </div>
             );

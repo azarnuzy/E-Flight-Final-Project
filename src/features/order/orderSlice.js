@@ -46,7 +46,6 @@ export const fetchSeat = createAsyncThunk(
   async (scheduleId) => {
     try {
       const response = await axiosClient.get(`${apiConfig.baseUrl}seats`);
-      // console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -57,7 +56,7 @@ export const fetchSeat = createAsyncThunk(
 export const bookFlight = createAsyncThunk(
   'order/booking',
   async ({ uId, shceduleId, seatClass, totalPs, amount, passengers }) => {
-    // console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
+    console.log(uId, shceduleId, seatClass, totalPs, amount, passengers);
     try {
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}booking/add?uid=${uId}`,
@@ -69,7 +68,6 @@ export const bookFlight = createAsyncThunk(
           passengerRequests: passengers,
         }
       );
-
       return response.data;
     } catch (error) {
       console.error(error);
@@ -111,7 +109,7 @@ export const fetchScheduleById = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   }
 );
 
@@ -127,7 +125,7 @@ export const fetchScheduleById2 = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   }
 );
 
@@ -178,9 +176,9 @@ export const setPayment = createAsyncThunk(
           paymentId,
         }
       );
-
+      console.log(response)
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   }
 );
 export const setPayment2 = createAsyncThunk(
@@ -197,7 +195,7 @@ export const setPayment2 = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   }
 );
 

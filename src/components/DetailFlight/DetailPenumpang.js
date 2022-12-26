@@ -30,6 +30,7 @@ function DetailPenumpang() {
   };
 
   const [passengers] = useState(temp);
+  console.log(passengers)
 
   return (
     <>
@@ -63,7 +64,7 @@ function DetailPenumpang() {
                   }}
                 />
                 <span className="pl-2 font-sans text-xs font-extralight">
-                Fill in according to KTP / Passport / SIM without punctuation and titles!
+                  Fill in according to KTP / Passport / SIM without punctuation and titles!
                 </span>
               </div>
             </div>
