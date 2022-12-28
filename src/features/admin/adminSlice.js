@@ -31,7 +31,7 @@ export const fetchValidateList = createAsyncThunk(
 
 export const fetchAllHistory = createAsyncThunk(
   'admin/fetchAllHistory',
-  async ({ page, size, sort }) => {
+  async ({ page, size, sort, statusSort }) => {
     try {
       const params = { page: page, size: size, 'booking-date-sort': sort };
       const response = await axiosClient.get(
@@ -61,6 +61,20 @@ export const validateBook = createAsyncThunk(
   }
 );
 
+export const fetchHistoryById = createAsyncThunk(
+  'admin/fetchHistoryById',
+  async ({ page, size, userid }) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}history/booking/${userid}?page=${page}&size=${size}&userid=${userid}`
+      );
+
+      console.log(response.data);
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
@@ -72,6 +86,10 @@ export const adminSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchAllHistory.fulfilled, (state, action) => {
+        state.histories = action.payload;
+        state.status = 'success';
+      })
+      .addCase(fetchHistoryById.fulfilled, (state, action) => {
         state.histories = action.payload;
         state.status = 'success';
       })
