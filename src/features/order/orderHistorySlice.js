@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import FileSaver from 'file-saver';
 import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
@@ -39,11 +40,18 @@ export const getHistoryByUserId = createAsyncThunk(
 export const getInvoice = createAsyncThunk(
   'history/getInvoice',
   async ({ userId, bookingId }) => {
+    // console.log(userId, bookingId);
     try {
-      const response = await axiosClient.get(
-        `${apiConfig.baseUrl}file/download/invoice?user-id=${userId}&booking-id=${bookingId}`
-      );
-      return response.data;
+      const response = await axiosClient
+        .get(
+          `${apiConfig.baseUrl}file/download/invoice?user-id=${userId}&booking-id=${bookingId}`,
+          { responseType: 'blob' }
+        )
+        .then((res) => {
+          FileSaver.saveAs(res, userId);
+        });
+      // console.log(response);
+      return response;
     } catch (error) {
       console.error(error);
     }

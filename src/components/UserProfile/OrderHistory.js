@@ -14,8 +14,9 @@ export default function OrderHistory() {
     dispatch(getHistory(user.userId));
   }, [dispatch, user.userId]);
 
-  const handleInvoice = ({ userId, bookingId }) => {
-    dispatch(getInvoice({ userId, bookingId }));
+  const handleInvoice = async ({ userId, bookingId }) => {
+    const response = await dispatch(getInvoice({ userId, bookingId }));
+    return response.payload;
   };
 
   return (
