@@ -1,34 +1,49 @@
 [
     {
         "id": 1,
-        "title": "Dapatkan Harga Tiket Pesawat Murah ke Destinasi Favorit Anda",
-        "content": "Ingin pesan tiket pesawat murah? Kini hanya dengan satu kali sentuhan jari, Anda bisa langsung pesan tiket pesawat murah di Flyket",
-        "time": "28 November 2022, 22.10 WIB"
+        "image": "yogyakarta",
+        "title": "Yogyakarta",
+        "content": "Yogyakarta (also spelled 'Jogjakarta' or 'Jogja') is a city on the island of Java in Indonesia. It is the capital of the province of Yogyakarta Special Region, and is known for its rich cultural heritage, historical landmarks, and natural beauty. The city is located in the central part of the island and is a popular tourist destination, attracting visitors from all over the world. Yogyakarta has a long history dating back to the 8th century, when it was the capital of the ancient Hindu-Buddhist kingdom of Mataram. The city is home to many ancient temples and palaces, including the 9th century Prambanan Temple, a UNESCO World Heritage site, and the Kraton, the sultan's palace. In addition to its cultural attractions, Yogyakarta is also known for its vibrant arts scene, with a thriving music and theater community. The city is home to many galleries, studios, and performance spaces, and is known for its traditional batik and puppetry. Yogyakarta is located in a tropical climate zone and has a hot, humid weather year-round. The city is also located in an active volcanic region and is prone to earthquakes. Despite these challenges, Yogyakarta is a vibrant and lively city with much to offer visitors and residents alike."
     },{
         "id": 2,
-        "title": "Pesan Tiket Pesawat dan Rencanain Liburan Jadi Gampang",
-        "content": "Jangan bingung lagi sobat, Pesan tiket pesawat di Flyket anti ribet-ribet club. cek yuk!",
-        "time": "28 November 2022, 19.00 WIB"
+        "image": "bali",
+        "title": "Bali",
+        "content": "Bali is an Indonesian island located in the westernmost end of the Lesser Sunda Islands. It is known for its beautiful beaches, cultural attractions, and vibrant arts scene. The island's culture is a blend of traditional Balinese Hinduism, Javanese culture, and foreign influences. Tourism is the main industry in Bali, with the island attracting millions of visitors each year for its natural and cultural attractions, as well as its surf breaks and nightlife. The island is also a popular destination for yoga and wellness retreats, and is known for its spa and wellness facilities."
     },{
         "id": 3,
-        "title": "Ayo liburan ke destinasi menarik!",
-        "content": "Ada berbagai pilihan penerbangan dengan harga spesial, lho. Jangan sampai kehabisan ya!",
-        "time": "27 November 2022, 16.47 WIB"
+        "image": "jakarta",
+        "title": "Jakarta",
+        "content": "Jakarta is the capital and largest city of Indonesia. It is located on the northwest coast of the island of Java and is the country's center of politics, economics, and culture. Jakarta is a bustling metropolis with a population of over 10 million people and is known for its vibrant nightlife, shopping, and dining scenes. The city is home to a number of cultural attractions, including museums, galleries, and landmarks, as well as beautiful parks and gardens. Jakarta is also a hub for transportation, with an extensive network of roads, railways, and airports connecting it to other parts of Indonesia and the world. Despite its many challenges, including traffic congestion and pollution, Jakarta remains an important and vibrant city in Indonesia and Southeast Asia."
     },{
         "id": 4,
-        "title": "Perjalanan seru dengan Flyket siap dimulai!",
-        "content": "Pilihan terbaik tiket pesawat ada di sini. Tetap patuhi protokol kesehatan dan stay safe ya, sobat Flyket!",
-        "time": "27 November 2022, 09.17 WIB"
+        "image": "surabaya",
+        "title": "Surabaya",
+        "content": "Surabaya is the capital of East Java province in Indonesia and is the country's second-largest city. It is located on the northeastern coast of the island of Java and is a major commercial and industrial center. Surabaya is known for its vibrant and diverse culture, with a mix of traditional Javanese, Chinese, and Dutch influences. The city is home to a number of cultural attractions, including museums, galleries, and landmarks, as well as beautiful parks and gardens. Surabaya is also a hub for transportation, with an extensive network of roads, railways, and airports connecting it to other parts of Indonesia and the world. Despite its many challenges, including traffic congestion and pollution, Surabaya remains an important and vibrant city in Indonesia and Southeast Asia."
     },{
         "id": 5,
-        "title": "Selamat! Kamu bisa mulai sekarang",
-        "content": "Mulai perjalanan menyenangkan dengan tiket dari Flyket. Cek sekarang yuk!",
-        "time": "26 November 2022, 11.50 WIB"
+        "image": "malang",
+        "title": "Malang",
+        "content": "Malang is a city in the eastern part of the island of Java in Indonesia. It is the second-largest city in the province of East Java and is known for its mild climate and natural beauty. Malang is surrounded by mountains and is home to a number of scenic spots, including waterfalls and parks. The city is also known for its vibrant arts and cultural scene, with a number of museums, galleries, and performance spaces. Malang is a hub for education, with a number of universities and colleges located in the city. Despite its many challenges, including traffic congestion and pollution, Malang remains an important and vibrant city in Indonesia and Southeast Asia."
     },{
         "id": 6,
-        "title": "Welcome New User!",
-        "content": "Terima kasih sudah bergabung dengan Flyket. Eksplor dunia bersama Flyket dan dapatkan lebih banyak pengalaman menarik.",
-        "time": "26 November 2022, 11.40 WIB"
+        "image": "surakarta",
+        "title": "Surakarta",
+        "content": "Surakarta, also known as Solo, is a city in the central part of the island of Java in Indonesia. It is the capital of the province of Central Java and is known for its rich cultural heritage and traditions. Surakarta is home to a number of ancient temples and palaces, as well as beautiful parks and gardens. The city is also known for its vibrant arts and cultural scene, with a number of museums, galleries, and performance spaces. Surakarta is a hub for education, with a number of universities and colleges located in the city. Despite its many challenges, including traffic congestion and pollution, Surakarta remains an important and vibrant city in Indonesia and Southeast Asia."
+    },{
+        "id": 7,
+        "image": "bandung",
+        "title": "Bandung",
+        "content": "Bandung is the capital of West Java province in Indonesia and is the country's third-largest city. It is located in the western part of the island of Java and is known for its mild climate and natural beauty. Bandung is surrounded by mountains and is home to a number of scenic spots, including waterfalls and parks. The city is also known for its vibrant arts and cultural scene, with a number of museums, galleries, and performance spaces. Bandung is a hub for education, with a number of universities and colleges located in the city. Despite its many challenges, including traffic congestion and pollution, Bandung remains an important and vibrant city in Indonesia and Southeast Asia."
+    },{
+        "id": 8,
+        "image": "padang",
+        "title": "Padang",
+        "content": "Padang is the capital of West Sumatra province in Indonesia and is a major port city on the west coast of the island of Sumatra. It is known for its rich cultural heritage, with a mix of traditional Minangkabau, Dutch, and Chinese influences. Padang is home to a number of cultural attractions, including temples, palaces, and museums, as well as beautiful parks and gardens. The city is also known for its vibrant arts and cultural scene, with a number of galleries and performance spaces. Padang is a hub for education, with a number of universities and colleges located in the city. Despite its many challenges, including traffic congestion and pollution, Padang remains an important and vibrant city in Indonesia and Southeast Asia."
+    },{
+        "id": 9,
+        "image": "papua",
+        "title": "Papua",
+        "content": "Papua is a province of Indonesia located on the western half of the island of New Guinea and other smaller islands to the east. It is the easternmost province of Indonesia and is the largest and most populous province in the country. Papua is home to a diverse population of around 4 million people, with a mix of traditional cultures and languages. The province is known for its rich natural resources, including forests, minerals, and oil and gas reserves. Papua is also home to a number of cultural attractions, including temples, palaces, and museums, as well as beautiful parks and gardens. The province is also known for its vibrant arts and cultural scene, with a number of galleries and performance spaces. Despite its many challenges, including poverty, conflict, and environmental degradation, Papua remains an important and vibrant region in Indonesia and Southeast Asia."
     }
     
   ]

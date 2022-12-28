@@ -18,6 +18,7 @@ import WaitingList from '../pages/WaitingList';
 import { AboutUs } from '../pages/Footer/AboutUs';
 import { ContactUs } from '../pages/Footer/ContactUs';
 import TermOfUse from '../pages/Footer/TermUse';
+import { DetailCity } from '../pages/DetailCity';
 
 export default function RoutesComponents() {
   return (
@@ -32,6 +33,7 @@ export default function RoutesComponents() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/termsOfUse" element={<TermOfUse />} />
+        <Route path="/home/:id" element={<DetailCity />} />
         {/* protect admin page */}
         <Route path="/admin" element={<RequireAuth allowedRoles={['ADMIN']} />}>
           <Route path="bookingList" element={<BookingList />} />
