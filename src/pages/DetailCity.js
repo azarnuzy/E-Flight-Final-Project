@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable array-callback-return */
 import React, { useState } from 'react'
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
@@ -17,7 +19,6 @@ export const DetailCity = () => {
     window.scrollTo(0, 0);
 
     const [data] = useState(dataCity);
-    console.log(data)
     let cityItem;
     const {id} = useParams();
 
