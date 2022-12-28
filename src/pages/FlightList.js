@@ -35,8 +35,10 @@ export default function FlightList() {
                 <img
                   src={replacer}
                   alt=""
-                  className="mx-auto w-[250px] mt-20"
+                  className="mx-auto w-[250px] mt-16"
                 />
+                <h3 className='font-bold text-center py-2 mt-3'>No Flight Available</h3>
+                <p className='text-center text-slate-400'>Try again with a different date, destination, or seat class.</p>
               </div>
             )}
           </div>
