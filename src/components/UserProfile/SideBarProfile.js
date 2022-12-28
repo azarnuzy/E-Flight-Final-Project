@@ -5,6 +5,7 @@ import { BsFillPersonFill, BsCardList } from 'react-icons/bs';
 import { MdLogout } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import { getUser, setisLogin } from '../../features/user/userSlice';
+import { FaDatabase } from 'react-icons/fa';
 
 export default function SideBarProfile() {
   const navigate = useNavigate();
@@ -28,6 +29,11 @@ export default function SideBarProfile() {
       }
     });
   };
+
+  const roles = JSON.parse(localStorage.getItem('user-info'))?.userId.split(
+    '-'
+  )[0];
+
   return (
     <>
       <div className="bg-grey-600 h-screen md:w-1/4 md:h-full pt-3 mb-6 border-2 rounded-md ">
@@ -64,6 +70,20 @@ export default function SideBarProfile() {
               My Orders{' '}
             </Link>
           </div>
+          {roles === 'ADMIN' && (
+            <div>
+              <div className="py-2 md:py-3 pl-4 flex items-center gap-3 hover:bg-gray-100 ">
+                <FaDatabase className="text-primary" />{' '}
+                <Link
+                  to={'/admin/bookingList'}
+                  className="text-sm hover:text-secondary"
+                >
+                  {' '}
+                  Admin Page{' '}
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
         <div className=" py-3">
           <div className="py-2 md:py-2 pl-4 flex items-center gap-3 hover:bg-gray-100 ">
