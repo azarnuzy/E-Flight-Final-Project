@@ -33,7 +33,7 @@ export default function OrderHistory() {
                 return (
                   <Link
                     key={index}
-                    to={`/payment/${res.bookingId}?scheduleId=${res.flightScheduleId}&scheduleId2=undefined`}
+                    to={`/payment/${res.bookingId}?scheduleId=${res.flightId}&scheduleId2=undefined`}
                     className="text-secondary font-medium hover:text-primary"
                   >
                     Proceed to Payment
