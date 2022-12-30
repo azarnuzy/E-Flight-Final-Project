@@ -46,7 +46,6 @@ export default function RoutesComponents() {
           <Route path="/detailOrder/" element={<DetailFlight />} />
           <Route path="/payment/:id" element={<PaymentPage />} />
         </Route>
-
         <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
