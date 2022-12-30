@@ -20,6 +20,8 @@ const titles = [
   { name: 'Miss.' },
   { name: 'Mrs.' },
 ];
+const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export const Register = () => {
   const [title, setTitle] = useState('');
@@ -37,9 +39,6 @@ export const Register = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const navigate = useNavigate();
-
-  const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
   const [selected, setSelected] = useState(titles[0]);
 
@@ -69,10 +68,10 @@ export const Register = () => {
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
-  }, [EMAIL_REGEX, email]);
+  }, [email]);
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
-  }, [PWD_REGEX, pwd]);
+  }, [pwd]);
 
   return (
     <div className="flex lg:flex-row flex-col lg:h-screen lg:w-screen bg-primary h-screen overflow-hidden">
@@ -179,7 +178,7 @@ export const Register = () => {
                     name="firstname"
                     type="firstname"
                     autoComplete="off"
-                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="First Name"
                     onChange={(e) => setFirstName(e.target.value)}
                     value={firstname}
@@ -192,7 +191,7 @@ export const Register = () => {
                     name="lastname"
                     type="lastname"
                     autoComplete="off"
-                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="Last Name"
                     onChange={(e) => setLastname(e.target.value)}
                     value={lastname}
@@ -203,7 +202,7 @@ export const Register = () => {
                   className={
                     emailFocus && email && !validEmail
                       ? `px-3 py-2 border text-slate-50 border-red-500 border-solid rounded-md flex justify-between`
-                      : `px-3 py-2 border border-gray-300 rounded rounded-md flex justify-between mt-3`
+                      : `px-3 py-2 border border-gray-300 rounded-md flex justify-between mt-3`
                   }
                 >
                   <input
@@ -239,7 +238,7 @@ export const Register = () => {
                     name="phonenumber"
                     type="phonenumber"
                     autoComplete="off"
-                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="relative block w-full appearance-none px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md mt-4 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="Phone Number"
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phonenumber}
@@ -250,7 +249,7 @@ export const Register = () => {
                   className={
                     pwdFocus && pwd && !validPwd
                       ? `px-3 py-2 border text-slate-50 border-red-500 border-solid rounded-md flex justify-between mt-3`
-                      : `px-3 py-2 border border-gray-300 rounded rounded-md flex justify-between mt-3`
+                      : `px-3 py-2 border border-gray-300 rounded-md flex justify-between mt-3`
                   }
                 >
                   <input
@@ -317,13 +316,13 @@ export const Register = () => {
                   Or
                 </p>
                 <div 
-                  className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded rounded-md border border-gray-300 justify-center"
+                  className="flex gap-3 z-0 w-full p-3 mt-5 cursor-pointer rounded-md border border-gray-300 justify-center"
                   onClick={signInWithGoogle}
                 >
                   <FcGoogle className="text-2xl" />
                   <p className="font-normal text-base">Continue with Google</p>
                 </div>
-                <div className="flex gap-3 z-0 w-full p-3 mt-5 mb-4 cursor-pointer rounded rounded-md border border-gray-300 justify-center">
+                <div className="flex gap-3 z-0 w-full p-3 mt-5 mb-4 cursor-pointer rounded-md border border-gray-300 justify-center">
                   <GrFacebook className="text-blue-900 text-2xl" />
                   <p className="font-normal text-base">Continue with Google</p>
                 </div> */}

@@ -2,8 +2,7 @@ import { Menu } from '@headlessui/react';
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { BsSortDown } from 'react-icons/bs';
-import { FaSearch, FaSort, FaSortDown } from 'react-icons/fa';
+import { FaSort, FaSortDown } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAllHistory,
@@ -19,9 +18,7 @@ function ListBooking() {
   const [dateSort, setDateSort] = useState('desc');
   const [statusBook, setStatusBook] = useState('completed');
   const [userId, setUserId] = useState('');
-  const [searchById, setSearchById] = useState(false);
   const [sortStatus, setSortStatus] = useState('sort-date');
-  const [isClicked, setIsClicked] = useState(false);
 
   const histories = useSelector(getHistories);
   // const [histories, setHistories] = useState(tempHistories);

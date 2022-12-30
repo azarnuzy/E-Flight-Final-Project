@@ -1,5 +1,5 @@
 import React from 'react';
-import background from '../../assets/home-swiper-1.png';
+import background from '../../assets/home-swiper-1.webp';
 
 export default function Header() {
   return (
@@ -8,6 +8,7 @@ export default function Header() {
       <img
         className="absolute w-[110%] h-[70vh] object-center object-cover -z-[9] top-14"
         src={background}
+        loading="lazy"
         alt=""
       />
       <div className="h-[60vh] w-full flex justify-center items-center text-center text-white font-semibold text-2xl flex-col relative top-12">

@@ -39,6 +39,7 @@ export default function SideBarProfile() {
       <div className="bg-grey-600  md:w-1/4 md:h-full pt-3 mb-6 border-2 rounded-md ">
         <div className="border-b-2 border-grey-800">
           <img
+            loading="lazy"
             src={
               user?.imgUrl ||
               'https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0'

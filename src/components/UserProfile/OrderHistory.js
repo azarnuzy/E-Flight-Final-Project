@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RiPlaneLine } from 'react-icons/ri';
 import { HiArrowRight } from 'react-icons/hi';
 import { useSelector, useDispatch } from 'react-redux';
@@ -94,8 +94,7 @@ export default function OrderHistory() {
                 <div className="flex justify-between mt-5">
                   <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm"></span>
                   <Link className="text-secondary font-medium hover:text-primary">
-                    {' '}
-                    See Detail{' '}
+                    {status()}
                   </Link>
                 </div>
               </div>
