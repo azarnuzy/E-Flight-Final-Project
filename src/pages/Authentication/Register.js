@@ -20,7 +20,8 @@ const titles = [
   { name: 'Miss.' },
   { name: 'Mrs.' },
 ];
-const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
+const EMAIL_REGEX =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export const Register = () => {
@@ -83,7 +84,7 @@ export const Register = () => {
           alt="Gambar"
         ></img>
         <img
-          className="lg:w-60 w-[150px] mx-auto lg:m-16 mt-10"
+          className="lg:w-60 w-[150px] mx-auto lg:m-12 mt-10"
           src={text}
           alt="Gambar"
         ></img>

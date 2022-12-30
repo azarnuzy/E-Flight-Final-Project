@@ -8,9 +8,9 @@ import apiConfig from '../../api/apiConfig';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import { setisLogin } from '../../features/user/userSlice';
-import text from '../../assets/text.png'
-import image from '../../assets/image.png'
-import logo from '../../assets/logo-full.png'
+import text from '../../assets/text.png';
+import image from '../../assets/image.png';
+import logo from '../../assets/logo-full.png';
 import Swal from 'sweetalert2';
 
 export const Login = () => {
@@ -73,7 +73,8 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
+    const EMAIL_REGEX =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     setValidEmail(EMAIL_REGEX.test(email));
   }, [email]);
   useEffect(() => {
@@ -82,7 +83,7 @@ export const Login = () => {
   }, [pwd]);
 
   return (
-    <div className="flex lg:flex-row flex-col lg:h-screen bg-primary h-screen">
+    <div className="flex lg:flex-row flex-col lg:h-screen bg-primary min-h-screen">
       <div className="lg:w-1/2 lg:p-10 lg:ml-10 p-5">
         <img
           className="lg:w-36 w-20 mx-auto lg:-mx-12 lg:-mt-2 cursor-pointer"
@@ -91,7 +92,7 @@ export const Login = () => {
           alt="Gambar"
         ></img>
         <img
-          className="lg:w-60 w-[150px] mx-auto lg:m-16 mt-10"
+          className="lg:w-60 w-[150px] mx-auto lg:m-12 mt-10"
           src={text}
           alt="Gambar"
         ></img>
@@ -138,6 +139,7 @@ export const Login = () => {
                 </div>
                 <p
                   id="emailidnote"
+                  data-testid="emailidnote"
                   className={
                     emailFocus && email && !validEmail
                       ? 'lg:text-sm text-xs relative rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none -mx-1 mt-1.5 text-red-500 pl-3 flex gap-1 items-center'
@@ -183,6 +185,7 @@ export const Login = () => {
                 </div>
                 <div
                   id="pwdnote"
+                  data-testId="passwordidnote"
                   className={
                     pwdFocus && pwd && !validPwd
                       ? 'lg:text-sm text-xs relative rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none -mx-1 mt-1.5 text-red-500 pl-3 gap-1 items-center'
