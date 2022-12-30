@@ -69,7 +69,6 @@ export const fetchHistoryById = createAsyncThunk(
         `${apiConfig.baseUrl}history/booking/${userid}?page=${page}&size=${size}&userid=${userid}`
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {}
   }
