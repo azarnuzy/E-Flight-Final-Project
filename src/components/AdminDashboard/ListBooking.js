@@ -1,7 +1,9 @@
+import { Menu } from '@headlessui/react';
 import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { FaSearch, FaSort } from 'react-icons/fa';
+import { BsSortDown } from 'react-icons/bs';
+import { FaSearch, FaSort, FaSortDown } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAllHistory,
@@ -34,6 +36,15 @@ function ListBooking() {
         dispatch(
           fetchHistoryById({ page: pagination + 1, size: 10, userid: userId })
         );
+      } else if (sortStatus === 'sort-byStatus') {
+        dispatch(
+          fetchAllHistory({
+            page: pagination + 1,
+            size: 10,
+            sort: '',
+            statusSort: statusBook,
+          })
+        );
       }
       setPagination(pagination + 1);
     }
@@ -48,6 +59,15 @@ function ListBooking() {
       } else if (sortStatus === 'sort-userId') {
         dispatch(
           fetchHistoryById({ page: pagination - 1, size: 10, userid: userId })
+        );
+      } else if (sortStatus === 'sort-byStatus') {
+        dispatch(
+          fetchAllHistory({
+            page: pagination - 1,
+            size: 10,
+            sort: '',
+            statusSort: statusBook,
+          })
         );
       }
       setPagination(pagination - 1);
@@ -115,22 +135,89 @@ function ListBooking() {
                 <th className="text-center">Phone Number</th>
                 <th className="text-center">Booking Id</th>
                 <th className="text-center">Amount</th>
-                <th className="text-center">Status</th>
-                {/* <th
-                  className="text-center justify-center flex gap-3 items-center hover:opacity-80 cursor-pointer"
-                  onClick={() => {
-                    let sort = 'desc';
-                    if (dateSort === 'desc') {
-                      sort = 'asc';
-                      setDateSort('asc');
-                    }
-                    dispatch(fetchAllHistory({ page: 0, size, sort: sort }));
-                    setPagination(0);
-                    setSortStatus('sort-status');
-                  }}
+                <th
+                  className={`text-center ${
+                    histories?.length > 0 ? 'relative' : ''
+                  } `}
                 >
-                  Status <FaSort />
-                </th> */}
+                  {' '}
+                  <Menu>
+                    <Menu.Button>
+                      <div className="flex gap-3 justify-center w-full items-top ">
+                        Status <FaSortDown />
+                      </div>
+                    </Menu.Button>
+                    <Menu.Items className="absolute z-10 top-5 right-0 bg-primary p-3 text-white flex flex-col gap-3">
+                      <Menu.Item className="w-full">
+                        {({ active }) => (
+                          <button
+                            className={`${active && 'bg-white text-primary'}`}
+                            onClick={() => {
+                              dispatch(
+                                fetchAllHistory({
+                                  page: 0,
+                                  size: 10,
+                                  sort: '',
+                                  statusSort: 'completed',
+                                })
+                              );
+                              setPagination(0);
+                              setStatusBook('completed');
+                              setSortStatus('sort-byStatus');
+                            }}
+                          >
+                            Completed
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className={`${active && 'bg-white text-primary'}`}
+                            onClick={() => {
+                              dispatch(
+                                fetchAllHistory({
+                                  page: 0,
+                                  size: 10,
+                                  sort: '',
+                                  statusSort: 'waiting',
+                                })
+                              );
+                              setPagination(0);
+                              setStatusBook('waiting');
+                              setSortStatus('sort-byStatus');
+                            }}
+                          >
+                            Waiting
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className={`${active && 'bg-white text-primary'}`}
+                            onClick={() => {
+                              dispatch(
+                                fetchAllHistory({
+                                  page: 0,
+                                  size: 10,
+                                  sort: '',
+                                  statusSort: 'active',
+                                })
+                              );
+                              setPagination(0);
+                              setStatusBook('active');
+                              setSortStatus('sort-byStatus');
+                            }}
+                          >
+                            Active
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Menu>
+                  <div></div>
+                </th>
                 <th
                   className="text-center justify-center flex gap-3 items-center hover:opacity-80 cursor-pointer"
                   onClick={() => {

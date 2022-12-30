@@ -33,13 +33,28 @@ export const fetchAllHistory = createAsyncThunk(
   'admin/fetchAllHistory',
   async ({ page, size, sort, statusSort }) => {
     try {
-      const params = { page: page, size: size, 'booking-date-sort': sort };
-      const response = await axiosClient.get(
-        `${apiConfig.baseUrl}history/booking/get-all`,
-        {
-          params,
-        }
-      );
+      let response;
+      if (sort.length > 0) {
+        const params = { page: page, size: size, 'booking-date-sort': sort };
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/get-all`,
+          {
+            params,
+          }
+        );
+      } else {
+        const params = {
+          page: page,
+          size: size,
+          'booking-status-filter': statusSort,
+        };
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/get-all`,
+          {
+            params,
+          }
+        );
+      }
       return response.data;
     } catch (error) {
       console.error(error);
