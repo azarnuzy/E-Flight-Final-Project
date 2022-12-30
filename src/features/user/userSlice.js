@@ -25,7 +25,6 @@ export const fetchUser = createAsyncThunk('user/account', async (email) => {
 export const editUser = createAsyncThunk(
   'user/editAccount',
   async ({ id, firstName, lastName, phoneNumber }) => {
-    console.log(id, firstName, lastName, phoneNumber);
     try {
       const response = await axiosClient.post(
         `${apiConfig.baseUrl}users/update/${id}`,
@@ -76,19 +75,19 @@ export const userSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(fetchUser.rejected, (state, action) => {
-        console.log(action.error.message);
+        // console.log(action.error.message);
       })
       .addCase(editUser.fulfilled, (state, action) => {
         state.users = action.payload;
       })
       .addCase(editUser.rejected, (state, action) => {
-        console.log(action.error.message);
+        // console.log(action.error.message);
       })
       .addCase(updateImageProfile.fulfilled, (state, action) => {
         state.imgUrl = 'success';
       })
       .addCase(updateImageProfile.rejected, (state, action) => {
-        console.log(action.error.message);
+        // console.log(action.error.message);
       });
   },
 });

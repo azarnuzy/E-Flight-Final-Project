@@ -56,6 +56,7 @@ export const ContactUs = () => {
             <img
               src={call}
               alt=""
+              loading="lazy"
               className="lg:w-[400px] w-[300px] my-8 mx-auto"
             />
           </div>

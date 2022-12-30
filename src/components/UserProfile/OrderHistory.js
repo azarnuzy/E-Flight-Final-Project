@@ -5,11 +5,14 @@ import { HiArrowRight } from 'react-icons/hi';
 import { useSelector, useDispatch } from 'react-redux';
 import { getHistory, getInvoice } from '../../features/order/orderHistorySlice';
 export default function OrderHistory() {
+  // const searchParams = useSearchParams()
+
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state?.orderHistory || []);
 
   const user = JSON.parse(localStorage.getItem('user-info'));
-
+  // const scheduleId = searchParams.get('scheduleId')
+  // console.log(scheduleId)
   useEffect(() => {
     dispatch(getHistory(user.userId));
   }, [dispatch, user.userId]);
@@ -33,7 +36,7 @@ export default function OrderHistory() {
                 return (
                   <Link
                     key={index}
-                    to={`/payment/${res.bookingId}?scheduleId=${res.flightScheduleId}&scheduleId2=undefined`}
+                    to={`/payment/${res.bookingId}?scheduleId=${res.flightId}&scheduleId2=undefined`}
                     className="text-secondary font-medium hover:text-primary"
                   >
                     Proceed to Payment
@@ -60,7 +63,10 @@ export default function OrderHistory() {
             };
 
             return (
-              <div className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3">
+              <div
+                className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3"
+                key={index}
+              >
                 <div className="flex justify-between">
                   <div className="flex items-center gap-3 mb-3">
                     <RiPlaneLine className="text-primary" />
@@ -86,10 +92,10 @@ export default function OrderHistory() {
                   </div>
                 </div>
                 <div className="flex justify-between mt-5">
-                  <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm">
-                    {res.bookingStatus}
-                  </span>
-                  {status()}
+                  <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm"></span>
+                  <Link className="text-secondary font-medium hover:text-primary">
+                    {status()}
+                  </Link>
                 </div>
               </div>
             );

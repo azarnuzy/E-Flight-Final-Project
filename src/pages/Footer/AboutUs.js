@@ -38,6 +38,7 @@ export const AboutUs = () => {
             <img
               src={about}
               alt=""
+              loading="lazy"
               className="lg:w-[400px] w-[200px] my-8 mx-auto"
             />
           </div>

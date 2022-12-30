@@ -36,15 +36,16 @@ export default function SideBarProfile() {
 
   return (
     <>
-      <div className="bg-grey-600 h-screen md:w-1/4 md:h-full pt-3 mb-6 border-2 rounded-md ">
+      <div className="bg-grey-600  md:w-1/4 md:h-full pt-3 mb-6 border-2 rounded-md ">
         <div className="border-b-2 border-grey-800">
           <img
+            loading="lazy"
             src={
               user?.imgUrl ||
               'https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0'
             }
             alt="img-profile"
-            className="rounded-full w-32 h-32 mx-auto object-cover"
+            className="rounded-full mt-16 w-32 h-32 mx-auto object-cover"
           />
           <div className="text-center mb-2">
             <h1 className="font-medium">

@@ -1,8 +1,8 @@
-@tailwind base;
 html {
   scroll-behavior: smooth;
 }
 
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -19,6 +19,12 @@ body {
   margin-top: -160px;
   position: absolute;
   color: white;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  color: #02929a !important;
+  font-size: 30px !important;
 }
 
 @media screen AND (max-width: 600px) {

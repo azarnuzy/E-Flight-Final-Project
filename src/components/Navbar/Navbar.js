@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <div className="w-full bg-primary flex items-center justify-between px-5 py-2 fixed top-0 z-10">
       <Link to={'/'} className="flex items-center gap-3 my-2 ">
-        <img src={logo} alt="" className="w-[40px]" />{' '}
+        <img loading="lazy" src={logo} alt="" className="w-[40px]" />{' '}
         <span className="text-white text-2xl">FlyKet</span>
       </Link>
       {isLoginVal ? (
@@ -43,6 +43,7 @@ export default function Navbar() {
           </button>
           <Link to={'/myprofile'}>
             <img
+              loading="lazy"
               src={user?.imgUrl || ava}
               alt=""
               className="w-[40px] h-[42px] rounded-full"
