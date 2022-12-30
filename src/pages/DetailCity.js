@@ -55,14 +55,14 @@ export const DetailCity = () => {
     return (
       <div>
         <Navbar />
-        <div className="mt-[90px] lg:ml-24">
-          <div className="lg:flex lg:flex-row lg:gap-3 lg:p-10">
+        <div className="mt-[100px] lg:ml-24">
+          <div className="lg:flex lg:flex-row lg:gap-3 lg:p-5">
             <div className="mx-auto">
                 <div>
                 <h2 className="text-center font-bold lg:text-3xl text-2xl items-center">
                     {cityItem.title}
                 </h2>
-                <p className="lg:w-[700px] w-full  text-justify lg:p-10 text-slate-500 lg:leading-8 md:m-6 p-4 leading-7">
+                <p className="lg:w-[700px] w-full  text-justify lg:p-4 text-slate-500 lg:leading-8 md:m-4 p-4 leading-7">
                     {cityItem.content}
                 </p>
                 </div>
