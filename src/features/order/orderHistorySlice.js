@@ -11,6 +11,7 @@ const initialState = {
   orderByStatus: 'All Status',
   detail: null,
   statusDetail: 'idle',
+  schedule: null,
 };
 
 export const getHistory = createAsyncThunk(
@@ -24,7 +25,7 @@ export const getHistory = createAsyncThunk(
         );
       } else {
         response = await axiosClient.get(
-          `${apiConfig.baseUrl}history/booking/${id}?page=0&userid=${id}`
+          `${apiConfig.baseUrl}history/booking/${id}?page=0&size=100&userid=${id}`
         );
       }
 
@@ -91,6 +92,20 @@ export const getDetailHistory = createAsyncThunk(
     } catch (error) {}
   }
 );
+
+export const getScheduleById = createAsyncThunk(
+  'history/scheduleById',
+  async (scheduleId) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}schedules/${scheduleId}?id=${scheduleId}`
+      );
+
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 const orderHistorySlice = createSlice({
   name: 'orderHistory',
   initialState,
@@ -118,6 +133,9 @@ const orderHistorySlice = createSlice({
       state.detail = payload;
       state.statusDetail = 'success';
     },
+    [getScheduleById.fulfilled]: (state, { payload }) => {
+      state.schedule = payload;
+    },
   },
 });
 
@@ -126,6 +144,7 @@ export const getOrderByStatus = (state) => state.orderHistory.orderByStatus;
 export const getIsLoading = (state) => state.orderHistory.isLoading;
 export const getStatusDetail = (state) => state.orderHistory.statusDetail;
 export const getDetail = (state) => state.orderHistory.detail;
+export const getSchedule = (state) => state.orderHistory.schedule;
 
 export const { historyByUser, setOrderByStatus } = orderHistorySlice.actions;
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RiPlaneLine } from 'react-icons/ri';
 import { HiArrowRight } from 'react-icons/hi';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +18,7 @@ export default function OrderHistory() {
   let isLoading = useSelector(getIsLoading);
   const [history, setHistory] = useState(tempHistory);
   const status = useSelector(getOrderByStatus);
+  const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem('user-info'));
 
@@ -83,7 +84,16 @@ export default function OrderHistory() {
 
             return (
               <div
-                className="bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3"
+                className={`bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3 ${
+                  res.bookingStatus === 'COMPLETED'
+                    ? 'cursor-pointer hover:opacity-80'
+                    : 'cursor-default'
+                }`}
+                onClick={() => {
+                  navigate(
+                    `/myorder/${res.bookingId}?scheduleId=${res.flightId}&purchaseAt=${res.purchaseCompleteAt}`
+                  );
+                }}
                 key={index}
               >
                 <div className="flex justify-between">
@@ -91,6 +101,9 @@ export default function OrderHistory() {
                     <RiPlaneLine className="text-primary" />
                     <span className="text-base">Plane</span>
                   </div>
+                  {res.bookingStatus === 'COMPLETED' && (
+                    <div className="text-primary">Detail Ticket</div>
+                  )}
                 </div>
                 <p className="text-sm">Order ID : {res.bookingId}</p>
                 <div className="flex items-center gap-3 font-semibold">
