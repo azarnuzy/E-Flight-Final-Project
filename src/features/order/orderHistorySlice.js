@@ -83,6 +83,7 @@ export const getInvoice = createAsyncThunk(
 export const getDetailHistory = createAsyncThunk(
   'history/detailHistory',
   async (bookingId) => {
+    console.log(bookingId);
     try {
       const response = await axiosClient.get(
         `${apiConfig.baseUrl}history/ticket/detail/${bookingId}?booking-Id=${bookingId}`
@@ -130,6 +131,7 @@ const orderHistorySlice = createSlice({
       state.historyByUser = payload;
     },
     [getDetailHistory.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       state.detail = payload;
       state.statusDetail = 'success';
     },

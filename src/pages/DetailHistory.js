@@ -13,7 +13,6 @@ import {
   getStatusDetail,
 } from '../features/order/orderHistorySlice';
 import garudaLogo from '../assets/garuda-logo.png';
-import logoFull from '../assets/logo-full.png';
 import { format } from 'date-fns';
 
 function DetailHistory() {
@@ -35,6 +34,7 @@ function DetailHistory() {
     }).format(number);
   };
 
+  console.log(purchaseAt);
   useEffect(() => {
     if (statusDetail === 'idle') {
       dispatch(getDetailHistory(bookingId));
@@ -55,28 +55,28 @@ function DetailHistory() {
           <div className="md:w-1/2 ">
             <span className="text-base font-bold">Order Detail</span>
             <div className="font-medium">
-              Booking ID {detailHistory.orderDetail.bookingId}
+              Booking ID {detailHistory?.orderDetail.bookingId}
             </div>
             <div className="font-medium">
-              Payment Methode {detailHistory.orderDetail.paymentName}
+              Payment Methode {detailHistory?.orderDetail.paymentName}
             </div>
             <div className="font-medium">
-              Total Payment {rupiah(detailHistory.orderDetail.totalPayment)}
+              Total Payment {rupiah(detailHistory?.orderDetail.totalPayment)}
             </div>
           </div>
           <div className="pr-2 sm:text-end">
             <span className="text-base font-bold">Buyer Detail</span>
             <div className="font-medium">
               {' '}
-              {detailHistory.orderDetail.cstName}
+              {detailHistory?.orderDetail.cstName}
             </div>
             <div className="font-medium">
               {' '}
-              {detailHistory.orderDetail.cstEmail}
+              {detailHistory?.orderDetail.cstEmail}
             </div>
             <div className="font-medium">
               {' '}
-              {detailHistory.orderDetail.cstPhoneNumber}
+              {detailHistory?.orderDetail.cstPhoneNumber}
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ function DetailHistory() {
           <div className="w-full md:flex sm:justify-between border-b-2 px-2">
             <div className="md:w-1/2 ">
               <div className="font-medium">
-                Flight ID {detailHistory.orderDetail.flightId}
+                Flight ID {detailHistory?.orderDetail.flightId}
               </div>
             </div>
             <div className="pr-2 sm:text-end">
@@ -104,21 +104,21 @@ function DetailHistory() {
               />
               <div className="md:ml-4 flex flex-col md:justify-center text-center md:text-start">
                 <span className="text-sm s">
-                  From: {schedule.originAirportCity} (
-                  {schedule.originAirportName})
+                  From: {schedule?.originAirportCity} (
+                  {schedule?.originAirportName})
                 </span>
                 <span className="text-sm s">
-                  To: {schedule.destinationAirportCity} (
-                  {schedule.destinationAirportName})
+                  To: {schedule?.destinationAirportCity} (
+                  {schedule?.destinationAirportName})
                 </span>
                 <p className="text-sm">
                   {format(
-                    new Date(schedule.departureTime),
+                    new Date(schedule?.departureTime || '10-1-2023'),
                     'EEEE, d MMMM yyyy'
                   )}
                 </p>
                 <p className="text-sm">
-                  {detailHistory.passengerTicketLists.length} Passengers
+                  {detailHistory?.passengerTicketLists.length} Passengers
                 </p>
               </div>
             </div>
@@ -127,15 +127,18 @@ function DetailHistory() {
               <div className="md:flex justify-center gap-3 p-3">
                 <div className="flex flex-col gap-2 text-end w-1/3 sm:w-full sm:text-start">
                   <span className="text-gray-400 ">
-                    {schedule.originAirportCode}
+                    {schedule?.originAirportCode}
                   </span>
                   <span className="text-black text-sm">
-                    {format(new Date(schedule.departureTime), 'KK:mm a')}
+                    {format(
+                      new Date(schedule?.departureTime || '10-1-2023'),
+                      'KK:mm a'
+                    )}
                   </span>
                 </div>
                 <div className="flex flex-col text-center w-1/2 md:mx-4 my-3 mx-auto">
                   <span className="text-gray-400 text-xs font-semibold">
-                    {schedule.hours}h {schedule.minutes}m
+                    {schedule?.hours}h {schedule?.minutes}m
                   </span>
                   <div className="flex  items-center">
                     <div className="h-3 w-4 rounded-full border-solid border border-gray-400 transform translate-x-[1px]"></div>
@@ -146,17 +149,20 @@ function DetailHistory() {
                 </div>
                 <div className="flex flex-col gap-2 text-center w-3/4 items-end">
                   <span className="text-black text-sm">
-                    {format(new Date(schedule.arrivalTime), 'KK:mm a')}
+                    {format(
+                      new Date(schedule?.arrivalTime || '10-1-2023'),
+                      'KK:mm a'
+                    )}
                   </span>
                   <span className="text-gray-400">
-                    {schedule.destinationAirportCode}
+                    {schedule?.destinationAirportCode}
                   </span>
                 </div>
               </div>
               <div className="flex mt-3 justify-between px-3 pb-3 text-sm font-medium">
-                <div className="">Max Cabin: {schedule.maxCabin}kg/ticket</div>
+                <div className="">Max Cabin: {schedule?.maxCabin}kg/ticket</div>
                 <div className="">
-                  Max Baggage: {schedule.maxBaggage}kg/ticket
+                  Max Baggage: {schedule?.maxBaggage}kg/ticket
                 </div>
               </div>
             </div>
@@ -164,7 +170,7 @@ function DetailHistory() {
           </div>
           <div className="text-center mt-3 font-bold">List Passengers</div>
           <div className="flex justify-between flex-wrap items-center p-2 gap-5">
-            {detailHistory.passengerTicketLists.map((item, i) => {
+            {detailHistory?.passengerTicketLists.map((item, i) => {
               return (
                 <div className="text-sm">
                   <table>
