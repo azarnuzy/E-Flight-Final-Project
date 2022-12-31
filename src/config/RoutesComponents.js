@@ -19,6 +19,7 @@ import { AboutUs } from '../pages/Footer/AboutUs';
 import { ContactUs } from '../pages/Footer/ContactUs';
 import TermOfUse from '../pages/Footer/TermUse';
 import { DetailCity } from '../pages/DetailCity';
+import DetailHistory from '../pages/DetailHistory';
 
 export default function RoutesComponents() {
   return (
@@ -45,6 +46,7 @@ export default function RoutesComponents() {
           <Route path="/myprofile" element={<ProfilePage />} />
           <Route path="/flight/:id" element={<DetailFlight />} />
           <Route path="/myorder" element={<MyOrdersPage />} />
+          <Route path="/myorder/:bookingId" element={<DetailHistory />} />
           <Route path="/detailOrder/" element={<DetailFlight />} />
           <Route path="/payment/:id" element={<PaymentPage />} />
         </Route>

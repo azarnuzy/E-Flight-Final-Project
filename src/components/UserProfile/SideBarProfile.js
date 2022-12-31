@@ -45,9 +45,9 @@ export default function SideBarProfile() {
               'https://tse4.mm.bing.net/th?id=OIP.mDv826UG65YB8vFcW1SB3QHaHa&pid=Api&P=0'
             }
             alt="img-profile"
-            className="rounded-full mt-16 w-32 h-32 mx-auto object-cover"
+            className="rounded-full mb-8 mt-16 sm:my-8 w-32 h-32 mx-auto object-cover"
           />
-          <div className="text-center mb-2">
+          <div className="text-center mb-6">
             <h1 className="font-medium">
               {user?.firstName} {user?.lastName}{' '}
             </h1>
