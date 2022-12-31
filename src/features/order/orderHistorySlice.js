@@ -5,31 +5,51 @@ import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
 
 const initialState = {
-  isLoading: false,
+  isLoading: 'idle',
   hasError: false,
   history: [],
   historyByUser: [],
+  orderByStatus: 'All Status',
 };
 
-export const getHistory = createAsyncThunk('history/getHistory', async (id) => {
-  try {
-    const response = await axios.get(
-      `${apiConfig.baseUrl}history/booking/${id}`
-    );
+export const getHistory = createAsyncThunk(
+  'history/getHistory',
+  async ({ id, orderByStatus }) => {
+    try {
+      let response;
+      if (orderByStatus.length > 0) {
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/${id}?page=0&userid=${id}&booking-status-filter=${orderByStatus}`
+        );
+      } else {
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/${id}?page=0&userid=${id}`
+        );
+      }
 
-    return response.data.data;
-  } catch (err) {
-    console.log(err);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
-});
+);
 
 export const getHistoryByUserId = createAsyncThunk(
   'history/getHistoryByUserId',
-  async (id) => {
+  async ({ id, orderByStatus }) => {
+    // console.log(id, orderByStatus);
     try {
-      const response = await axiosClient.get(
-        `${apiConfig.baseUrl}history/booking/${id}?page=100&userid=${id}`
-      );
+      let response;
+      if (orderByStatus.length > 0) {
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/${id}?page=0&userid=${id}&booking-status-filter=${orderByStatus}`
+        );
+      } else {
+        response = await axiosClient.get(
+          `${apiConfig.baseUrl}history/booking/${id}?page=0&userid=${id}`
+        );
+      }
+
       return response.data;
     } catch (error) {
       console.error(error);
@@ -61,14 +81,18 @@ export const getInvoice = createAsyncThunk(
 const orderHistorySlice = createSlice({
   name: 'orderHistory',
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderByStatus(state, action) {
+      state.orderByStatus = action.payload;
+    },
+  },
   extraReducers: {
     [getHistory.pending]: (state) => {
       state.isLoading = true;
     },
     [getHistory.fulfilled]: (state, { payload }) => {
       state.history = payload;
-      state.isLoading = false;
+      state.isLoading = 'success';
       state.hasError = false;
     },
     [getHistory.rejected]: (state) => {
@@ -80,6 +104,10 @@ const orderHistorySlice = createSlice({
   },
 });
 
-export const { historyByUser } = orderHistorySlice.actions;
+export const getHistoryOrder = (state) => state.orderHistory.history;
+export const getOrderByStatus = (state) => state.orderHistory.orderByStatus;
+export const getIsLoading = (state) => state.orderHistory.isLoading;
+
+export const { historyByUser, setOrderByStatus } = orderHistorySlice.actions;
 
 export default orderHistorySlice.reducer;

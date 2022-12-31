@@ -3,19 +3,33 @@ import { Link } from 'react-router-dom';
 import { RiPlaneLine } from 'react-icons/ri';
 import { HiArrowRight } from 'react-icons/hi';
 import { useSelector, useDispatch } from 'react-redux';
-import { getHistory, getInvoice } from '../../features/order/orderHistorySlice';
+import {
+  getHistory,
+  getHistoryOrder,
+  getInvoice,
+  getIsLoading,
+  getOrderByStatus,
+} from '../../features/order/orderHistorySlice';
+import ListOrderStatus from './ListOrderStatus';
+import { useState } from 'react';
 export default function OrderHistory() {
-  // const searchParams = useSearchParams()
-
   const dispatch = useDispatch();
-  const { history } = useSelector((state) => state?.orderHistory || []);
+  let tempHistory = useSelector(getHistoryOrder);
+  let isLoading = useSelector(getIsLoading);
+  const [history, setHistory] = useState(tempHistory);
+  const status = useSelector(getOrderByStatus);
 
   const user = JSON.parse(localStorage.getItem('user-info'));
-  // const scheduleId = searchParams.get('scheduleId')
-  // console.log(scheduleId)
+
   useEffect(() => {
-    dispatch(getHistory(user.userId));
-  }, [dispatch, user.userId]);
+    if (isLoading === 'idle') {
+      dispatch(getHistory({ id: user.userId, orderByStatus: '' }));
+    }
+
+    if (tempHistory !== null) {
+      setHistory(tempHistory);
+    }
+  }, [dispatch, isLoading, status, tempHistory, user.userId]);
 
   const handleInvoice = async ({ userId, bookingId }) => {
     const response = await dispatch(getInvoice({ userId, bookingId }));
@@ -25,9 +39,14 @@ export default function OrderHistory() {
   return (
     <>
       <div className="bg-white md:ml-10 md:w-3/4 h-full mb-10 ">
-        <div className=" p-3 drop-shadow-md bg-white rounded-md mb-4">
-          <h1 className="text-lg font-semibold">Order History</h1>
-          <p className=" text-sm mt-3">Displays recent order history.</p>
+        <div className="flex flex-col justify-start sm:flex-row sm:justify-between p-3 drop-shadow-md bg-white rounded-md mb-4">
+          <div>
+            <h1 className="text-lg font-semibold">Order History</h1>
+            <p className=" text-sm mt-3">Displays recent order history.</p>
+          </div>
+          <div className="w-full sm:my-0 my-4 sm:w-1/4 flex items-center">
+            <ListOrderStatus />
+          </div>
         </div>
         {history &&
           history.map((res, index) => {
@@ -92,7 +111,9 @@ export default function OrderHistory() {
                   </div>
                 </div>
                 <div className="flex justify-between mt-5">
-                  <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm"></span>
+                  <span className=" text-slate-400 px-3 p-1 rounded-lg text-sm">
+                    {res.bookingStatus}
+                  </span>
                   <Link className="text-secondary font-medium hover:text-primary">
                     {status()}
                   </Link>
