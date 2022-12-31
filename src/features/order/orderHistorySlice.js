@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import FileSaver from 'file-saver';
 import apiConfig from '../../api/apiConfig';
 import axiosClient from '../../api/axiosClient';
@@ -10,6 +9,8 @@ const initialState = {
   history: [],
   historyByUser: [],
   orderByStatus: 'All Status',
+  detail: null,
+  statusDetail: 'idle',
 };
 
 export const getHistory = createAsyncThunk(
@@ -78,6 +79,18 @@ export const getInvoice = createAsyncThunk(
   }
 );
 
+export const getDetailHistory = createAsyncThunk(
+  'history/detailHistory',
+  async (bookingId) => {
+    try {
+      const response = await axiosClient.get(
+        `${apiConfig.baseUrl}history/ticket/detail/${bookingId}?booking-Id=${bookingId}`
+      );
+
+      return response.data;
+    } catch (error) {}
+  }
+);
 const orderHistorySlice = createSlice({
   name: 'orderHistory',
   initialState,
@@ -101,12 +114,18 @@ const orderHistorySlice = createSlice({
     [getHistoryByUserId.fulfilled]: (state, { payload }) => {
       state.historyByUser = payload;
     },
+    [getDetailHistory.fulfilled]: (state, { payload }) => {
+      state.detail = payload;
+      state.statusDetail = 'success';
+    },
   },
 });
 
 export const getHistoryOrder = (state) => state.orderHistory.history;
 export const getOrderByStatus = (state) => state.orderHistory.orderByStatus;
 export const getIsLoading = (state) => state.orderHistory.isLoading;
+export const getStatusDetail = (state) => state.orderHistory.statusDetail;
+export const getDetail = (state) => state.orderHistory.detail;
 
 export const { historyByUser, setOrderByStatus } = orderHistorySlice.actions;
 
