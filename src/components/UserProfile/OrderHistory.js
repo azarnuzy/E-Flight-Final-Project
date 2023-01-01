@@ -84,16 +84,7 @@ export default function OrderHistory() {
 
             return (
               <div
-                className={`bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3 ${
-                  res.bookingStatus === 'COMPLETED'
-                    ? 'cursor-pointer hover:opacity-80'
-                    : 'cursor-default'
-                }`}
-                onClick={() => {
-                  navigate(
-                    `/myorder/${res.bookingId}?scheduleId=${res.flightId}&purchaseAt=${res.purchaseCompleteAt}`
-                  );
-                }}
+                className={`bg-slate-200 p-3 mt-4 rounded-md flex flex-col gap-3 `}
                 key={index}
               >
                 <div className="flex justify-between">
@@ -102,7 +93,12 @@ export default function OrderHistory() {
                     <span className="text-base">Plane</span>
                   </div>
                   {res.bookingStatus === 'COMPLETED' && (
-                    <div className="text-primary">Detail Ticket</div>
+                    <Link
+                      to={`/myorder/${res.bookingId}?scheduleId=${res.flightId}&purchaseAt=${res.purchaseCompleteAt}`}
+                      className="text-primary"
+                    >
+                      Detail Ticket
+                    </Link>
                   )}
                 </div>
                 <p className="text-sm">Order ID : {res.bookingId}</p>
