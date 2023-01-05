@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { setIsloading } from '../../features/order/orderHistorySlice';
 import {
   bookFlight,
   bookFlight2,
@@ -114,7 +115,10 @@ export default function DetailFlight() {
           <DetailPenumpang />
           <div className="w-full flex justify-end">
             <button
-              onClick={handleOrder}
+              onClick={() => {
+                handleOrder();
+                setIsloading('idle');
+              }}
               className={`py-2 px-4 ${
                 isFullFill(title, name, seat)
                   ? 'bg-primary text-white hover:opacity-80'

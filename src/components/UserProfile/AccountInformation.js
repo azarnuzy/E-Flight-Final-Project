@@ -26,7 +26,7 @@ export default function AccountInformation() {
       setLastName(user?.lastName);
       setPhoneNumber(user?.phoneNumber);
       setIsEdit(true);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleEditAccount = async (id, firstName, lastName, phoneNumber) => {
@@ -41,7 +41,7 @@ export default function AccountInformation() {
       }
       setIsEdit(false);
       setImage('');
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -79,7 +79,9 @@ export default function AccountInformation() {
             </div>
             <div className="md:flex-row flex flex-col mb-2 mt-4">
               <div className="mr-4">
-                <p className="md:text-base text-xs text-userProfile ">First Name</p>
+                <p className="md:text-base text-xs text-userProfile ">
+                  First Name
+                </p>
                 <input
                   className="mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400  focus:outline-none focus:border-primary focus:primary block w-full rounded-md sm:text-sm focus:ring-1"
                   placeholder="First Name"
@@ -113,11 +115,11 @@ export default function AccountInformation() {
               </div>
               <div className="mt-4">
                 <p className="text-base text-userProfile">Profile Image</p>
-                <label class="block mt-2">
-                  <span class="sr-only">Choose profile photo</span>
+                <label className="block mt-2">
+                  <span className="sr-only">Choose profile photo</span>
                   <input
                     type="file"
-                    class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-thirdly hover:file:bg-violet-100"
+                    className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-thirdly hover:file:bg-violet-100"
                     onChange={(e) => {
                       setImage(e.target.files);
                     }}

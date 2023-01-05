@@ -8,6 +8,7 @@ import { getPayments } from '../features/payment/PaymentSlice';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import TotalFlight from '../components/Payment/TotalFlight';
 import { setPayment } from '../features/order/orderSlice';
+import { setIsloading } from '../features/order/orderHistorySlice';
 
 export const PaymentPage = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export const PaymentPage = () => {
           dispatch(setPayment({ uid, bookingId: bookingId2, paymentId }));
         }
         Swal.fire('Saved!', '', 'success');
+        setIsloading('idle');
         navigate('/myorder');
       }
     });
@@ -54,7 +56,8 @@ export const PaymentPage = () => {
           <div className="bg-white md:ml-10 border rounded-md mb-5 p-3 pb-3 -mt-2">
             <h5 className="font-semibold">Payment Method Recommendations</h5>
             <p className="text-sm mt-1 font-extralight">
-            Enjoy extra benefits with recommended payment methods from Flyket.com
+              Enjoy extra benefits with recommended payment methods from
+              Flyket.com
             </p>
             {payments &&
               payments.map((item, i) => (

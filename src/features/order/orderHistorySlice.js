@@ -114,6 +114,9 @@ const orderHistorySlice = createSlice({
     setOrderByStatus(state, action) {
       state.orderByStatus = action.payload;
     },
+    setIsloading(state, action) {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: {
     [getHistory.pending]: (state) => {
@@ -148,6 +151,7 @@ export const getStatusDetail = (state) => state.orderHistory.statusDetail;
 export const getDetail = (state) => state.orderHistory.detail;
 export const getSchedule = (state) => state.orderHistory.schedule;
 
-export const { historyByUser, setOrderByStatus } = orderHistorySlice.actions;
+export const { historyByUser, setOrderByStatus, setIsloading } =
+  orderHistorySlice.actions;
 
 export default orderHistorySlice.reducer;
