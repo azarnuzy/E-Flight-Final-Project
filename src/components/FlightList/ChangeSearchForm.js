@@ -69,7 +69,9 @@ export default function ChangeSearchForm({ closeModal }) {
             Return Date
           </span>
           <div className="relative w-full cursor-default rounded-lg py-2 bg-white text-left shadow-md  sm:text-sm flex gap-6 items-center mt-1">
-            <FaCalendarAlt className="ml-3" />
+            <FaCalendarAlt
+              className={`ml-3 ${enabled === true ? 'text-gray-500' : ''}`}
+            />
             <DatePickerReturn statusDisable={enabled} />
           </div>
         </div>
