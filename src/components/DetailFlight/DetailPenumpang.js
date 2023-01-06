@@ -39,7 +39,7 @@ function DetailPenumpang() {
           <BsPersonCircle /> Passenger details
         </span>
         <div className=" flex justify-between items-center bg-slate-200 px-1 py-2 text-sm rounded-md">
-          <p className="font-semibold ">Passenger 1 : Adult</p>
+          <p className="font-semibold ">Passenger {totalPassenger} : Adult</p>
         </div>
         {passengers.map((item, i) => {
           return (
